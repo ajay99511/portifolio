@@ -5,6 +5,7 @@ import { ExternalLink, ArrowLeft, ArrowRight, Zap } from "lucide-react";
 import { Project } from "@/types";
 import ChronosPlannerDemo from "@/components/demos/ChronosPlannerDemo";
 import DayVaultDemo from "@/components/demos/DayVaultDemo";
+import FastBeatDemo from "@/components/demos/FastBeatDemo";
 
 interface ProjectInteractiveViewProps {
   project: Project;
@@ -16,6 +17,9 @@ function renderDemo(project: Project) {
   }
   if (project.demoKind === "dayvault") {
     return <DayVaultDemo />;
+  }
+  if (project.demoKind === "fastbeat") {
+    return <FastBeatDemo />;
   }
   return (
     <div className="h-full border border-zinc-800 rounded-lg p-6 text-zinc-400 font-mono text-xs uppercase tracking-widest">

@@ -1,23 +1,94 @@
 # Portfolio Project Reference Template
 
-> **Purpose**: This document is the canonical reference for AI agents and contributors adding new projects to the portfolio. Follow this guide end-to-end to ensure consistency across all project entries.
+> **Purpose**: This document is the canonical reference for AI agents and contributors adding new projects to the portfolio. Follow this guide end-to-end to ensure each project's interactive demo is a **faithful UI replica** of the real application, not a generic placeholder.
 
 ---
 
 ## Table of Contents
 
-1. [Data Entry: `projects.ts`](#1-data-entry-projectsts)
-2. [Type Reference: `types/index.ts`](#2-type-reference-typesindexts)
-3. [Demo Component Contract](#3-demo-component-contract)
-4. [Quick Start Steps Format](#4-quick-start-steps-format)
-5. [Preview Panels Format](#5-preview-panels-format)
-6. [Context Banner Format](#6-context-banner-format)
-7. [Registration Checklist](#7-registration-checklist)
-8. [Example: Full Project Entry](#8-example-full-project-entry)
+1. [Source Code Analysis (MANDATORY)](#1-source-code-analysis-mandatory)
+2. [Data Entry: `projects.ts`](#2-data-entry-projectsts)
+3. [Type Reference: `types/index.ts`](#3-type-reference-typesindexts)
+4. [Demo Component Contract](#4-demo-component-contract)
+5. [Quick Start Steps Format](#5-quick-start-steps-format)
+6. [Preview Panels Format](#6-preview-panels-format)
+7. [Context Banner Format](#7-context-banner-format)
+8. [Registration Checklist](#8-registration-checklist)
+9. [Example: Full Project Entry](#9-example-full-project-entry)
 
 ---
 
-## 1. Data Entry: `projects.ts`
+## 1. Source Code Analysis (MANDATORY)
+
+> ⚠️ **This is the most critical step.** The interactive demo must look and behave like the real application. You MUST study the source code first — never invent a UI from scratch.
+
+### 1.1 Discovery Phase
+
+Given a project path (e.g., `C:\Users\ajaye\AndroidStudioProjects\OfflineMediaPlayer\...`), you must:
+
+1. **Map the project structure** — List all directories to understand architecture layers (UI, data, navigation, theme, etc.)
+2. **Identify the UI entry point** — Find `MainScreen`, `MainActivity`, `App.tsx`, or equivalent root composable/widget/component
+3. **Extract navigation structure** — Determine all tabs, screens, and routing hierarchy from navigation host files
+4. **Read theme files completely** — Extract exact color values, typography scales, and semantic tokens (e.g., `DarkSurfaceBase = #141418`)
+5. **Read all major UI screen files** — Understand layout structure, component hierarchy, and styling for every screen the demo will replicate
+
+### 1.2 UI Extraction Checklist
+
+For each screen you plan to replicate, extract and document:
+
+| Element               | What to Extract                                      |
+| --------------------- | ---------------------------------------------------- |
+| **Layout Structure**  | Column/Row nesting, Scaffold regions, padding values |
+| **Color Tokens**      | Background, surface, text primary/secondary, accent  |
+| **Typography**        | Font sizes, weights, letter-spacing, font families   |
+| **Component Details** | Card shapes, border radius, elevation/shadow values  |
+| **Icon Usage**        | Exact icon names (Material, Lucide equivalents)      |
+| **Gradient Brushes**  | Exact gradient colors and directions                 |
+| **Navigation Pattern**| Bottom tabs, sidebar, pager with sub-tabs            |
+| **Interactive State** | Play/pause, selection, active tab highlighting       |
+
+### 1.3 Color Mapping
+
+Translate the source project's colors into CSS. Example from FastBeat:
+
+```
+// Android Source (Kotlin)               →  CSS Equivalent
+DarkSurfaceBase = Color(0xFF141418)      →  background: #141418
+DarkSurfaceContainer = Color(0xFF1C1C22) →  surface cards: #1C1C22
+DarkSurfaceContainerHigh = Color(0xFF242430) → elevated surfaces: #242430
+DarkTextPrimary = Color(0xFFF0F0F5)      →  text-primary: #F0F0F5
+DarkTextSecondary = Color(0xFFB0B0C0)    →  text-secondary: #B0B0C0
+DarkTextTertiary = Color(0xFF707088)     →  text-muted: #707088
+primaryColor = Color(0xFFFF5500)         →  accent: #FF5500
+```
+
+### 1.4 Navigation Mapping
+
+Map the source app's navigation to web demo equivalents:
+
+```
+// Android Source                →  Web Demo
+NavigationBar (4 tabs)          →  Bottom tab bar (fixed)
+  Tab 0: Videos                 →  Tab component with icon + label
+  Tab 1: Music                  →  Tab component with icon + label
+  Tab 2: Images                 →  Tab component with icon + label
+  Tab 3: Stats                  →  Tab component with icon + label
+FastBeatHeader (per-tab)        →  Sticky header with logo + section title
+ScrollableTabRow (sub-tabs)     →  Inner tab row (e.g., TRACKS / ALBUMS / PLAYLISTS)
+MiniPlayer (persistent bottom)  →  Fixed bottom bar with progress gradient
+```
+
+### 1.5 Key Source Files by Platform
+
+| Platform              | Look For                                        |
+| --------------------- | ----------------------------------------------- |
+| **Android (Compose)** | `MainScreen.kt`, `ui/screens/*.kt`, `ui/theme/Color.kt`, `ui/theme/Theme.kt`, `ui/components/*.kt`, `ui/navigation/*.kt` |
+| **Flutter**           | `main.dart`, `lib/screens/*.dart`, `lib/widgets/*.dart`, `lib/theme/*.dart`, `lib/routes/*.dart` |
+| **React / Next.js**   | `App.tsx`, `pages/*.tsx`, `components/*.tsx`, `styles/*.css`, `lib/*.ts` |
+
+---
+
+## 2. Data Entry: `projects.ts`
 
 **File**: `src/lib/projects.ts`
 
@@ -34,7 +105,7 @@ Add a new object to the `projects` array. Every project must satisfy the `Projec
   description: "One-liner.",         // Archive card description (~20 words)
   longDescription: "...",            // Detailed description for project page (~50 words)
   techStack: ["Tech1", "Tech2"],     // Array of technology names
-  demoKind: "generic",               // "chronos" | "dayvault" | "generic" (or add new)
+  demoKind: "generic",               // "chronos" | "dayvault" | "generic" | "fastbeat" (or add new)
   highlights: [                      // 3-5 bullet-point achievements
     "Highlight one.",
     "Highlight two.",
@@ -62,7 +133,7 @@ Add a new object to the `projects` array. Every project must satisfy the `Projec
 
 ---
 
-## 2. Type Reference: `types/index.ts`
+## 3. Type Reference: `types/index.ts`
 
 The full `Project` interface is defined in `src/types/index.ts`. Key sub-types:
 
@@ -83,12 +154,14 @@ These must match keys in the `iconMap` in `ProjectArchive.tsx`:
 | `Bolt`         | Lightning/focus icon      |
 | `Lock`         | Security/lock icon        |
 | `FolderHeart`  | Collections/favorite icon |
+| `PlayCircle`   | Media playback icon       |
+| `Music`        | Audio/music icon          |
 
 > **To add a new icon**: Import it from `lucide-react` in `ProjectArchive.tsx` and add it to the `iconMap` object.
 
 ---
 
-## 3. Demo Component Contract
+## 4. Demo Component Contract
 
 **Directory**: `src/components/demos/`
 
@@ -103,7 +176,13 @@ These must match keys in the `iconMap` in `ProjectArchive.tsx`:
 2. Mark as `"use client"` (client component)
 3. **Self-contained state** — all demo state lives inside the component
 4. Use `useRouteHistory` from `./useRouteHistory` for internal navigation
-5. **QuickStart overlay** — import and render `DemoQuickStart`:
+5. **Faithful UI replica** — the demo MUST replicate the actual app's:
+   - Exact navigation structure (tabs, sub-tabs, sidebar)
+   - Color palette from the source project's theme files
+   - Typography hierarchy (font weights, sizes, letter-spacing)
+   - Layout patterns (header structure, card shapes, spacing)
+   - Interactive patterns (mini-player, selection states, progress bars)
+6. **QuickStart overlay** — import and render `DemoQuickStart`:
 
 ```tsx
 import DemoQuickStart from "@/components/demos/DemoQuickStart";
@@ -115,7 +194,7 @@ export default function MyProjectDemo() {
 
   return (
     <div className="... relative">
-      {/* Demo content */}
+      {/* Demo content — must match the real app's look */}
 
       {/* Quick Start Overlay */}
       {!quickStartDone && projectData?.quickStartSteps && projectData.quickStartSteps.length > 0 && (
@@ -129,6 +208,17 @@ export default function MyProjectDemo() {
   );
 }
 ```
+
+### UI Fidelity Rules
+
+- **DO** use the exact hex colors from the source app's theme files
+- **DO** replicate the navigation hierarchy (e.g., bottom tabs with sub-tab rows inside)
+- **DO** match component shapes (border-radius values, elevation shadows)
+- **DO** use gradient brushes that match the source (e.g., MiniPlayer progress gradient)
+- **DO** include persistent elements (e.g., MiniPlayer pinned to bottom across tabs)
+- **DO NOT** invent a sidebar layout when the source app uses bottom tabs
+- **DO NOT** use arbitrary green/blue accents when the source app uses `#FF5500` orange
+- **DO NOT** simplify navigation — if the source has 4 bottom tabs, the demo must have 4 bottom tabs
 
 ### Registration
 
@@ -150,7 +240,7 @@ function renderDemo(project: Project) {
 
 ---
 
-## 4. Quick Start Steps Format
+## 5. Quick Start Steps Format
 
 Each project should have exactly **3 steps** that walk a visitor through the key flows in ~15 seconds.
 
@@ -173,7 +263,7 @@ quickStartSteps: [
 
 ---
 
-## 5. Preview Panels Format
+## 6. Preview Panels Format
 
 Each project should have exactly **3 panels** representing the most visually distinct screens.
 
@@ -193,7 +283,7 @@ previewPanels: [
 
 ---
 
-## 6. Context Banner Format
+## 7. Context Banner Format
 
 One sentence each for challenge and solution. The banner renders as:
 
@@ -216,13 +306,17 @@ contextBanner: {
 
 ---
 
-## 7. Registration Checklist
+## 8. Registration Checklist
 
 Use this checklist when adding a new project:
 
+- [ ] **Study the source code** — Read theme, navigation, screens, and component files
+- [ ] **Map colors** — Extract hex values from theme files for exact replication
+- [ ] **Map navigation** — Document tab structure, sub-tabs, persistent elements
 - [ ] Add project entry to `src/lib/projects.ts` with all required fields
 - [ ] Update `demoKind` union in `src/types/index.ts` if adding a new kind
 - [ ] Create demo component at `src/components/demos/{Name}Demo.tsx`
+- [ ] Ensure demo replicates the source app's exact UI (colors, layout, navigation)
 - [ ] Integrate `DemoQuickStart` overlay in the demo component
 - [ ] Register demo in `renderDemo()` in `src/components/ProjectInteractiveView.tsx`
 - [ ] Add new icon names to `iconMap` in `src/components/ProjectArchive.tsx` (if needed)
@@ -233,7 +327,7 @@ Use this checklist when adding a new project:
 
 ---
 
-## 8. Example: Full Project Entry
+## 9. Example: Full Project Entry
 
 Below is a complete example based on the Chronos Planner entry:
 

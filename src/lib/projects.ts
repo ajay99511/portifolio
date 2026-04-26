@@ -109,6 +109,54 @@ export const projects: Project[] = [
       { label: "Rankings", iconName: "FolderHeart" },
     ],
   },
+  {
+    id: "fastbeat-media-player",
+    batchId: "BATCH_01",
+    index: "03",
+    title: "FastBeat Media Player",
+    subtitle: "Premium offline media player",
+    description:
+      "100% offline Android media player with Jetpack Compose, Media3 ExoPlayer, and smart queue management.",
+    longDescription:
+      "FastBeat is a powerful, modern offline media player for Android built from the ground up to deliver a premium experience for both video and audio. Built with Kotlin, Jetpack Compose, Media3, Room, and Hilt, it provides a seamless and immersive way to enjoy your local media without any internet connection, featuring an advanced video player with gesture controls and an immersive audio experience with a smart queue system.",
+    techStack: ["Kotlin", "Jetpack Compose", "Media3", "Room", "Hilt/Dagger", "Coroutines/Flow"],
+    demoKind: "fastbeat",
+    repoUrl: "https://github.com/ajay99511/OfflineMediaPlayer",
+    highlights: [
+      "Architected a Clean Architecture-lite MVVM stack with Repository pattern and Hilt DI.",
+      "Built a reactive state management system using Kotlin Coroutines Flow, eliminating LiveData entirely.",
+      "Implemented a Room 2.7 database with 8 entities modeling playback history, analytics, and playlists.",
+      "Developed a foreground MediaSessionService with ExoPlayer supporting background audio playback.",
+      "Engineered a fullscreen video player with touch gesture recognition and Picture-in-Picture mode.",
+    ],
+    stats: {
+      nodes: 5,
+      complexity: "MVVM + Clean Architecture",
+    },
+    contextBanner: {
+      challenge: "Standard media players are ad-heavy, clunky, and lack deep analytics for local media",
+      solution: "A premium, 100% offline media player with advanced gestures, smart queue, and a rich analytics dashboard",
+    },
+    quickStartSteps: [
+      {
+        title: "Play Your Media",
+        description: "Explore the audio library and start playing a track to see the immersive player and queue system.",
+      },
+      {
+        title: "View Your Stats",
+        description: "Switch to the Analytics dashboard to see your listening habits, streaks, and top tracks.",
+      },
+      {
+        title: "Manage Playlists",
+        description: "Create and manage playlists with custom sorting, all saved securely offline via Room DB.",
+      },
+    ],
+    previewPanels: [
+      { label: "Player", iconName: "PlayCircle" },
+      { label: "Library", iconName: "Music" },
+      { label: "Analytics", iconName: "BarChart3" },
+    ],
+  },
 ];
 
 export function getProjectById(id: string) {
