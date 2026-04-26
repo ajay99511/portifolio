@@ -416,8 +416,8 @@ export default function DayVaultDemo() {
         </div>
 
         <div className="grid grid-cols-7 gap-2 text-center text-xs text-zinc-500 font-mono uppercase">
-          {["S", "M", "T", "W", "T", "F", "S"].map((day) => (
-            <span key={day}>{day}</span>
+          {["S", "M", "T", "W", "T", "F", "S"].map((day, index) => (
+            <span key={index}>{day}</span>
           ))}
         </div>
 

@@ -464,11 +464,11 @@ export default function ChronosPlannerDemo() {
           </div>
         ) : (
           sortedTasks.map((task) => (
-            <button
+            <div
               key={task.id}
               onClick={() => setSelectedTaskId(task.id)}
               className={cn(
-                "text-left rounded-md border p-4 transition-colors",
+                "text-left rounded-md border p-4 transition-colors cursor-pointer",
                 "border-zinc-800 bg-zinc-900/60 hover:border-indigo-400/60",
               )}
             >
@@ -495,7 +495,7 @@ export default function ChronosPlannerDemo() {
                 </button>
                 <span className="text-xs text-zinc-500">${task.estimatedCost.toFixed(0)}</span>
               </div>
-            </button>
+            </div>
           ))
         )}
       </div>
