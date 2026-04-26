@@ -15,7 +15,7 @@ export default function Home() {
       
       <footer className="py-12 px-6 md:px-24 border-t border-zinc-900 bg-black text-center">
         <p className="font-mono text-[10px] text-zinc-600 uppercase tracking-widest">
-          © 2026 ARCHITECT // BUILT_WITH_PRECISION // ALL_RIGHTS_RESERVED
+          © 2026 AJAY // FULL_STACK_ENGINEER // PORTFOLIO_PREVIEW
         </p>
       </footer>
     </main>

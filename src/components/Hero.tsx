@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { ChevronRight, Download, MapPin } from "lucide-react";
+import Link from "next/link";
+import { profile } from "@/lib/profile";
 
 const Hero = () => {
   return (
@@ -21,31 +23,37 @@ const Hero = () => {
         <div className="flex items-center gap-4 mb-8">
           <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 font-mono text-xs uppercase tracking-tighter">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            Live_Availability: OPEN_FOR_HIRE
+            Live_Availability: {profile.status.replaceAll(" ", "_").toUpperCase()}
           </div>
           <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 font-mono text-xs uppercase tracking-tighter">
             <MapPin size={12} className="text-zinc-500" />
-            London, UK / REMOTE
+            {profile.location}
           </div>
         </div>
 
         <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tighter leading-tight">
-          CRAFTING DIGITAL <br />
-          <span className="text-zinc-500">PRECISION.</span>
+          {profile.name.toUpperCase()} <br />
+          <span className="text-zinc-500">{profile.role.toUpperCase()}</span>
         </h1>
 
         <p className="max-w-2xl text-xl text-zinc-400 mb-10 leading-relaxed">
-          Senior Frontend Engineer & Systems Architect specializing in pixel-perfect UX, 
-          robust architectural patterns, and high-performance interactive environments.
+          {profile.summary}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
-          <button className="px-8 py-4 bg-brand-orange text-black font-bold flex items-center justify-center gap-2 hover:bg-orange-600 transition-colors group">
-            INITIATE_PROJECT_VIEW <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </button>
-          <button className="px-8 py-4 border border-zinc-800 font-mono text-sm flex items-center justify-center gap-2 hover:bg-zinc-900 transition-colors uppercase">
-            <Download size={18} /> Download_Dossier
-          </button>
+          <Link
+            href="/#archive"
+            className="px-8 py-4 bg-brand-orange text-black font-bold flex items-center justify-center gap-2 hover:bg-orange-600 transition-colors group"
+          >
+            View_Project_Archive <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <a
+            href="/Ajay_Resume.docx"
+            download
+            className="px-8 py-4 border border-zinc-800 font-mono text-sm flex items-center justify-center gap-2 hover:bg-zinc-900 transition-colors uppercase"
+          >
+            <Download size={18} /> Download_Resume
+          </a>
         </div>
       </motion.div>
 

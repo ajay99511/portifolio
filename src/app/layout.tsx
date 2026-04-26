@@ -13,8 +13,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio Walkthrough Engine",
-  description: "High-performance, architecturally-driven personal portfolio",
+  title: "Ajay Portfolio Preview",
+  description: "Interactive project previews and engineering portfolio for Ajay",
 };
 
 export default function RootLayout({

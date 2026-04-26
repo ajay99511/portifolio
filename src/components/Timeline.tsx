@@ -1,39 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const experiences = [
-  {
-    title: "Senior Systems Architect",
-    company: "GLOBAL TECH CORP",
-    period: "2021 — PRESENT",
-    highlights: [
-      "Led the migration of legacy monolithic architecture to high-performance microservices.",
-      "Established company-wide frontend standards and CI/CD pipelines.",
-      "Optimized core application performance, reducing TTI by 45%."
-    ]
-  },
-  {
-    title: "Lead Frontend Engineer",
-    company: "INNOVATE LABS",
-    period: "2018 — 2021",
-    highlights: [
-      "Built a custom component library used across 12 different product lines.",
-      "Mentored a team of 15+ frontend developers on React best practices.",
-      "Spearheaded the adoption of TypeScript and automated testing."
-    ]
-  },
-  {
-    title: "Full Stack Developer",
-    company: "STARTUP X",
-    period: "2015 — 2018",
-    highlights: [
-      "Developed the initial MVP for a disruptive fintech platform.",
-      "Scaled the application to support over 500k monthly active users.",
-      "Implemented real-time data visualization using D3.js."
-    ]
-  }
-];
+import { timelineEntries } from "@/lib/profile";
 
 const Timeline = () => {
   return (
@@ -46,7 +14,7 @@ const Timeline = () => {
       </div>
 
       <div className="space-y-12">
-        {experiences.map((exp, idx) => (
+        {timelineEntries.map((exp, idx) => (
           <motion.div 
             key={exp.title + exp.company}
             initial={{ opacity: 0, x: -20 }}

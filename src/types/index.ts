@@ -1,15 +1,20 @@
 export interface Project {
   id: string;
   batchId: string;
+  index: string;
   title: string;
+  subtitle: string;
   description: string;
   longDescription: string;
   techStack: string[];
+  demoKind: "chronos" | "dayvault" | "generic";
+  repoUrl?: string;
+  highlights: string[];
   stats: {
     nodes: number;
     complexity: string;
   };
-  walkthroughSteps: WalkthroughStep[];
+  walkthroughSteps?: WalkthroughStep[];
 }
 
 export interface WalkthroughStep {

@@ -2,29 +2,9 @@
 
 import { motion } from "framer-motion";
 import { Code2, Database, Layout, Terminal } from "lucide-react";
+import { expertiseGroups } from "@/lib/profile";
 
-const expertise = [
-  {
-    title: "Frontend Architecture",
-    icon: <Layout className="text-brand-orange" />,
-    skills: ["React 18+", "Next.js (App Router)", "TypeScript", "Tailwind CSS", "Framer Motion", "Web Performance Optimization"]
-  },
-  {
-    title: "Backend & Systems",
-    icon: <Database className="text-brand-orange" />,
-    skills: ["Node.js", "PostgreSQL", "Redis", "RESTful APIs", "GraphQL", "Microservices Architecture"]
-  },
-  {
-    title: "Tooling & DX",
-    icon: <Terminal className="text-brand-orange" />,
-    skills: ["Docker", "CI/CD (GitHub Actions)", "Vite / Webpack", "ESLint / Prettier", "Testing (Jest/Playwright)", "Storybook"]
-  },
-  {
-    title: "Core Languages",
-    icon: <Code2 className="text-brand-orange" />,
-    skills: ["JavaScript (ES6+)", "HTML5 Semantic Markup", "Advanced CSS (Grid, Flexbox)", "Python", "Rust (Basics)", "SQL"]
-  }
-];
+const icons = [Layout, Database, Terminal, Code2];
 
 const Expertise = () => {
   return (
@@ -37,7 +17,9 @@ const Expertise = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-zinc-800 border border-zinc-800">
-        {expertise.map((item, index) => (
+        {expertiseGroups.map((item, index) => {
+          const Icon = icons[index % icons.length];
+          return (
           <motion.div 
             key={item.title}
             initial={{ opacity: 0, y: 20 }}
@@ -46,7 +28,7 @@ const Expertise = () => {
             viewport={{ once: true }}
             className="bg-black p-8 group hover:bg-zinc-900 transition-colors"
           >
-            <div className="mb-6">{item.icon}</div>
+            <div className="mb-6"><Icon className="text-brand-orange" /></div>
             <h4 className="font-bold text-lg mb-4 uppercase font-mono tracking-tighter">{item.title}</h4>
             <ul className="space-y-2">
               {item.skills.map(skill => (
@@ -57,7 +39,7 @@ const Expertise = () => {
               ))}
             </ul>
           </motion.div>
-        ))}
+        )})}
       </div>
     </section>
   );

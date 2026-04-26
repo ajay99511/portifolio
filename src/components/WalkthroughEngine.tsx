@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Layout, Zap, Cpu, ArrowLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight, Layout, Cpu, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Project } from "@/types";
 import { cn } from "@/lib/utils";
@@ -12,10 +12,19 @@ interface WalkthroughEngineProps {
 }
 
 const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
+  const steps = project.walkthroughSteps ?? [];
   const [currentStep, setCurrentStep] = useState(0);
 
+  if (steps.length === 0) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center text-zinc-400 font-mono text-xs uppercase tracking-widest">
+        No walkthrough configured for this project.
+      </div>
+    );
+  }
+
   const nextStep = () => {
-    if (currentStep < project.walkthroughSteps.length - 1) {
+    if (currentStep < steps.length - 1) {
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -77,7 +86,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
           <div className="p-4 bg-brand-orange/5 border border-brand-orange/20 rounded-sm">
             <h4 className="font-mono text-[10px] text-brand-orange uppercase mb-2">Step_Status</h4>
             <div className="flex gap-1 mb-2">
-              {project.walkthroughSteps.map((_, i) => (
+              {steps.map((_, i) => (
                 <div 
                   key={i} 
                   className={cn(
@@ -119,7 +128,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
                 transition={{ duration: 0.4 }}
                 className="absolute inset-0 flex items-center justify-center p-8"
               >
-                {project.walkthroughSteps[currentStep].mockState}
+                {steps[currentStep].mockState}
               </motion.div>
             </AnimatePresence>
             
@@ -127,11 +136,11 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
               <div className="glass-morphism px-6 py-4 flex items-center gap-8 min-w-[400px]">
                 <div className="flex-1">
-                  <div className="font-mono text-[10px] text-brand-orange uppercase tracking-widest mb-1">
-                    Step {currentStep + 1} {" // "} {project.walkthroughSteps[currentStep].title}
+                    <div className="font-mono text-[10px] text-brand-orange uppercase tracking-widest mb-1">
+                    Step {currentStep + 1} {" // "} {steps[currentStep].title}
                   </div>
                   <div className="text-xs text-zinc-400 line-clamp-1">
-                    {project.walkthroughSteps[currentStep].description}
+                    {steps[currentStep].description}
                   </div>
                 </div>
                 <div className="flex gap-2">
@@ -144,7 +153,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
                   </button>
                   <button 
                     onClick={nextStep}
-                    disabled={currentStep === project.walkthroughSteps.length - 1}
+                    disabled={currentStep === steps.length - 1}
                     className="px-4 py-2 bg-brand-orange text-black font-bold text-xs uppercase tracking-tighter flex items-center gap-2 hover:bg-orange-600 disabled:opacity-30 disabled:hover:bg-brand-orange transition-colors"
                   >
                     Proceed <ChevronRight size={14} />
