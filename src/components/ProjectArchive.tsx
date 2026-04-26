@@ -12,6 +12,9 @@ import {
   Play,
   PlayCircle,
   Music,
+  MessageSquare,
+  FolderKey,
+  Cpu,
 } from "lucide-react";
 import { projects } from "@/lib/projects";
 import type { PreviewPanel } from "@/types";
@@ -24,6 +27,9 @@ const iconMap: Record<string, typeof CalendarDays> = {
   FolderHeart,
   PlayCircle,
   Music,
+  MessageSquare,
+  FolderKey,
+  Cpu,
 };
 
 function DemoPreviewStrip({ panels }: { panels: PreviewPanel[] }) {

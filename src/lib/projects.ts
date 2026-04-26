@@ -157,6 +157,50 @@ export const projects: Project[] = [
       { label: "Analytics", iconName: "BarChart3" },
     ],
   },
+  {
+    id: "personal-assist",
+    batchId: "BATCH_01",
+    index: "04",
+    title: "PersonalAssist",
+    subtitle: "Local AI Desktop Environment",
+    description: "A Tauri-based desktop application providing a unified interface for local AI models, agentic workflows, and workspace management.",
+    longDescription: "PersonalAssist is a unified desktop environment built with React, Vite, and Tauri. It provides a secure, locally-hosted interface for managing large language models, running agentic background tasks, and configuring workspace permissions for autonomous workflows. Features include a dual-pane chat system, comprehensive system health monitoring, and an auditable workspace permission system.",
+    techStack: ["React", "Vite", "Tauri", "TypeScript", "TanStack Query", "Rust"],
+    demoKind: "personal-assist",
+    highlights: [
+      "Tauri-based desktop architecture bridging web front-end with native Rust capabilities.",
+      "Workspace permission engine for securely exposing local directories to AI agents.",
+      "Dual-mode chat interface with standard LLM responses and RAG-enhanced Smart Mode.",
+      "System health and background task monitoring dashboard.",
+    ],
+    stats: {
+      nodes: 6,
+      complexity: "Local AI + Desktop Environment",
+    },
+    contextBanner: {
+      challenge: "Managing local AI models and agents across different terminal windows is fragmented and insecure",
+      solution: "A unified desktop interface with centralized chat, model management, and strict workspace permissions",
+    },
+    quickStartSteps: [
+      {
+        title: "Interact with the AI",
+        description: "Open the Chat interface and test the streaming responses. Toggle Smart Mode to see RAG capabilities in action.",
+      },
+      {
+        title: "Explore the Dashboard",
+        description: "Switch to the Workspace view to see how local directories are securely exposed to AI agents with granular permissions.",
+      },
+      {
+        title: "Check System Health",
+        description: "Notice the active system status indicators in the sidebar ensuring your local AI backend is running smoothly.",
+      },
+    ],
+    previewPanels: [
+      { label: "Chat Engine", iconName: "MessageSquare" },
+      { label: "Workspaces", iconName: "FolderKey" },
+      { label: "Agents", iconName: "Cpu" },
+    ],
+  },
 ];
 
 export function getProjectById(id: string) {
