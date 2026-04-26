@@ -67,8 +67,8 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
     <div className="min-h-screen bg-black text-white pt-20">
       <div className="grid lg:grid-cols-[360px_1fr] min-h-[calc(100vh-80px)]">
         <aside className="border-r border-zinc-800 p-6 lg:p-8 flex flex-col gap-8 bg-[#080808]">
-          <Link href="/#archive" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest">
-            <ArrowLeft size={14} /> Back_To_Archive
+          <Link href="/projects" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest">
+            <ArrowLeft size={14} /> Back_To_Projects
           </Link>
 
           <div className="space-y-3">

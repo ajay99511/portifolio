@@ -5,6 +5,7 @@ export const projects: Project[] = [
     id: "chronos-planner",
     batchId: "BATCH_01",
     index: "01",
+    pinned: true,
     title: "Chronos Planner",
     subtitle: "Desktop-first productivity planner",
     description:
@@ -59,6 +60,7 @@ export const projects: Project[] = [
     id: "dayvault-memory-palace",
     batchId: "BATCH_01",
     index: "02",
+    pinned: true,
     title: "DayVault (Memory Palace)",
     subtitle: "Secure offline journaling platform",
     description:
@@ -113,6 +115,7 @@ export const projects: Project[] = [
     id: "fastbeat-media-player",
     batchId: "BATCH_01",
     index: "03",
+    pinned: true,
     title: "FastBeat Media Player",
     subtitle: "Premium offline media player",
     description:
@@ -161,6 +164,7 @@ export const projects: Project[] = [
     id: "personal-assist",
     batchId: "BATCH_01",
     index: "04",
+    pinned: true,
     title: "PersonalAssist",
     subtitle: "Local AI Desktop Environment",
     description: "A Tauri-based desktop application providing a unified interface for local AI models, agentic workflows, and workspace management.",
@@ -205,4 +209,14 @@ export const projects: Project[] = [
 
 export function getProjectById(id: string) {
   return projects.find((project) => project.id === id);
+}
+
+/** Returns up to 4 pinned projects, preserving array order. */
+export function getPinnedProjects(): Project[] {
+  return projects.filter((p) => p.pinned === true).slice(0, 4);
+}
+
+/** Returns every project in display order. */
+export function getAllProjects(): Project[] {
+  return projects;
 }

@@ -38,12 +38,15 @@ Follow the canonical rules defined in `PROJECT_TEMPLATE.md` to register the new 
    - `highlights` and `stats`
    - `contextBanner` (Challenge → Solution)
    - `quickStartSteps` (Exactly 3 steps mapping to the demo's functionality)
-   - `previewPanels` (Exactly 3 panels with appropriate `iconName`s mapped from `iconMap` in `ProjectArchive.tsx`)
+   - `previewPanels` (Exactly 3 panels with appropriate `iconName`s mapped from `iconMap` in `ProjectCard.tsx`)
+   - `pinned` — Set to `true` **only** if this project should replace an existing pinned project on the landing page (max 4 pinned). Otherwise omit or set to `false`.
 3. **`src/components/ProjectInteractiveView.tsx`:** Import your new demo component and register it in the `renderDemo()` switch statement.
-4. **Icons:** If the `previewPanels` require new icons, import them from `lucide-react` into `src/components/ProjectArchive.tsx` and add them to the `iconMap`.
+4. **Icons:** If the `previewPanels` require new icons, import them from `lucide-react` into `src/components/ProjectCard.tsx` and add them to the `iconMap`.
 
 ### Phase 4: Verification
 1. Run `npm run build` to ensure there are no TypeScript or module resolution errors.
 2. Ensure the demo is fully responsive and interactive without throwing runtime errors.
+3. Verify the project appears on the `/projects` gallery page.
+4. If `pinned: true` was set, verify it appears in the Pinned Works section on the homepage (max 4 total).
 
 **Remember:** Do not create a generic or "placeholder" UI. The success of this integration depends entirely on how accurately the web demo mimics the target project's actual source code design.

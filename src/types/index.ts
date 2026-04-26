@@ -23,6 +23,7 @@ export interface Project {
   longDescription: string;
   techStack: string[];
   demoKind: "chronos" | "dayvault" | "generic" | "fastbeat" | "personal-assist";
+  pinned?: boolean;
   repoUrl?: string;
   highlights: string[];
   stats: {

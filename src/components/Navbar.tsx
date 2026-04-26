@@ -10,11 +10,12 @@ const Navbar = () => {
       <Link href="/" className="font-mono text-xl font-bold tracking-tighter">
         <span className="text-brand-orange">_</span>AJAY
       </Link>
-      
+
       <div className="flex items-center gap-6">
         <div className="hidden md:flex gap-6 font-mono text-sm uppercase tracking-widest text-zinc-400">
           <Link href="/#expertise" className="hover:text-white transition-colors">Expertise</Link>
           <Link href="/#archive" className="hover:text-white transition-colors">Archive</Link>
+          <Link href="/projects" className="hover:text-white transition-colors">Projects</Link>
           <Link href="/#timeline" className="hover:text-white transition-colors">Timeline</Link>
         </div>
         

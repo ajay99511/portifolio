@@ -116,6 +116,7 @@ Add a new object to the `projects` array. Every project must satisfy the `Projec
   },
 
   // --- Optional Fields ---
+  pinned: true,                      // Feature on landing page (max 4 pinned). Defaults to false.
   repoUrl: "https://github.com/...", // GitHub repo link (omit if private)
   contextBanner: {                   // Challenge → Solution framing
     challenge: "The problem this solves",
@@ -130,6 +131,14 @@ Add a new object to the `projects` array. Every project must satisfy the `Projec
   walkthroughSteps: [],              // Optional: for WalkthroughEngine (legacy)
 }
 ```
+
+### Pinned Projects
+
+The `pinned` field controls whether a project appears in the **Pinned Works** section on the landing page. Only up to **4** projects can be pinned at a time (enforced by `getPinnedProjects()` in `projects.ts`). Projects without `pinned: true` are only visible on the `/projects` gallery page.
+
+- Set `pinned: true` to feature a project on the homepage
+- Omit or set `pinned: false` for projects that should only appear in the full gallery
+- If more than 4 projects have `pinned: true`, only the first 4 (by array order) are shown
 
 ---
 
@@ -156,8 +165,11 @@ These must match keys in the `iconMap` in `ProjectArchive.tsx`:
 | `FolderHeart`  | Collections/favorite icon |
 | `PlayCircle`   | Media playback icon       |
 | `Music`        | Audio/music icon          |
+| `MessageSquare`| Chat/messaging icon       |
+| `FolderKey`    | Secure folder icon        |
+| `Cpu`          | Processing/compute icon   |
 
-> **To add a new icon**: Import it from `lucide-react` in `ProjectArchive.tsx` and add it to the `iconMap` object.
+> **To add a new icon**: Import it from `lucide-react` in `src/components/ProjectCard.tsx` and add it to the `iconMap` object. The `ProjectCard` is the shared component used by both the homepage Pinned Works section and the `/projects` gallery.
 
 ---
 
@@ -314,15 +326,17 @@ Use this checklist when adding a new project:
 - [ ] **Map colors** — Extract hex values from theme files for exact replication
 - [ ] **Map navigation** — Document tab structure, sub-tabs, persistent elements
 - [ ] Add project entry to `src/lib/projects.ts` with all required fields
+- [ ] Set `pinned: true` if this project should appear on the landing page (max 4 pinned)
 - [ ] Update `demoKind` union in `src/types/index.ts` if adding a new kind
 - [ ] Create demo component at `src/components/demos/{Name}Demo.tsx`
 - [ ] Ensure demo replicates the source app's exact UI (colors, layout, navigation)
 - [ ] Integrate `DemoQuickStart` overlay in the demo component
 - [ ] Register demo in `renderDemo()` in `src/components/ProjectInteractiveView.tsx`
-- [ ] Add new icon names to `iconMap` in `src/components/ProjectArchive.tsx` (if needed)
+- [ ] Add new icon names to `iconMap` in `src/components/ProjectCard.tsx` (if needed)
 - [ ] Include `contextBanner`, `quickStartSteps`, and `previewPanels` data
 - [ ] Run `npm run build` to verify no TypeScript errors
-- [ ] Visually verify on homepage (archive card with preview strip)
+- [ ] Visually verify on homepage pinned works section (max 4 cards with preview strip)
+- [ ] Visually verify on `/projects` gallery page (all projects displayed)
 - [ ] Visually verify on project detail page (context banner + demo + quickstart)
 
 ---
@@ -336,6 +350,7 @@ Below is a complete example based on the Chronos Planner entry:
   id: "chronos-planner",
   batchId: "BATCH_01",
   index: "01",
+  pinned: true,                    // Featured on landing page
   title: "Chronos Planner",
   subtitle: "Desktop-first productivity planner",
   description:
