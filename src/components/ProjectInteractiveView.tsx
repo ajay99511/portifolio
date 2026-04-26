@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ExternalLink, ArrowLeft } from "lucide-react";
+import { ExternalLink, ArrowLeft, ArrowRight, Zap } from "lucide-react";
 import { Project } from "@/types";
 import ChronosPlannerDemo from "@/components/demos/ChronosPlannerDemo";
 import DayVaultDemo from "@/components/demos/DayVaultDemo";
@@ -20,6 +20,36 @@ function renderDemo(project: Project) {
   return (
     <div className="h-full border border-zinc-800 rounded-lg p-6 text-zinc-400 font-mono text-xs uppercase tracking-widest">
       No interactive demo configured for this project.
+    </div>
+  );
+}
+
+function ContextBanner({ challenge, solution }: { challenge: string; solution: string }) {
+  return (
+    <div
+      className="mb-4 rounded-lg border border-orange-500/20 overflow-hidden"
+      style={{
+        background: "linear-gradient(135deg, rgba(249, 115, 22, 0.06) 0%, rgba(0, 0, 0, 0.4) 100%)",
+      }}
+    >
+      <div className="px-4 py-3 flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-2 shrink-0">
+          <Zap size={14} className="text-orange-400" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-orange-400 font-bold">
+            Challenge
+          </span>
+        </div>
+        <p className="text-sm text-zinc-300 leading-snug">{challenge}</p>
+
+        <ArrowRight size={16} className="text-zinc-600 hidden md:block shrink-0 mx-2" />
+
+        <div className="flex items-center gap-2 shrink-0 mt-2 md:mt-0">
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-emerald-400 font-bold">
+            Solution
+          </span>
+        </div>
+        <p className="text-sm text-zinc-300 leading-snug">{solution}</p>
+      </div>
     </div>
   );
 }
@@ -77,8 +107,20 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
           ) : null}
         </aside>
 
-        <section className="p-4 lg:p-8 overflow-y-auto">{renderDemo(project)}</section>
+        <section className="p-4 lg:p-8 overflow-y-auto">
+          {/* Context Banner */}
+          {project.contextBanner && (
+            <ContextBanner
+              challenge={project.contextBanner.challenge}
+              solution={project.contextBanner.solution}
+            />
+          )}
+
+          {/* Demo */}
+          {renderDemo(project)}
+        </section>
       </div>
     </div>
   );
 }
+

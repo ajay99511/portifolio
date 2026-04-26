@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouteHistory } from "@/components/demos/useRouteHistory";
+import DemoQuickStart from "@/components/demos/DemoQuickStart";
+import { projects } from "@/lib/projects";
 
 type TaskType = "work" | "personal" | "health" | "leisure";
 type TodoTab = "notes" | "timers" | "lists";
@@ -214,6 +216,8 @@ function taskTypeColor(type: TaskType) {
 
 export default function ChronosPlannerDemo() {
   const history = useRouteHistory<ChronosRoute>({ screen: "schedule" });
+  const [quickStartDone, setQuickStartDone] = useState(false);
+  const projectData = projects.find((p) => p.id === "chronos-planner");
   const [days, setDays] = useState<DayPlan[]>(dayPlansSeed);
   const [templates, setTemplates] = useState<Template[]>(templateSeed);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
@@ -804,7 +808,7 @@ export default function ChronosPlannerDemo() {
   );
 
   return (
-    <div className="h-full border border-zinc-800 bg-[#0b1120] text-white rounded-lg overflow-hidden">
+    <div className="h-full border border-zinc-800 bg-[#0b1120] text-white rounded-lg overflow-hidden relative">
       <div className="flex h-full min-h-[620px]">
         <aside className="w-56 border-r border-zinc-800 bg-[#111827] p-4 space-y-2">
           <p className="font-mono text-[10px] uppercase tracking-widest text-zinc-500 mb-2">Chronos Home</p>
@@ -857,6 +861,15 @@ export default function ChronosPlannerDemo() {
           </main>
         </div>
       </div>
+
+      {/* Quick Start Overlay */}
+      {!quickStartDone && projectData?.quickStartSteps && projectData.quickStartSteps.length > 0 && (
+        <DemoQuickStart
+          projectId="chronos-planner"
+          steps={projectData.quickStartSteps}
+          onComplete={() => setQuickStartDone(true)}
+        />
+      )}
     </div>
   );
 }

@@ -2,8 +2,48 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight, Play } from "lucide-react";
+import {
+  ArrowUpRight,
+  BarChart3,
+  Bolt,
+  CalendarDays,
+  FolderHeart,
+  Lock,
+  Play,
+} from "lucide-react";
 import { projects } from "@/lib/projects";
+import type { PreviewPanel } from "@/types";
+
+const iconMap: Record<string, typeof CalendarDays> = {
+  CalendarDays,
+  BarChart3,
+  Bolt,
+  Lock,
+  FolderHeart,
+};
+
+function DemoPreviewStrip({ panels }: { panels: PreviewPanel[] }) {
+  return (
+    <div className="flex gap-2 mt-4">
+      {panels.map((panel) => {
+        const Icon = iconMap[panel.iconName] ?? CalendarDays;
+        return (
+          <div
+            key={panel.label}
+            className="flex-1 border border-zinc-800 bg-zinc-900/40 rounded-md p-3 flex flex-col items-center gap-2 group-hover:border-zinc-700 transition-colors"
+          >
+            <div className="w-8 h-8 rounded-md bg-zinc-800/80 flex items-center justify-center group-hover:bg-orange-500/10 transition-colors">
+              <Icon size={14} className="text-zinc-500 group-hover:text-brand-orange transition-colors" />
+            </div>
+            <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-600 group-hover:text-zinc-400 transition-colors">
+              {panel.label}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 const ProjectArchive = () => {
   return (
@@ -23,13 +63,13 @@ const ProjectArchive = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: idx * 0.1 }}
             viewport={{ once: true }}
-            className="border border-zinc-800 bg-zinc-950/70 p-6 flex flex-col gap-6"
+            className="border border-zinc-800 bg-zinc-950/70 p-6 flex flex-col gap-6 group"
           >
             <div className="flex items-center justify-between">
               <span className="font-mono text-[10px] text-zinc-600 tracking-widest uppercase">
                 {project.batchId} {" // "} #{project.index}
               </span>
-              <ArrowUpRight className="text-zinc-500" size={18} />
+              <ArrowUpRight className="text-zinc-500 group-hover:text-brand-orange transition-colors" size={18} />
             </div>
 
             <div className="space-y-2">
@@ -37,6 +77,11 @@ const ProjectArchive = () => {
               <p className="text-sm text-brand-orange font-mono uppercase tracking-wider">{project.subtitle}</p>
               <p className="text-zinc-400 text-sm leading-relaxed">{project.description}</p>
             </div>
+
+            {/* Preview Strip */}
+            {project.previewPanels && project.previewPanels.length > 0 && (
+              <DemoPreviewStrip panels={project.previewPanels} />
+            )}
 
             <div className="flex flex-wrap gap-2">
               {project.techStack.slice(0, 5).map((tag) => (
@@ -72,3 +117,4 @@ const ProjectArchive = () => {
 };
 
 export default ProjectArchive;
+

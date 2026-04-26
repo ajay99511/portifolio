@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouteHistory } from "@/components/demos/useRouteHistory";
+import DemoQuickStart from "@/components/demos/DemoQuickStart";
+import { projects } from "@/lib/projects";
 
 type EntryType = "story" | "event";
 type Mood = "🙂" | "⚡" | "😌" | "🎉" | "😴";
@@ -144,6 +146,8 @@ function renderStars(rating: number) {
 
 export default function DayVaultDemo() {
   const history = useRouteHistory<DayVaultRoute>({ screen: "lock" });
+  const [quickStartDone, setQuickStartDone] = useState(false);
+  const projectData = projects.find((p) => p.id === "dayvault-memory-palace");
   const [entries, setEntries] = useState<JournalEntry[]>(entrySeed);
   const [categories, setCategories] = useState<RankingCategory[]>(categorySeed);
   const [activeCategoryId, setActiveCategoryId] = useState(categorySeed[0].id);
@@ -708,7 +712,19 @@ export default function DayVaultDemo() {
   ];
 
   if (route.screen === "lock") {
-    return <div className="h-full rounded-lg overflow-hidden border border-zinc-800">{renderLock()}</div>;
+    return (
+      <div className="h-full rounded-lg overflow-hidden border border-zinc-800 relative">
+        {renderLock()}
+        {/* Quick Start Overlay on lock screen */}
+        {!quickStartDone && projectData?.quickStartSteps && projectData.quickStartSteps.length > 0 && (
+          <DemoQuickStart
+            projectId="dayvault-memory-palace"
+            steps={projectData.quickStartSteps}
+            onComplete={() => setQuickStartDone(true)}
+          />
+        )}
+      </div>
+    );
   }
 
   return (

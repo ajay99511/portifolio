@@ -31,6 +31,29 @@ export const projects: Project[] = [
       nodes: 7,
       complexity: "Offline-First + MVVM",
     },
+    contextBanner: {
+      challenge: "Productivity tools lack deep-focus workflow support and actionable analytics",
+      solution: "A planner engine with schedule orchestration, templates, focus HUD, and real-time efficiency tracking",
+    },
+    quickStartSteps: [
+      {
+        title: "Navigate the Weekly Schedule",
+        description: "Click any day in the 7-day strip to view and manage tasks. Try adding a task or toggling one complete.",
+      },
+      {
+        title: "Explore WorkPlans & Templates",
+        description: "Switch to WorkPlans in the sidebar to see reusable day templates. Apply one to populate a day instantly.",
+      },
+      {
+        title: "Check Analytics & Focus HUD",
+        description: "Open Analytics for efficiency metrics and category breakdowns. Try Focus HUD for a distraction-free next-task view.",
+      },
+    ],
+    previewPanels: [
+      { label: "Schedule", iconName: "CalendarDays" },
+      { label: "Analytics", iconName: "BarChart3" },
+      { label: "Focus HUD", iconName: "Bolt" },
+    ],
   },
   {
     id: "dayvault-memory-palace",
@@ -62,6 +85,29 @@ export const projects: Project[] = [
       nodes: 4,
       complexity: "Security + Offline Sync",
     },
+    contextBanner: {
+      challenge: "Journal apps sacrifice security for convenience, leaving private memories exposed",
+      solution: "An encrypted memory palace with biometric auth, calendar recall, and identity ranking boards",
+    },
+    quickStartSteps: [
+      {
+        title: "Unlock the Vault",
+        description: "Enter PIN 2160 or tap \"Bio\" to bypass. This simulates the biometric + PIN auth flow with attempt throttling.",
+      },
+      {
+        title: "Browse & Create Memories",
+        description: "Explore the journal feed, search memories, or tap \"New\" to create a story or event entry with mood tags.",
+      },
+      {
+        title: "Discover Identity Rankings",
+        description: "Switch to Identity to see your ranked favorites — movies, books, places. Add items and reorder them.",
+      },
+    ],
+    previewPanels: [
+      { label: "Lock Screen", iconName: "Lock" },
+      { label: "Journal", iconName: "CalendarDays" },
+      { label: "Rankings", iconName: "FolderHeart" },
+    ],
   },
 ];
 

@@ -1,3 +1,18 @@
+export interface QuickStartStep {
+  title: string;
+  description: string;
+}
+
+export interface PreviewPanel {
+  label: string;
+  iconName: string;
+}
+
+export interface ContextBanner {
+  challenge: string;
+  solution: string;
+}
+
 export interface Project {
   id: string;
   batchId: string;
@@ -15,6 +30,9 @@ export interface Project {
     complexity: string;
   };
   walkthroughSteps?: WalkthroughStep[];
+  contextBanner?: ContextBanner;
+  quickStartSteps?: QuickStartStep[];
+  previewPanels?: PreviewPanel[];
 }
 
 export interface WalkthroughStep {
