@@ -2,6 +2,52 @@ import { Project } from "@/types";
 
 export const projects: Project[] = [
   {
+    id: "repo-pulse",
+    batchId: "BATCH_01",
+    index: "00",
+    pinned: true,
+    title: "RepoPulse",
+    subtitle: "GitHub Repository Manager",
+    description: "A premium repository management dashboard with custom spaces and local directory binding.",
+    longDescription: "RepoPulse is a sleek, dark-themed Next.js dashboard designed to organize GitHub repositories into customizable 'Spaces'. It features a command palette, local VS Code directory binding, advanced filtering, and a serverless Gist-based sync mechanism for configuration roaming.",
+    techStack: ["Next.js", "React", "Tailwind CSS", "Zustand", "NextAuth", "Framer Motion"],
+    demoKind: "repo-pulse",
+    repoUrl: "https://github.com/ajay99511/repo_pulse",
+    highlights: [
+      "Custom 'Spaces' organization system to group related repositories.",
+      "Local machine path binding to quickly open repos in VS Code.",
+      "Serverless architecture leveraging GitHub Gists for config roaming.",
+      "Premium glassmorphic UI with advanced search and filtering."
+    ],
+    stats: {
+      nodes: 5,
+      complexity: "Dashboard / Next.js",
+    },
+    contextBanner: {
+      challenge: "Managing dozens of GitHub repos across different contexts is chaotic and disconnected from local environments.",
+      solution: "A unified command center that groups repos into Spaces and binds them directly to local IDE paths."
+    },
+    quickStartSteps: [
+      {
+        title: "Explore the Dashboard",
+        description: "View the comprehensive statistics in the header and browse the BentoGrid of repositories."
+      },
+      {
+        title: "Navigate Spaces",
+        description: "Use the left sidebar to switch between 'All Projects' and customized Spaces to filter your view."
+      },
+      {
+        title: "Interact with Repos",
+        description: "Hover over repository cards to see quick actions like copying the clone URL or launching the local path in VS Code."
+      }
+    ],
+    previewPanels: [
+      { label: "Dashboard", iconName: "LayoutGrid" },
+      { label: "Spaces", iconName: "FolderPlus" },
+      { label: "Settings", iconName: "Settings" }
+    ]
+  },
+  {
     id: "chronos-planner",
     batchId: "BATCH_01",
     index: "01",
