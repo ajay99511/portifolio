@@ -13,6 +13,7 @@ import ICMFraudDetectionDemo from "@/components/demos/ICMFraudDetectionDemo";
 import DbPredDemo from "@/components/demos/DbPredDemo";
 import SMPredDemo from "@/components/demos/SMPredDemo";
 import GitScripeDemo from "@/components/demos/GitScripeDemo";
+import MdExplorerDemo from "@/components/demos/MdExplorerDemo";
 
 interface ProjectInteractiveViewProps {
   project: Project;
@@ -48,6 +49,9 @@ function renderDemo(project: Project) {
   }
   if (project.demoKind === "gitscripe") {
     return <GitScripeDemo />;
+  }
+  if (project.demoKind === "md-explorer") {
+    return <MdExplorerDemo />;
   }
   return (
     <div className="h-full border border-zinc-800 rounded-lg p-6 text-zinc-400 font-mono text-xs uppercase tracking-widest">

@@ -33,6 +33,8 @@ import {
   Droplets,
   TrendingUp,
   Search,
+  Folder,
+  Book,
 } from "lucide-react";
 import type { PreviewPanel, Project } from "@/types";
 
@@ -63,6 +65,8 @@ const iconMap: Record<string, typeof CalendarDays> = {
   Droplets,
   TrendingUp,
   Search,
+  Folder,
+  Book,
 };
 
 function DemoPreviewStrip({ panels }: { panels: PreviewPanel[] }) {

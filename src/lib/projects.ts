@@ -2,6 +2,52 @@ import { Project } from "@/types";
 
 export const projects: Project[] = [
   {
+    id: "md-explorer",
+    batchId: "BATCH_01",
+    index: "00",
+    pinned: true,
+    title: "MD Explorer",
+    subtitle: "Responsive Markdown Reader",
+    description: "A premium, desktop-optimized Markdown explorer with a 3-panel layout and cross-platform support.",
+    longDescription: "MD Explorer is a sophisticated documentation management tool designed for power users. Built with Flutter and Riverpod, it features a responsive 3-panel architecture (Folder Tree, File List, and Markdown Viewer) optimized for large-scale documentation. It includes features like persistent folder management, deep-linking, bookmarks, and syntax-highlighted code blocks, delivering a seamless reading experience across desktop and mobile.",
+    techStack: ["Flutter", "Dart", "Riverpod", "Markdown", "Window Manager", "Path"],
+    demoKind: "md-explorer",
+    repoUrl: "https://github.com/ajay99511/md_doc_viewer",
+    highlights: [
+      "3-panel responsive layout optimized for Desktop, Tablet, and Mobile.",
+      "Reactive state management using Riverpod for instant UI updates.",
+      "Customizable Markdown viewer with support for syntax highlighting and font scaling.",
+      "Smart folder scanning system that manages project-specific documentation."
+    ],
+    stats: {
+      nodes: 6,
+      complexity: "Responsive UI + State Sync",
+    },
+    contextBanner: {
+      challenge: "Standard file explorers lack deep integration for reading and navigating Markdown-heavy documentation repositories.",
+      solution: "A specialized 3-panel documentation explorer that prioritizes readability and folder hierarchy."
+    },
+    quickStartSteps: [
+      {
+        title: "Explore Folder Tree",
+        description: "Navigate through your managed documentation folders using the hierarchical tree in the left panel."
+      },
+      {
+        title: "Filter and Find",
+        description: "Use the instant search in the file list panel to quickly locate specific Markdown documents within a folder."
+      },
+      {
+        title: "Read & Customize",
+        description: "Open documents in the reader panel. Try bookmarking a file or switching to fullscreen mode for focused reading."
+      }
+    ],
+    previewPanels: [
+      { label: "Folders", iconName: "Folder" },
+      { label: "Reader", iconName: "Book" },
+      { label: "Search", iconName: "Search" }
+    ]
+  },
+  {
     id: "sm-pred",
     batchId: "BATCH_01",
     index: "00",
@@ -12,7 +58,7 @@ export const projects: Project[] = [
     longDescription: "Groundwater Analytics is a professional Business Intelligence (BI) dashboard that transforms raw exploratory data into actionable environmental insights. Built with Streamlit and Plotly, it features domain-specific feature engineering—like Usage Intensity and Recharge Efficiency—to predict water stress levels and allow stakeholders to simulate 'What-If' scenarios for sustainable water management.",
     techStack: ["Python", "Streamlit", "Plotly", "Scikit-Learn", "Pandas", "Joblib"],
     demoKind: "sm-pred",
-    repoUrl: "https://github.com/ajay99511/SM_Pred",
+    repoUrl: "https://github.com/ajay99511/Soil-Moisture-Prediction",
     highlights: [
       "Interactive Scenario Analysis tool for simulating environmental impact.",
       "Domain-specific feature engineering improving model ROC-AUC and interpretability.",
@@ -104,7 +150,7 @@ export const projects: Project[] = [
     longDescription: "This project implements a high-recall machine learning pipeline for diabetes diagnosis using the PIMA Indians dataset. It features Bayesian optimization with Optuna, SMOTE for class imbalance, and SHAP (Explainable AI) to provide medical reasoning for every prediction, identifying the top physiological risk drivers for each patient.",
     techStack: ["Python", "FastAPI", "XGBoost", "Optuna", "SHAP", "Docker"],
     demoKind: "db-pred",
-    repoUrl: "https://github.com/ajay99511/Db_pred",
+    repoUrl: "https://github.com/ajay99511/Diabetes-Prediction",
     highlights: [
       "Optimized for 83.4% ROC-AUC using Bayesian hyperparameter search.",
       "Integrated SHAP (XAI) to provide transparent, human-readable medical reasoning.",
@@ -143,14 +189,14 @@ export const projects: Project[] = [
     id: "repo-pulse",
     batchId: "BATCH_01",
     index: "00",
-    pinned: true,
+    pinned: false,
     title: "RepoPulse",
     subtitle: "GitHub Repository Manager",
     description: "A premium repository management dashboard with custom spaces and local directory binding.",
     longDescription: "RepoPulse is a sleek, dark-themed Next.js dashboard designed to organize GitHub repositories into customizable 'Spaces'. It features a command palette, local VS Code directory binding, advanced filtering, and a serverless Gist-based sync mechanism for configuration roaming.",
     techStack: ["Next.js", "React", "Tailwind CSS", "Zustand", "NextAuth", "Framer Motion"],
     demoKind: "repo-pulse",
-    repoUrl: "https://github.com/ajay99511/repo_pulse",
+    repoUrl: "https://github.com/ajay99511/RepoPulse",
     highlights: [
       "Custom 'Spaces' organization system to group related repositories.",
       "Local machine path binding to quickly open repos in VS Code.",
@@ -446,6 +492,7 @@ export const projects: Project[] = [
     longDescription: "This repository houses a comprehensive suite of Deep Learning algorithms built from scratch using PyTorch. It features a complete pipeline from foundational Multi-Layer Perceptrons to complex architectures like GPT-style Causal Self-Attention models, Vision Transformers (ViT), and advanced alignment techniques including Supervised Fine-Tuning (SFT) and Reinforcement Learning from Human Feedback (RLHF).",
     techStack: ["Python", "PyTorch", "Transformers", "Hypothesis", "Machine Learning"],
     demoKind: "dl-algorithms",
+    repoUrl: "https://github.com/ajay99511/DL_Algorithms",
     highlights: [
       "Config-driven training loops with structured JSONL logging and checkpointing.",
       "Custom implementation of Multi-head Causal Self-Attention and Vision Transformers.",
