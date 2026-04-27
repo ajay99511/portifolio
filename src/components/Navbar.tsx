@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Code, UserCircle, Share2 } from "lucide-react";
+import { Github, Linkedin, Code } from "lucide-react";
 import { profile } from "@/lib/profile";
 
 const Navbar = () => {
@@ -12,21 +12,20 @@ const Navbar = () => {
       </Link>
 
       <div className="flex items-center gap-6">
-        <div className="hidden md:flex gap-6 font-mono text-sm uppercase tracking-widest text-zinc-400">
+        <div className="hidden md:flex gap-6 font-mono text-sm uppercase tracking-widest text-zinc-400">        
           <Link href="/#expertise" className="hover:text-white transition-colors">Expertise</Link>
           <Link href="/#archive" className="hover:text-white transition-colors">Archive</Link>
           <Link href="/projects" className="hover:text-white transition-colors">Projects</Link>
           <Link href="/#timeline" className="hover:text-white transition-colors">Timeline</Link>
         </div>
-        
+
         <div className="flex items-center gap-4 text-zinc-400">
-          <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Code size={20} /></a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><UserCircle size={20} /></a>
-          <a href={profile.leetcode} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Share2 size={20} /></a>
+          <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Github size={20} /></a>
+          <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Linkedin size={20} /></a>
+          <a href={profile.leetcode} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Code size={20} /></a>
         </div>
       </div>
     </nav>
   );
 };
-
 export default Navbar;
