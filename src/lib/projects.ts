@@ -48,6 +48,52 @@ export const projects: Project[] = [
     ]
   },
   {
+    id: "gitscripe",
+    batchId: "BATCH_01",
+    index: "00",
+    pinned: true,
+    title: "GitScripe",
+    subtitle: "Agentic Git Intelligence",
+    description: "An AI-powered Git repository analyzer that generates hierarchical commit summaries and enables context-aware repository chat.",
+    longDescription: "GitScripe is an agentic platform designed to transform raw Git history into structured intelligence. It utilizes a multi-agent pipeline (DiffAnalyzer, SummaryAgent, CriticAgent) to process commits, infer developer intent, and assess risk levels. Featuring a GitHub-inspired dark UI, it allows teams to quickly understand complex changes and interact with their codebase through a RAG-powered chat interface.",
+    techStack: ["Node.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "Redis", "Ollama"],
+    demoKind: "gitscripe",
+    repoUrl: "https://github.com/ajay99511/GitScripe",
+    highlights: [
+      "Multi-agent LLM pipeline for high-fidelity commit analysis and intent inference.",
+      "Hierarchical summaries with module-level grouping and automated risk assessment.",
+      "Context-aware RAG chat interface for querying repository history and architecture.",
+      "Real-time sync progress with background worker orchestration via Redis/BullMQ."
+    ],
+    stats: {
+      nodes: 12,
+      complexity: "Agentic Workflows + RAG",
+    },
+    contextBanner: {
+      challenge: "Understanding large, fast-moving repositories and their commit history is time-consuming and prone to missing critical context.",
+      solution: "An agentic system that automatically distills repository changes into searchable intelligence and interactive context."
+    },
+    quickStartSteps: [
+      {
+        title: "Discover Repositories",
+        description: "Browse your GitHub repositories and sync them to start the agentic analysis pipeline."
+      },
+      {
+        title: "Analyze Commit Intelligence",
+        description: "Explore hierarchical summaries that infer developer intent, track file changes, and highlight security risks."
+      },
+      {
+        title: "Chat with Codebase",
+        description: "Use the built-in AI assistant to ask questions about the repository's history, specific changes, or architectural decisions."
+      }
+    ],
+    previewPanels: [
+      { label: "Summaries", iconName: "MessageSquare" },
+      { label: "Insights", iconName: "ShieldCheck" },
+      { label: "Chat", iconName: "Search" }
+    ]
+  },
+  {
     id: "db-pred",
     batchId: "BATCH_01",
     index: "00",
@@ -143,7 +189,7 @@ export const projects: Project[] = [
     id: "icm-fraud-detection",
     batchId: "BATCH_01",
     index: "00",
-    pinned: true,
+    pinned: false,
     title: "ICM Fraud Detection",
     subtitle: "Real-time ML Scoring Service",
     description: "Production-grade fraud detection system leveraging XGBoost and FastAPI for sub-100ms transaction scoring.",
@@ -189,7 +235,7 @@ export const projects: Project[] = [
     id: "chronos-planner",
     batchId: "BATCH_01",
     index: "01",
-    pinned: true,
+    pinned: false,
     title: "Chronos Planner",
     subtitle: "Desktop-first productivity planner",
     description:
@@ -244,7 +290,7 @@ export const projects: Project[] = [
     id: "dayvault-memory-palace",
     batchId: "BATCH_01",
     index: "02",
-    pinned: true,
+    pinned: false,
     title: "DayVault (Memory Palace)",
     subtitle: "Secure offline journaling platform",
     description:
@@ -299,7 +345,7 @@ export const projects: Project[] = [
     id: "fastbeat-media-player",
     batchId: "BATCH_01",
     index: "03",
-    pinned: true,
+    pinned: false,
     title: "FastBeat Media Player",
     subtitle: "Premium offline media player",
     description:
@@ -348,7 +394,7 @@ export const projects: Project[] = [
     id: "personal-assist",
     batchId: "BATCH_01",
     index: "04",
-    pinned: true,
+    pinned: false,
     title: "Personal Agent Workbench",
     subtitle: "Local AI Desktop Environment",
     description: "A Tauri-based desktop application providing a unified interface for local AI models, agentic workflows, and workspace management.",

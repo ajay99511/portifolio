@@ -12,6 +12,7 @@ import RepoPulseDemo from "@/components/demos/RepoPulseDemo";
 import ICMFraudDetectionDemo from "@/components/demos/ICMFraudDetectionDemo";
 import DbPredDemo from "@/components/demos/DbPredDemo";
 import SMPredDemo from "@/components/demos/SMPredDemo";
+import GitScripeDemo from "@/components/demos/GitScripeDemo";
 
 interface ProjectInteractiveViewProps {
   project: Project;
@@ -44,6 +45,9 @@ function renderDemo(project: Project) {
   }
   if (project.demoKind === "sm-pred") {
     return <SMPredDemo />;
+  }
+  if (project.demoKind === "gitscripe") {
+    return <GitScripeDemo />;
   }
   return (
     <div className="h-full border border-zinc-800 rounded-lg p-6 text-zinc-400 font-mono text-xs uppercase tracking-widest">
