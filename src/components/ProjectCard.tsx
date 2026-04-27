@@ -35,6 +35,8 @@ import {
   Search,
   Folder,
   Book,
+  Users,
+  Shield,
 } from "lucide-react";
 import type { PreviewPanel, Project } from "@/types";
 
@@ -67,6 +69,8 @@ const iconMap: Record<string, typeof CalendarDays> = {
   Search,
   Folder,
   Book,
+  Users,
+  Shield,
 };
 
 function DemoPreviewStrip({ panels }: { panels: PreviewPanel[] }) {

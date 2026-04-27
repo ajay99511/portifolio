@@ -14,6 +14,7 @@ import DbPredDemo from "@/components/demos/DbPredDemo";
 import SMPredDemo from "@/components/demos/SMPredDemo";
 import GitScripeDemo from "@/components/demos/GitScripeDemo";
 import MdExplorerDemo from "@/components/demos/MdExplorerDemo";
+import SocialNetworkDemo from "@/components/demos/SocialNetworkDemo";
 
 interface ProjectInteractiveViewProps {
   project: Project;
@@ -52,6 +53,9 @@ function renderDemo(project: Project) {
   }
   if (project.demoKind === "md-explorer") {
     return <MdExplorerDemo />;
+  }
+  if (project.demoKind === "social-network") {
+    return <SocialNetworkDemo />;
   }
   return (
     <div className="h-full border border-zinc-800 rounded-lg p-6 text-zinc-400 font-mono text-xs uppercase tracking-widest">

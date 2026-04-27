@@ -2,6 +2,52 @@ import { Project } from "@/types";
 
 export const projects: Project[] = [
   {
+    id: "social-network",
+    batchId: "BATCH_01",
+    index: "00",
+    pinned: true,
+    title: "SocialNetwork",
+    subtitle: "Enterprise Full-Stack Social Platform",
+    description: "A comprehensive social networking platform built with Angular and a high-performance ASP.NET Core Web API.",
+    longDescription: "SocialNetwork is a production-grade dating and social application featuring real-time messaging, secure authentication, and complex user relationship management. The backend is architected with ASP.NET Core, utilizing the Repository pattern and Unit of Work for robust data access, while the frontend leverages Angular's reactive components and shared services to provide a seamless user experience.",
+    techStack: ["C#", ".NET Core 8", "Angular 18", "SQL Server", "SignalR", "Cloudinary"],
+    demoKind: "social-network",
+    repoUrl: "https://github.com/ajay99511/Social_Networking_Application",
+    highlights: [
+      "Architected a scalable REST API using ASP.NET Core and Entity Framework Core.",
+      "Implemented real-time messaging and notifications with SignalR web sockets.",
+      "Built a secure JWT-based authentication system with ASP.NET Core Identity.",
+      "Developed a responsive, feature-rich frontend using Angular with reactive forms and resolvers."
+    ],
+    stats: {
+      nodes: 8,
+      complexity: "Enterprise Full-Stack",
+    },
+    contextBanner: {
+      challenge: "Building a high-performance social platform requires low-latency communication and a strictly typed, secure backend.",
+      solution: "Leveraged C#/.NET for a type-safe, high-throughput API integrated with an Angular reactive frontend."
+    },
+    quickStartSteps: [
+      {
+        title: "Login and Authenticate",
+        description: "Experience the secure login flow which connects to the .NET Identity backend and retrieves a JWT Bearer token."
+      },
+      {
+        title: "Explore Members",
+        description: "Browse the member list with server-side pagination and view detailed profiles fetched via efficient SQL Server queries."
+      },
+      {
+        title: "Real-time Messaging",
+        description: "Test the messaging interface powered by SignalR, enabling instant data synchronization between users."
+      }
+    ],
+    previewPanels: [
+      { label: "Real-time", iconName: "MessageSquare" },
+      { label: "Security", iconName: "Shield" },
+      { label: "Full-Stack", iconName: "Users" }
+    ]
+  },
+  {
     id: "md-explorer",
     batchId: "BATCH_01",
     index: "00",
@@ -143,7 +189,7 @@ export const projects: Project[] = [
     id: "db-pred",
     batchId: "BATCH_01",
     index: "00",
-    pinned: true,
+    pinned: false,
     title: "Diabetes XAI API",
     subtitle: "Explainable Medical ML",
     description: "Production-grade diabetes prediction API using XGBoost and SHAP for transparent medical diagnostics.",
