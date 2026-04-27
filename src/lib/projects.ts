@@ -48,6 +48,52 @@ export const projects: Project[] = [
     ]
   },
   {
+    id: "icm-fraud-detection",
+    batchId: "BATCH_01",
+    index: "00",
+    pinned: true,
+    title: "ICM Fraud Detection",
+    subtitle: "Real-time ML Scoring Service",
+    description: "Production-grade fraud detection system leveraging XGBoost and FastAPI for sub-100ms transaction scoring.",
+    longDescription: "ICM Fraud Detection is a high-performance machine learning service built to identify fraudulent financial transactions in real-time. Using the IEEE-CIS dataset, it implements a complete pipeline from feature engineering and class-imbalance handling to a container-ready REST API. The system focuses on low-latency inference and high ROC-AUC, simulating the core decision engine of major payment processors.",
+    techStack: ["Python", "FastAPI", "XGBoost", "Pandas", "Scikit-learn", "Joblib"],
+    demoKind: "icm-fraud-detection",
+    repoUrl: "https://github.com/ajay99511/ICM_Fraud_Detection",
+    highlights: [
+      "Sub-100ms inference latency optimized for real-time payment processing.",
+      "Advanced XGBoost configuration with scale_pos_weight for 30x class imbalance.",
+      "Stateless inference pipeline ensuring feature parity via persistent encoders.",
+      "Production-ready REST API with Pydantic validation and batch scoring."
+    ],
+    stats: {
+      nodes: 4,
+      complexity: "MLOps + Inference",
+    },
+    contextBanner: {
+      challenge: "High-volume card transactions require millisecond-level fraud decisions without sacrificing precision or handling extreme class imbalance.",
+      solution: "An end-to-end ML scoring service with schema-aligned inference, XGBoost optimization, and a production-grade FastAPI interface."
+    },
+    quickStartSteps: [
+      {
+        title: "Inference Pipeline",
+        description: "Examine the preprocessing logic that handles categorical encoding and numeric imputation with training-time parity."
+      },
+      {
+        title: "XGBoost Training",
+        description: "Review the model trainer's configuration for handling extreme class imbalance using scale_pos_weight and AUC metrics."
+      },
+      {
+        title: "REST API",
+        description: "Test the FastAPI endpoints for single and batch fraud predictions with Pydantic validation."
+      }
+    ],
+    previewPanels: [
+      { label: "Real-time", iconName: "Activity" },
+      { label: "Prevention", iconName: "ShieldCheck" },
+      { label: "Data", iconName: "Database" }
+    ]
+  },
+  {
     id: "chronos-planner",
     batchId: "BATCH_01",
     index: "01",
