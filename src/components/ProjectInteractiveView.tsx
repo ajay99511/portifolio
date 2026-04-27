@@ -11,6 +11,7 @@ import DLAlgorithmsDemo from "@/components/demos/DLAlgorithmsDemo";
 import RepoPulseDemo from "@/components/demos/RepoPulseDemo";
 import ICMFraudDetectionDemo from "@/components/demos/ICMFraudDetectionDemo";
 import DbPredDemo from "@/components/demos/DbPredDemo";
+import SMPredDemo from "@/components/demos/SMPredDemo";
 
 interface ProjectInteractiveViewProps {
   project: Project;
@@ -40,6 +41,9 @@ function renderDemo(project: Project) {
   }
   if (project.demoKind === "db-pred") {
     return <DbPredDemo />;
+  }
+  if (project.demoKind === "sm-pred") {
+    return <SMPredDemo />;
   }
   return (
     <div className="h-full border border-zinc-800 rounded-lg p-6 text-zinc-400 font-mono text-xs uppercase tracking-widest">

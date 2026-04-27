@@ -29,6 +29,9 @@ import {
   LayoutGrid,
   FolderPlus,
   Settings,
+  Layout,
+  Droplets,
+  TrendingUp,
 } from "lucide-react";
 import type { PreviewPanel, Project } from "@/types";
 
@@ -55,6 +58,9 @@ const iconMap: Record<string, typeof CalendarDays> = {
   LayoutGrid,
   FolderPlus,
   Settings,
+  Layout,
+  Droplets,
+  TrendingUp,
 };
 
 function DemoPreviewStrip({ panels }: { panels: PreviewPanel[] }) {

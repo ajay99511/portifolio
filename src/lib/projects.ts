@@ -2,6 +2,52 @@ import { Project } from "@/types";
 
 export const projects: Project[] = [
   {
+    id: "sm-pred",
+    batchId: "BATCH_01",
+    index: "00",
+    pinned: true,
+    title: "Groundwater Analytics",
+    subtitle: "Environmental BI Dashboard",
+    description: "Interactive analytics platform for groundwater stress prediction and scenario simulation using Random Forest.",
+    longDescription: "Groundwater Analytics is a professional Business Intelligence (BI) dashboard that transforms raw exploratory data into actionable environmental insights. Built with Streamlit and Plotly, it features domain-specific feature engineering—like Usage Intensity and Recharge Efficiency—to predict water stress levels and allow stakeholders to simulate 'What-If' scenarios for sustainable water management.",
+    techStack: ["Python", "Streamlit", "Plotly", "Scikit-Learn", "Pandas", "Joblib"],
+    demoKind: "sm-pred",
+    repoUrl: "https://github.com/ajay99511/SM_Pred",
+    highlights: [
+      "Interactive Scenario Analysis tool for simulating environmental impact.",
+      "Domain-specific feature engineering improving model ROC-AUC and interpretability.",
+      "Dynamic Plotly visualizations for spatial and temporal trend analysis.",
+      "Explainable AI integration showcasing top physiological stress drivers."
+    ],
+    stats: {
+      nodes: 4,
+      complexity: "BI + Predictive Analytics",
+    },
+    contextBanner: {
+      challenge: "Environmental data is often fragmented and volumetric, making it difficult for policymakers to assess real-time water stress.",
+      solution: "A unified BI dashboard that translates raw volumes into intensity ratios and provides interactive scenario planning."
+    },
+    quickStartSteps: [
+      {
+        title: "Explore the Dashboard",
+        description: "Examine the Streamlit interface and interactive Plotly charts showing state-wise groundwater distribution."
+      },
+      {
+        title: "Engineer Domain Features",
+        description: "Review the training logic that transforms raw rainfall and usage data into robust stress indicators."
+      },
+      {
+        title: "Simulate Scenarios",
+        description: "Use the 'What-If' analysis tool to adjust rainfall and usage parameters and see the real-time impact on predictions."
+      }
+    ],
+    previewPanels: [
+      { label: "Dashboard", iconName: "Layout" },
+      { label: "Analytics", iconName: "TrendingUp" },
+      { label: "Insights", iconName: "Droplets" }
+    ]
+  },
+  {
     id: "db-pred",
     batchId: "BATCH_01",
     index: "00",
