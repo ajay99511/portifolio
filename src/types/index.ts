@@ -22,7 +22,7 @@ export interface Project {
   description: string;
   longDescription: string;
   techStack: string[];
-  demoKind: "chronos" | "dayvault" | "generic" | "fastbeat" | "personal-assist" | "dl-algorithms" | "repo-pulse" | "icm-fraud-detection";
+  demoKind: "chronos" | "dayvault" | "generic" | "fastbeat" | "personal-assist" | "dl-algorithms" | "repo-pulse" | "icm-fraud-detection" | "db-pred";
   pinned?: boolean;
   repoUrl?: string;
   highlights: string[];

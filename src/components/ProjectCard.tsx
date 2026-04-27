@@ -20,6 +20,15 @@ import {
   TerminalSquare,
   Code2,
   Network,
+  Microscope,
+  BrainCircuit,
+  Server,
+  Activity,
+  ShieldCheck,
+  Database,
+  LayoutGrid,
+  FolderPlus,
+  Settings,
 } from "lucide-react";
 import type { PreviewPanel, Project } from "@/types";
 
@@ -37,6 +46,15 @@ const iconMap: Record<string, typeof CalendarDays> = {
   TerminalSquare,
   Code2,
   Network,
+  Microscope,
+  BrainCircuit,
+  Server,
+  Activity,
+  ShieldCheck,
+  Database,
+  LayoutGrid,
+  FolderPlus,
+  Settings,
 };
 
 function DemoPreviewStrip({ panels }: { panels: PreviewPanel[] }) {

@@ -2,6 +2,52 @@ import { Project } from "@/types";
 
 export const projects: Project[] = [
   {
+    id: "db-pred",
+    batchId: "BATCH_01",
+    index: "00",
+    pinned: true,
+    title: "Diabetes XAI API",
+    subtitle: "Explainable Medical ML",
+    description: "Production-grade diabetes prediction API using XGBoost and SHAP for transparent medical diagnostics.",
+    longDescription: "This project implements a high-recall machine learning pipeline for diabetes diagnosis using the PIMA Indians dataset. It features Bayesian optimization with Optuna, SMOTE for class imbalance, and SHAP (Explainable AI) to provide medical reasoning for every prediction, identifying the top physiological risk drivers for each patient.",
+    techStack: ["Python", "FastAPI", "XGBoost", "Optuna", "SHAP", "Docker"],
+    demoKind: "db-pred",
+    repoUrl: "https://github.com/ajay99511/Db_pred",
+    highlights: [
+      "Optimized for 83.4% ROC-AUC using Bayesian hyperparameter search.",
+      "Integrated SHAP (XAI) to provide transparent, human-readable medical reasoning.",
+      "Advanced data pipeline with KNNImputation and SMOTE over-sampling.",
+      "Containerized FastAPI service with full Pydantic data validation."
+    ],
+    stats: {
+      nodes: 5,
+      complexity: "Medical ML + XAI",
+    },
+    contextBanner: {
+      challenge: "Medical AI requires high transparency and recall to be trusted by clinicians and avoid missed diagnoses.",
+      solution: "A production-grade API combining high-performance XGBoost with SHAP explainability for clear diagnostic reasoning."
+    },
+    quickStartSteps: [
+      {
+        title: "Bayesian Optimization",
+        description: "Watch Optuna explore the hyperparameter space to find the optimal XGBoost configuration for medical recall."
+      },
+      {
+        title: "Explainable Diagnosis",
+        description: "Test the inference endpoint and view the SHAP-driven medical analysis identifying top risk factors."
+      },
+      {
+        title: "Cloud Deployment",
+        description: "Examine the Docker configuration ensuring the complex ML stack is portable and scalable."
+      }
+    ],
+    previewPanels: [
+      { label: "Diagnostics", iconName: "Microscope" },
+      { label: "Reasoning", iconName: "BrainCircuit" },
+      { label: "Deployment", iconName: "Server" }
+    ]
+  },
+  {
     id: "repo-pulse",
     batchId: "BATCH_01",
     index: "00",

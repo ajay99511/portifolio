@@ -10,6 +10,7 @@ import PersonalAssistDemo from "@/components/demos/PersonalAssistDemo";
 import DLAlgorithmsDemo from "@/components/demos/DLAlgorithmsDemo";
 import RepoPulseDemo from "@/components/demos/RepoPulseDemo";
 import ICMFraudDetectionDemo from "@/components/demos/ICMFraudDetectionDemo";
+import DbPredDemo from "@/components/demos/DbPredDemo";
 
 interface ProjectInteractiveViewProps {
   project: Project;
@@ -36,6 +37,9 @@ function renderDemo(project: Project) {
   }
   if (project.demoKind === "icm-fraud-detection") {
     return <ICMFraudDetectionDemo />;
+  }
+  if (project.demoKind === "db-pred") {
+    return <DbPredDemo />;
   }
   return (
     <div className="h-full border border-zinc-800 rounded-lg p-6 text-zinc-400 font-mono text-xs uppercase tracking-widest">
