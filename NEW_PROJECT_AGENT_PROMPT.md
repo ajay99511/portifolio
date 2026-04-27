@@ -7,27 +7,42 @@ Copy the prompt below and provide it to the AI agent whenever you want to add a 
 
 ## The Prompt
 
-**Goal:** Integrate a new project into the portfolio website by creating a highly faithful, interactive UI replica and registering it within the portfolio's data structures.
+**Goal:** Integrate a new project into the portfolio website by creating a highly faithful, interactive UI replica (or Technical Showcase) and registering it within the portfolio's data structures.
 
 **Target Project Path:** `[INSERT_PROJECT_PATH_HERE]`
 **Portfolio Path:** (The current working directory)
 
 Please execute the following steps meticulously:
 
-### Phase 1: Deep Source Code Analysis
-The target project might be built in any technology (Android/Kotlin, Flutter/Dart, React, etc.). You must study its actual source code before writing any UI code for the portfolio demo.
+### Phase 1: Deep Source Code Analysis & Archetype Selection
+The target project might be built in any technology. You must study its actual source code before writing any code for the portfolio demo.
 
-1. **Explore the Architecture:** Scan the target project directory to locate the UI layer, theme definitions, and navigation structure.
-2. **Extract Theme Tokens:** Find the exact color palettes (Hex/RGB values), typography scales, and gradient brushes used in the app. **Do not guess or invent colors.** You must map the exact source colors to CSS styles.
-3. **Map the Navigation:** Understand the routing hierarchy. Does it use bottom tabs? A sidebar? Swipeable pagers? Document this structure.
-4. **Study Key Screens:** Identify the 3-4 most important screens that convey the app's core functionality. Analyze their layout patterns, padding, component shapes (e.g., border radius, shadows), and interactive elements.
+1. **Determine the Archetype:**
+   - **UI Application:** Is it an Android/Kotlin, Flutter/Dart, iOS, or React app with a distinct graphical interface?
+   - **Non-UI / Algorithmic:** Is it a Deep Learning repo, backend API, CLI tool, or headless framework?
+2. **If UI Application:**
+   - Extract Theme Tokens: Find exact color palettes (Hex/RGB), typography scales, and gradients. **Do not guess colors.** Map source colors to CSS styles.
+   - Map Navigation: Understand the routing hierarchy (bottom tabs, sidebar, pagers).
+   - Study Key Screens: Analyze layout patterns, padding, shapes, and interactive elements.
+3. **If Non-UI / Algorithmic:**
+   - Explore the core algorithmic logic (e.g., neural network architectures, API endpoints).
+   - Identify the 3 most complex/impressive source files to showcase.
+   - Extract sample log outputs, terminal metrics, or JSON responses to use in the mock terminal.
 
-### Phase 2: Build the Faithful UI Replica
+### Phase 2: Build the Demo Component
 Create a standalone React component (e.g., `src/components/demos/MyProjectDemo.tsx`) that acts as an interactive demo of the target project.
 
+**If UI Application (Faithful UI Replica):**
 1. **Strict Fidelity:** The demo MUST look and feel exactly like the real application. Apply the exact color hex codes, layout structures, and navigation models extracted in Phase 1.
-2. **Self-Contained State:** Use React state (`useState`) to mock interactions, navigation between tabs/screens, and core flows.
-3. **QuickStart Integration:** Import and render the `DemoQuickStart` component to provide a guided tour of the replica.
+2. **Self-Contained State:** Use React state (`useState`) to mock interactions and navigation.
+
+**If Non-UI / Algorithmic (Technical Showcase):**
+1. **Simulated IDE Environment:** Build a glassmorphic VS Code-style editor layout.
+2. **File Explorer & Code Viewer:** Create a left sidebar file tree and a main panel displaying syntax-highlighted code snippets from the most complex files extracted in Phase 1.
+3. **Simulated Terminal:** Build a terminal panel at the bottom streaming dynamic, mock execution logs (e.g., PyTorch training loss, cURL requests) relevant to the project type.
+
+**For Both Archetypes:**
+- Import and render the `DemoQuickStart` component to provide a guided tour of the replica/showcase.
 
 ### Phase 3: Portfolio Integration
 Follow the canonical rules defined in `PROJECT_TEMPLATE.md` to register the new project.
@@ -49,4 +64,4 @@ Follow the canonical rules defined in `PROJECT_TEMPLATE.md` to register the new 
 3. Verify the project appears on the `/projects` gallery page.
 4. If `pinned: true` was set, verify it appears in the Pinned Works section on the homepage (max 4 total).
 
-**Remember:** Do not create a generic or "placeholder" UI. The success of this integration depends entirely on how accurately the web demo mimics the target project's actual source code design.
+**Remember:** The success of this integration depends entirely on how accurately the web demo mimics the target project's actual UI, or how impressively it showcases the backend code in the IDE simulator.

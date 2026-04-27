@@ -206,18 +206,52 @@ export const projects: Project[] = [
       { label: "Agents", iconName: "Cpu" },
     ],
   },
+  {
+    id: "dl-algorithms",
+    batchId: "BATCH_01",
+    index: "05",
+    title: "Deep Learning Mastery",
+    subtitle: "PyTorch Curriculum & Algorithms",
+    description: "A research-grade deep learning curriculum covering MLPs, Transformers, Vision Models, and RLHF—all optimized for CPU training.",
+    longDescription: "This repository houses a comprehensive suite of Deep Learning algorithms built from scratch using PyTorch. It features a complete pipeline from foundational Multi-Layer Perceptrons to complex architectures like GPT-style Causal Self-Attention models, Vision Transformers (ViT), and advanced alignment techniques including Supervised Fine-Tuning (SFT) and Reinforcement Learning from Human Feedback (RLHF).",
+    techStack: ["Python", "PyTorch", "Transformers", "Hypothesis", "Machine Learning"],
+    demoKind: "dl-algorithms",
+    highlights: [
+      "Config-driven training loops with structured JSONL logging and checkpointing.",
+      "Custom implementation of Multi-head Causal Self-Attention and Vision Transformers.",
+      "Complete RLHF pipeline with Reward Modeling and PPO.",
+      "Property-based testing suite using Hypothesis to verify correctness.",
+    ],
+    stats: {
+      nodes: 6,
+      complexity: "Model Architectures & Training",
+    },
+    contextBanner: {
+      challenge: "Understanding complex deep learning architectures requires looking beneath high-level framework abstractions",
+      solution: "A transparent, thoroughly documented set of raw model implementations and training loops built from first principles",
+    },
+    quickStartSteps: [
+      {
+        title: "Explore the Architectures",
+        description: "Browse the file tree to discover implementations of GPT-style pre-training, SFT/RLHF alignment, and Vision Transformers.",
+      },
+      {
+        title: "Examine the Code",
+        description: "Review the syntax-highlighted code for the CausalSelfAttention layer, showcasing fused QKV projections and causal masking.",
+      },
+      {
+        title: "Run the Training Loop",
+        description: "Click 'Run Model' to simulate a PyTorch training session and watch the loss metrics decrease in the terminal output.",
+      },
+    ],
+    previewPanels: [
+      { label: "Training", iconName: "TerminalSquare" },
+      { label: "Algorithms", iconName: "Code2" },
+      { label: "Models", iconName: "Network" },
+    ],
+  },
 ];
 
 export function getProjectById(id: string) {
   return projects.find((project) => project.id === id);
-}
-
-/** Returns up to 4 pinned projects, preserving array order. */
-export function getPinnedProjects(): Project[] {
-  return projects.filter((p) => p.pinned === true).slice(0, 4);
-}
-
-/** Returns every project in display order. */
-export function getAllProjects(): Project[] {
-  return projects;
 }

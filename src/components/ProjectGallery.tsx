@@ -3,11 +3,13 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, Layers } from "lucide-react";
-import { getAllProjects } from "@/lib/projects";
+import { projects } from "@/lib/projects";
 import ProjectCard from "@/components/ProjectCard";
+import { usePinnedProjects } from "@/hooks/usePinnedProjects";
 
 export default function ProjectGallery() {
-  const allProjects = getAllProjects();
+  const allProjects = projects;
+  const { pinnedIds, togglePin, isMounted, isPinned } = usePinnedProjects();
 
   return (
     <section className="min-h-screen pt-24 pb-16 px-6 md:px-24">
@@ -50,7 +52,9 @@ export default function ProjectGallery() {
               key={project.id}
               project={project}
               index={idx}
-              showPinnedBadge
+              isPinned={isMounted ? isPinned(project.id) : project.pinned}
+              onTogglePin={() => togglePin(project.id)}
+              isInteractivePin={true}
             />
           ))}
         </div>

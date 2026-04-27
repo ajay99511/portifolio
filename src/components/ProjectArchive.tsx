@@ -3,13 +3,20 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Layers } from "lucide-react";
-import { getPinnedProjects, projects } from "@/lib/projects";
+import { projects } from "@/lib/projects";
 import ProjectCard from "@/components/ProjectCard";
+import { usePinnedProjects } from "@/hooks/usePinnedProjects";
 
 const ProjectArchive = () => {
-  const pinnedProjects = getPinnedProjects();
+  const { pinnedIds, togglePin, isMounted, isPinned } = usePinnedProjects();
   const totalCount = projects.length;
-  const hasPinned = pinnedProjects.length > 0;
+  
+  // For SSR, default to first 4 projects. On client, use pinnedIds.
+  const displayProjects = isMounted 
+    ? projects.filter(p => pinnedIds.includes(p.id))
+    : projects.slice(0, 4);
+
+  const hasPinned = displayProjects.length > 0;
 
   return (
     <section id="archive" className="py-24 px-6 md:px-24">
@@ -20,15 +27,22 @@ const ProjectArchive = () => {
           </h2>
           <h3 className="text-4xl font-bold uppercase tracking-tighter">Featured Projects</h3>
           <p className="text-zinc-500 text-sm font-mono mt-2 uppercase tracking-wider">
-            {pinnedProjects.length} of {totalCount} projects
+            {displayProjects.length} of {totalCount} projects
           </p>
         </div>
       </div>
 
       {hasPinned ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {pinnedProjects.map((project, idx) => (
-            <ProjectCard key={project.id} project={project} index={idx} />
+          {displayProjects.map((project, idx) => (
+            <ProjectCard 
+              key={project.id} 
+              project={project} 
+              index={idx} 
+              isPinned={isMounted ? isPinned(project.id) : true}
+              onTogglePin={() => togglePin(project.id)}
+              isInteractivePin={true}
+            />
           ))}
         </div>
       ) : (

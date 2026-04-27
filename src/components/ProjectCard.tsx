@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 import {
   ArrowUpRight,
   BarChart3,
@@ -16,6 +17,9 @@ import {
   MessageSquare,
   FolderKey,
   Cpu,
+  TerminalSquare,
+  Code2,
+  Network,
 } from "lucide-react";
 import type { PreviewPanel, Project } from "@/types";
 
@@ -30,6 +34,9 @@ const iconMap: Record<string, typeof CalendarDays> = {
   MessageSquare,
   FolderKey,
   Cpu,
+  TerminalSquare,
+  Code2,
+  Network,
 };
 
 function DemoPreviewStrip({ panels }: { panels: PreviewPanel[] }) {
@@ -59,9 +66,19 @@ interface ProjectCardProps {
   project: Project;
   index: number;
   showPinnedBadge?: boolean;
+  isPinned?: boolean;
+  onTogglePin?: () => void;
+  isInteractivePin?: boolean;
 }
 
-export default function ProjectCard({ project, index, showPinnedBadge = false }: ProjectCardProps) {
+export default function ProjectCard({ 
+  project, 
+  index, 
+  showPinnedBadge = false,
+  isPinned = false,
+  onTogglePin,
+  isInteractivePin = false
+}: ProjectCardProps) {
   return (
     <motion.article
       key={project.id}
@@ -76,7 +93,26 @@ export default function ProjectCard({ project, index, showPinnedBadge = false }:
           <span className="font-mono text-[10px] text-zinc-600 tracking-widest uppercase">
             {project.batchId} {" // "} #{project.index}
           </span>
-          {showPinnedBadge && project.pinned && (
+          {isInteractivePin ? (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                onTogglePin?.();
+              }}
+              className={cn(
+                "inline-flex items-center gap-1 px-2 py-1 rounded-full border transition-all duration-300",
+                isPinned
+                  ? "bg-brand-orange/10 border-brand-orange/20 text-brand-orange hover:bg-brand-orange/20"
+                  : "bg-zinc-900/40 border-zinc-800 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600"
+              )}
+              title={isPinned ? "Unpin project" : "Pin project (max 4)"}
+            >
+              <Pin size={10} className={isPinned ? "fill-brand-orange text-brand-orange" : ""} />
+              <span className="font-mono text-[9px] uppercase tracking-wider">
+                {isPinned ? "Pinned" : "Pin"}
+              </span>
+            </button>
+          ) : showPinnedBadge && isPinned && (
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand-orange/10 border border-brand-orange/20">
               <Pin size={10} className="text-brand-orange" />
               <span className="font-mono text-[9px] uppercase tracking-wider text-brand-orange">Pinned</span>

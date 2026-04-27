@@ -22,15 +22,21 @@
 
 > ⚠️ **This is the most critical step.** The interactive demo must look and behave like the real application. You MUST study the source code first — never invent a UI from scratch.
 
-### 1.1 Discovery Phase
+### 1.1 Discovery Phase & Archetype Selection
 
-Given a project path (e.g., `C:\Users\ajaye\AndroidStudioProjects\OfflineMediaPlayer\...`), you must:
+Given a project path (e.g., `C:\Users\ajaye\AndroidStudioProjects\OfflineMediaPlayer\...` or `C:\github\DL_Algorithms`), you must first determine the project archetype:
 
-1. **Map the project structure** — List all directories to understand architecture layers (UI, data, navigation, theme, etc.)
-2. **Identify the UI entry point** — Find `MainScreen`, `MainActivity`, `App.tsx`, or equivalent root composable/widget/component
-3. **Extract navigation structure** — Determine all tabs, screens, and routing hierarchy from navigation host files
-4. **Read theme files completely** — Extract exact color values, typography scales, and semantic tokens (e.g., `DarkSurfaceBase = #141418`)
-5. **Read all major UI screen files** — Understand layout structure, component hierarchy, and styling for every screen the demo will replicate
+**Option A: UI Application** (Android, React, Flutter, etc.)
+1. **Map the project structure** — List directories to understand architecture layers (UI, data, navigation, theme).
+2. **Identify the UI entry point** — Find `MainScreen`, `MainActivity`, `App.tsx`, etc.
+3. **Extract navigation structure** — Determine tabs, screens, and routing hierarchy.
+4. **Read theme files completely** — Extract exact color values, typography scales, and semantic tokens.
+5. **Read major UI screen files** — Understand layout structure, component hierarchy, and styling.
+
+**Option B: Non-UI / Algorithmic / Backend** (Deep Learning Models, CLIs, APIs)
+1. **Explore the core logic** — Map the directory to find where the actual algorithms, endpoints, or pipelines live.
+2. **Identify complex snippets** — Find the 3 most complex/impressive source files (e.g., a PyTorch training loop, an advanced SQL query, a Rust thread pool).
+3. **Extract log/terminal data** — Find sample print statements, logging output, or metrics that the system generates during execution.
 
 ### 1.2 UI Extraction Checklist
 
@@ -223,14 +229,20 @@ export default function MyProjectDemo() {
 
 ### UI Fidelity Rules
 
+**For UI Applications:**
 - **DO** use the exact hex colors from the source app's theme files
 - **DO** replicate the navigation hierarchy (e.g., bottom tabs with sub-tab rows inside)
 - **DO** match component shapes (border-radius values, elevation shadows)
 - **DO** use gradient brushes that match the source (e.g., MiniPlayer progress gradient)
-- **DO** include persistent elements (e.g., MiniPlayer pinned to bottom across tabs)
 - **DO NOT** invent a sidebar layout when the source app uses bottom tabs
 - **DO NOT** use arbitrary green/blue accents when the source app uses `#FF5500` orange
-- **DO NOT** simplify navigation — if the source has 4 bottom tabs, the demo must have 4 bottom tabs
+
+**For Non-UI / Algorithmic Projects (Technical Showcase):**
+- **DO** build an interactive IDE simulation (e.g., a VS Code-style layout).
+- **DO** include a file tree sidebar to navigate between core algorithm files.
+- **DO** use an integrated terminal view at the bottom to simulate running logs (e.g., training metrics, CLI output).
+- **DO** syntax-highlight the actual code extracted from the repo.
+- **DO NOT** invent a fake consumer UI (e.g., do not make a "Face Recognition Dashboard" if the project is just a Python script; show the script in an IDE).
 
 ### Registration
 
