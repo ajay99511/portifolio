@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,18 +6,18 @@ import {
   FileCode2, 
   TerminalSquare, 
   Play, 
-  Cpu,
   ChevronRight,
   ChevronDown,
   Info,
   Network,
   Activity,
-  Layers,
+  BrainCircuit,
   Zap,
   BarChart,
-  BrainCircuit,
+  Layers,
   PanelRightClose,
-  PanelRightOpen
+  PanelRightOpen,
+  LucideIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import DemoQuickStart from "@/components/demos/DemoQuickStart";
@@ -44,13 +43,12 @@ const THEME = {
 type ModuleData = {
   id: string;
   label: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  icon: any;
+  icon: LucideIcon;
   files: { name: string; type: "dir" | "file"; children?: { name: string; type: "file" }[], isOpen?: boolean }[];
   codeFilename: string;
   codeSnippet: string;
   termCommand: string;
-  termSimulation: (step: number, epoch: number, currentLoss: number) => string;
+  termSimulation: (step: number, epoch: number, loss: number) => string;
   maxEpochs: number;
   info: {
     title: string;
@@ -105,14 +103,14 @@ def initialize_weights(model: MLP, strategy: str):
     termSimulation: (step, epoch, loss) => `[Epoch ${epoch}/50] Step ${step}/522 | loss: ${loss.toFixed(4)} | RMSE: ${(loss*0.8).toFixed(4)} | R²: ${(0.4 + (epoch/100)).toFixed(2)}`,
     maxEpochs: 50,
     info: {
-      title: "MLP Training Loop",
-      description: "Training loop from scratch with 3 init strategies.",
+      title: "MLP & Weight Init",
+      description: "My first dive into building training loops from scratch to see how initialization affects convergence.",
       dataset: "California Housing",
       params: "18,305",
       cpuTime: "< 5 min",
       keyConcept: "Weight Initialization",
       algorithms: ["AdamW", "Cosine LR w/ Warmup", "Kaiming Init", "Gradient Accumulation"],
-      insight: "Weight initialization determines convergence — Kaiming is correct for ReLU."
+      insight: "I learned that Kaiming init is critical for ReLU—otherwise, gradients die early."
     }
   },
   {
@@ -152,14 +150,14 @@ def initialize_weights(model: MLP, strategy: str):
     termSimulation: (step, epoch, loss) => `[Step ${step+(epoch*500)}/10000] | loss: ${loss.toFixed(4)} | perplexity: ${Math.exp(loss).toFixed(2)} | lr: 3.00e-4`,
     maxEpochs: 20,
     info: {
-      title: "GPT-style Transformer",
-      description: "Decoder-only transformer from scratch.",
+      title: "Building a Transformer",
+      description: "Implemented a decoder-only GPT from the ground up to master multi-head attention and causal masking.",
       dataset: "TinyStories (2.1M docs)",
       params: "3.5M",
       cpuTime: "~30 min",
-      keyConcept: "Causal Masking & Attention",
+      keyConcept: "Causal Self-Attention",
       algorithms: ["Causal Self-Attention", "Fused QKV", "Pre-LayerNorm", "Weight Tying", "BPE Tokenizer"],
-      insight: "Attention is learned dynamic routing — causal mask makes it autoregressive."
+      insight: "Masking is what makes a transformer 'generative' by preventing it from seeing the future."
     }
   },
   {
@@ -197,14 +195,14 @@ def initialize_weights(model: MLP, strategy: str):
     termSimulation: (step, epoch, loss) => `[PPO Step ${step+(epoch*100)}/2000] | reward: ${(2.5 - loss/3).toFixed(4)} | kl: ${(loss*0.1).toFixed(4)} | policy_loss: ${loss.toFixed(4)}`,
     maxEpochs: 20,
     info: {
-      title: "Alignment: SFT + RLHF",
-      description: "Full alignment pipeline teaching GPT-2 to follow instructions.",
+      title: "Mastering RLHF",
+      description: "An exploration of how to align language models using PPO and Reward Modeling techniques.",
       dataset: "Stanford Alpaca + HH-RLHF",
       params: "117M (GPT-2 Base)",
       cpuTime: "~90 min",
       keyConcept: "KL-Penalized RL",
       algorithms: ["Bradley-Terry Loss", "REINFORCE", "Token-level KL Divergence", "RLAIF"],
-      insight: "KL penalty prevents reward hacking — the alignment tax is real."
+      insight: "I discovered how KL penalties prevent 'reward hacking'—where the model finds loopholes in the score."
     }
   },
   {
@@ -247,14 +245,14 @@ class ViT(nn.Module):
     termSimulation: (step, epoch, loss) => `[Epoch ${epoch}/30] | loss: ${loss.toFixed(4)} | train_acc: ${(100 - loss*10).toFixed(1)}% | val_acc: ${(95 - loss*12).toFixed(1)}%`,
     maxEpochs: 30,
     info: {
-      title: "Vision Transformer",
-      description: "ViT + ResNet-18 from scratch with attention visualization.",
+      title: "Vision Transformers",
+      description: "Experimenting with applying the Transformer architecture to images via patch embeddings.",
       dataset: "CIFAR-10",
       params: "1.8M (ViT) / 11.2M (ResNet)",
       cpuTime: "~45 min",
       keyConcept: "Patch Embeddings",
       algorithms: ["Patch Embedding", "Class Token", "Attention Rollout", "Residual Blocks"],
-      insight: "Images are sequences of patches — same transformer works for vision."
+      insight: "Visualizing attention showed me that ViT layers learn global patterns earlier than CNNs."
     }
   },
   {
@@ -286,14 +284,14 @@ def benchmark_kv_cache(model, prompts, tokenizer, config):
     termSimulation: (step, epoch, loss) => `[Benchmarking...] tokens/sec cached: ${(80 + (epoch*2)).toFixed(1)} | uncached: ${(12 - loss).toFixed(1)} | speedup: ${(6 + loss/2).toFixed(1)}x`,
     maxEpochs: 15,
     info: {
-      title: "Inference & KV Cache",
-      description: "Complete inference stack with KV cache and decoding strategies.",
+      title: "Inference Speedups",
+      description: "Building KV caching and efficient decoding to understand how production LLMs run so fast.",
       dataset: "GSM8K + BIG-Bench Hard",
       params: "N/A",
       cpuTime: "Varies",
-      keyConcept: "Autoregressive Caching",
+      keyConcept: "KV Caching",
       algorithms: ["Greedy", "Beam Search", "Nucleus Sampling", "KV Cache", "Chain-of-Thought"],
-      insight: "KV cache provides quadratic speedup — not optional for production."
+      insight: "Implementing KV cache showed me how we trade memory for massive speed gains during generation."
     }
   },
   {
@@ -332,14 +330,14 @@ def benchmark_kv_cache(model, prompts, tokenizer, config):
     termSimulation: (step, epoch, loss) => `[Eval] Task: ${["arc_challenge", "hellaswag", "mmlu", "truthfulqa_mc"][epoch % 4]} | Few-shot: ${epoch % 5} | Score: ${(0.3 + loss/20).toFixed(4)}`,
     maxEpochs: 20,
     info: {
-      title: "Benchmark Evaluation",
-      description: "Professional benchmark pipeline and weight/activation analysis.",
+      title: "Model Evaluation",
+      description: "My exploration into how we actually measure if an AI model is 'smart' across different benchmarks.",
       dataset: "HF Open LLM Leaderboard",
       params: "Multiple",
       cpuTime: "~2 hrs",
-      keyConcept: "Rigorous Metrics",
+      keyConcept: "Statistical Evaluation",
       algorithms: ["ECE Calibration", "SVD Weight Analysis", "Few-shot Sensitivity", "Activation Analysis"],
-      insight: "Benchmark score alone is meaningless without calibration and statistical significance."
+      insight: "I learned that accuracy alone is deceptive—you need to check calibration to see if the model is 'overconfident'."
     }
   }
 ];
@@ -350,51 +348,59 @@ export default function DLAlgorithmsDemo() {
   
   const [activeModuleIdx, setActiveModuleIdx] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [logs, setLogs] = useState<string[]>([]);
+  const [logs, setLogs] = useState<string[]>([
+    "Initializing PyTorch DL environment...",
+    "Found device: CPU (Simulated)",
+    "Ready."
+  ]);
   const [showInfo, setShowInfo] = useState(true);
   
   const activeModule = MODULES[activeModuleIdx];
 
   useEffect(() => {
-    setLogs([
-      "Loading config...",
-      "Initializing environment...",
-      "Ready."
-    ]);
-    setIsRunning(false);
+    setTimeout(() => {
+      setLogs([
+        "Initializing PyTorch DL environment...",
+        "Found device: CPU (Simulated)",
+        "Ready."
+      ]);
+      setIsRunning(false);
+    }, 0);
   }, [activeModuleIdx]);
   
   useEffect(() => {
     if (!isRunning) return;
     
-    let epoch = 1;
     let step = 0;
-    let currentLoss = 6.8;
+    let epoch = 1;
+    let loss = 2.5;
     
-    setLogs([`$ ${activeModule.termCommand}`, "Starting..."]);
+    setTimeout(() => {
+      setLogs([`$ ${activeModule.termCommand}`, "Starting training loop..."]);
+    }, 0);
 
     const interval = setInterval(() => {
-      step += 100;
-      currentLoss = currentLoss - (Math.random() * 0.15); 
-      if (currentLoss < 1.5) currentLoss = 1.5 + (Math.random() * 0.2); 
+      step++;
+      loss = loss * 0.98;
       
-      const newLog = activeModule.termSimulation(step, epoch, currentLoss);
+      if (step > 10) {
+        step = 1;
+        epoch++;
+      }
+      
+      const newLog = activeModule.termSimulation(step, epoch, loss);
       
       setLogs(prev => {
         const next = [...prev, newLog];
         return next.length > 50 ? next.slice(next.length - 50) : next;
       });
       
-      if (step >= 500) {
-        epoch++;
-        step = 0;
-        if (epoch > activeModule.maxEpochs) {
-          setIsRunning(false);
-          setLogs(prev => [...prev, "Process complete. Checkpoint saved."]);
-          clearInterval(interval);
-        }
+      if (epoch >= activeModule.maxEpochs) {
+        setIsRunning(false);
+        setLogs(prev => [...prev, "Training completed successfully."]);
+        clearInterval(interval);
       }
-    }, 600);
+    }, 300);
     
     return () => clearInterval(interval);
   }, [isRunning, activeModule]);
@@ -445,7 +451,7 @@ export default function DLAlgorithmsDemo() {
         
         <div className="w-[180px] md:w-[220px] border-r shrink-0 flex flex-col overflow-y-auto" style={{ borderColor: THEME.border, background: THEME.bgSidebar }}>
           <div className="px-4 py-3 text-[10px] font-bold tracking-widest uppercase" style={{ color: THEME.textMuted }}>
-            Explorer
+            File Explorer
           </div>
           <div className="flex flex-col pb-4">
             {activeModule.files.map((dir, idx) => (
@@ -484,8 +490,8 @@ export default function DLAlgorithmsDemo() {
           <div className="flex-1 overflow-y-auto p-4 font-mono text-[13px] leading-relaxed whitespace-pre" style={{ color: THEME.textMain }}>
             {activeModule.codeSnippet.split('\n').map((line, i) => {
               let coloredLine = line
-                .replace(/\b(class|def|import|from|return|if|else|elif|for|in|while|try|except|with|as|pass|super)\b/g, `<span style="color: ${THEME.keyword}">$1</span>`)
-                .replace(/\b(nn\.Module|Tensor|int|float|bool|str|list|dict|tuple)\b/g, `<span style="color: ${THEME.class}">$1</span>`)
+                .replace(/\b(class|def|import|from|return|if|else|elif|for|in|while|try|except|with|as|pass|super|async|await)\b/g, `<span style="color: ${THEME.keyword}">$1</span>`)
+                .replace(/\b(nn\.Module|nn\.Linear|nn\.ReLU|nn\.Dropout|nn\.Sequential|nn\.Conv2d|Tensor|KVCache)\b/g, `<span style="color: ${THEME.class}">$1</span>`)
                 .replace(/\b([A-Za-z_][A-Za-z0-9_]*)\s*(?=\()/g, `<span style="color: ${THEME.function}">$1</span>`);
               
               if (line.trim().startsWith('"""') || line.trim().startsWith('#')) {
@@ -503,7 +509,7 @@ export default function DLAlgorithmsDemo() {
           <div className="h-[220px] shrink-0 border-t flex flex-col relative" style={{ borderColor: THEME.border, background: THEME.bgTerminal }}>
             <div className="h-9 border-b flex items-center px-4 gap-4 text-xs font-semibold uppercase tracking-wider" style={{ borderColor: THEME.border, color: THEME.textMuted }}>
               <div className="flex items-center gap-1.5 text-white">
-                <TerminalSquare size={14} /> Terminal
+                <TerminalSquare size={14} /> Console
               </div>
             </div>
             <div className="flex-1 overflow-y-auto p-3 font-mono text-[12px] leading-relaxed" style={{ color: THEME.textMuted }}>
@@ -532,35 +538,35 @@ export default function DLAlgorithmsDemo() {
 
               <div className="space-y-3">
                 <div className="border rounded-md p-3" style={{ borderColor: THEME.border, background: "rgba(0,0,0,0.2)" }}>
-                  <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: THEME.textMuted }}>Key Insight</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: THEME.textMuted }}>Learner Insight</p>
                   <p className="text-sm font-medium leading-snug" style={{ color: THEME.accent }}>{activeModule.info.insight}</p>
                 </div>
               </div>
 
               <div className="space-y-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: THEME.textMuted }}>Project Specs</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: THEME.textMuted }}>Project Architecture</p>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div className="border rounded-md p-2" style={{ borderColor: THEME.border }}>
                     <p style={{ color: THEME.textMuted }}>Dataset</p>
                     <p className="font-medium text-white truncate" title={activeModule.info.dataset}>{activeModule.info.dataset}</p>
                   </div>
                   <div className="border rounded-md p-2" style={{ borderColor: THEME.border }}>
-                    <p style={{ color: THEME.textMuted }}>Params</p>
+                    <p style={{ color: THEME.textMuted }}>Parameters</p>
                     <p className="font-medium text-white">{activeModule.info.params}</p>
                   </div>
                   <div className="border rounded-md p-2" style={{ borderColor: THEME.border }}>
-                    <p style={{ color: THEME.textMuted }}>CPU Time</p>
+                    <p style={{ color: THEME.textMuted }}>Training</p>
                     <p className="font-medium text-white">{activeModule.info.cpuTime}</p>
                   </div>
                   <div className="border rounded-md p-2" style={{ borderColor: THEME.border }}>
-                    <p style={{ color: THEME.textMuted }}>Concept</p>
+                    <p style={{ color: THEME.textMuted }}>Core Concept</p>
                     <p className="font-medium text-white truncate" title={activeModule.info.keyConcept}>{activeModule.info.keyConcept}</p>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: THEME.textMuted }}>Key Algorithms</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: THEME.textMuted }}>Core Algorithms</p>
                 <ul className="text-xs space-y-1.5" style={{ color: THEME.textMain }}>
                   {activeModule.info.algorithms.map((alg, i) => (
                     <li key={i} className="flex items-start gap-2">

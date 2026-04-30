@@ -16,7 +16,7 @@ export interface ContextBanner {
 export interface Project {
   id: string;
   batchId: string;
-  index: string;
+  index?: string;
   title: string;
   subtitle: string;
   description: string;

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -9,18 +8,13 @@ import {
   Play, 
   ChevronRight,
   ChevronDown,
-  Info,
   Activity,
-  ShieldCheck,
-  Zap,
-  BarChart3,
-  Search,
+  BrainCircuit,
   PanelRightClose,
   PanelRightOpen,
+  Microscope,
   Server,
-  Database,
-  BrainCircuit,
-  Microscope
+  LucideIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import DemoQuickStart from "@/components/demos/DemoQuickStart";
@@ -46,8 +40,7 @@ const THEME = {
 type ModuleData = {
   id: string;
   label: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  icon: any;
+  icon: LucideIcon;
   files: { name: string; type: "dir" | "file"; children?: { name: string; type: "file" }[], isOpen?: boolean }[];
   codeFilename: string;
   codeSnippet: string;
@@ -98,17 +91,17 @@ const MODULES: ModuleData[] = [
 study = optuna.create_study(direction='maximize')
 study.optimize(objective, n_trials=100)`,
     termCommand: "python train.py",
-    termSimulation: (step, _, auc) => `[Trial ${step}] Finished with value: ${(0.81 + (step/1000)).toFixed(4)} | Best is trial ${Math.max(1, step-5)} with value: 0.8342`,
+    termSimulation: (step) => `[Trial ${step}] Finished with value: ${(0.81 + (step/1000)).toFixed(4)} | Best is trial ${Math.max(1, step-5)} with value: 0.8342`,
     maxSteps: 20,
     info: {
-      title: "Bayesian Optimization",
-      description: "Automated hyperparameter tuning using Optuna to maximize ROC-AUC.",
+      title: "Learning Optimization",
+      description: "My exploration into using Optuna to find the best hyperparameters for medical diagnosis.",
       dataset: "PIMA Indians",
       model: "XGBoost + Optuna",
       metrics: "83.4% ROC-AUC",
       keyConcept: "Search Space",
       highlights: ["Cross-Validation", "SMOTE Imbalance Correction", "KNN Imputation"],
-      insight: "Optuna explores the high-dimensional parameter space more efficiently than GridSearch."
+      insight: "I learned that automated tuning is much more reliable than manual guessing for complex models."
     }
   },
   {
@@ -141,17 +134,17 @@ def predict(input_data: DiabetesInput):
         ]
     }`,
     termCommand: "curl -X POST /predict -d '{\"Glucose\": 148, \"BMI\": 33.6, ...}'",
-    termSimulation: (step, _, __) => `{"prediction": "Diabetic", "confidence": "89.42%", "medical_analysis": {"primary_drivers": ["Glucose (increased risk)", "Age (increased risk)", "BMI (increased risk)"]}}`,
+    termSimulation: () => `{"prediction": "Diabetic", "confidence": "89.42%", "medical_analysis": {"primary_drivers": ["Glucose (increased risk)", "Age (increased risk)", "BMI (increased risk)"]}}`,
     maxSteps: 10,
     info: {
-      title: "Medical Reasoning (XAI)",
-      description: "Every diagnosis includes the top 3 physiological factors using SHAP values.",
+      title: "Reasoning with XAI",
+      description: "I wanted to see exactly 'why' the model flagged a patient, so I integrated SHAP values for transparency.",
       dataset: "Diagnostic Data",
       model: "SHAP TreeExplainer",
       metrics: "Transparent Logic",
       keyConcept: "Shapley Values",
       highlights: ["Feature Contribution", "Risk Factor Ranking", "Physiological Context"],
-      insight: "Trust in medical AI requires transparency; doctors need to know *why* a model flags a patient."
+      insight: "Visualizing the 'why' makes AI feel much more like a tool and less like a black box."
     }
   },
   {
@@ -175,17 +168,17 @@ EXPOSE 8000
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]`,
     termCommand: "docker build -t diabetes-api .",
-    termSimulation: (step, _, __) => `Step ${step}/7 : COPY . . \n ---> ${Math.random().toString(16).substring(2, 10)}\nSuccessfully built diabetes-api:latest`,
+    termSimulation: (step) => `Step ${step}/7 : COPY . . \n ---> ${Math.random().toString(16).substring(2, 10)}\nSuccessfully built diabetes-api:latest`,
     maxSteps: 7,
     info: {
-      title: "Cloud Deployment",
-      description: "Containerized FastAPI service ready for production deployment.",
+      title: "Learning Deployment",
+      description: "My first time containerizing an ML service with Docker to ensure it runs anywhere.",
       dataset: "N/A",
       model: "Containerized",
       metrics: "100ms Latency",
       keyConcept: "Portability",
       highlights: ["Docker Multistage", "Pydantic Validation", "Uvicorn Async"],
-      insight: "Docker ensures that the complex ML dependency stack works identically across all environments."
+      insight: "Docker solved the 'it works on my machine' problem for my complex Python environment."
     }
   }
 ];
@@ -196,18 +189,24 @@ export default function DbPredDemo() {
   
   const [activeModuleIdx, setActiveModuleIdx] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [logs, setLogs] = useState<string[]>([]);
+  const [logs, setLogs] = useState<string[]>([
+    "Initializing Medical ML Environment...",
+    "Loading PIMA Indians Dataset...",
+    "Ready."
+  ]);
   const [showInfo, setShowInfo] = useState(true);
   
   const activeModule = MODULES[activeModuleIdx];
 
   useEffect(() => {
-    setLogs([
-      "Initializing Medical ML Environment...",
-      "Loading PIMA Indians Dataset...",
-      "Ready."
-    ]);
-    setIsRunning(false);
+    setTimeout(() => {
+      setLogs([
+        "Initializing Medical ML Environment...",
+        "Loading PIMA Indians Dataset...",
+        "Ready."
+      ]);
+      setIsRunning(false);
+    }, 0);
   }, [activeModuleIdx]);
   
   useEffect(() => {
@@ -216,7 +215,9 @@ export default function DbPredDemo() {
     let step = 0;
     let val = 0.82;
     
-    setLogs([`$ ${activeModule.termCommand}`, "Execution started..."]);
+    setTimeout(() => {
+      setLogs([`$ ${activeModule.termCommand}`, "Execution started..."]);
+    }, 0);
 
     const interval = setInterval(() => {
       step++;

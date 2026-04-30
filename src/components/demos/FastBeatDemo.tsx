@@ -404,7 +404,7 @@ export default function FastBeatDemo() {
         {/* Curated Section */}
         <div className="flex items-center gap-2 mb-3">
           <Star size={14} style={{ color: C.accent }} />
-          <span className="text-sm font-bold" style={{ color: C.textPrimary }}>Hokage Selections</span>
+          <span className="text-sm font-bold" style={{ color: C.textPrimary }}>My Daily Mix</span>
         </div>
         <div className="rounded-3xl aspect-[16/9] mb-4 flex items-center justify-center overflow-hidden" style={{ background: C.surfaceContainer }}>
           <div className="text-center">

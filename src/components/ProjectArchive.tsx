@@ -11,10 +11,12 @@ const ProjectArchive = () => {
   const { pinnedIds, togglePin, isMounted, isPinned } = usePinnedProjects();
   const totalCount = projects.length;
   
-  // For SSR, default to first 4 projects. On client, use pinnedIds.
+  // For SSR, respect the pinned flag. On client, use pinnedIds.
   const displayProjects = isMounted 
     ? projects.filter(p => pinnedIds.includes(p.id))
-    : projects.slice(0, 4);
+    : projects.some(p => p.pinned) 
+      ? projects.filter(p => p.pinned).slice(0, 4)
+      : projects.slice(0, 4);
 
   const hasPinned = displayProjects.length > 0;
 

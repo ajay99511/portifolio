@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,18 +6,15 @@ import {
   FileCode2, 
   TerminalSquare, 
   Play, 
-  ChevronRight,
+  ChevronRight, 
   ChevronDown,
-  Info,
-  Activity,
   ShieldCheck,
   Zap,
   BarChart3,
-  Search,
   PanelRightClose,
   PanelRightOpen,
   Server,
-  Database
+  LucideIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import DemoQuickStart from "@/components/demos/DemoQuickStart";
@@ -44,8 +40,7 @@ const THEME = {
 type ModuleData = {
   id: string;
   label: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  icon: any;
+  icon: LucideIcon;
   files: { name: string; type: "dir" | "file"; children?: { name: string; type: "file" }[], isOpen?: boolean }[];
   codeFilename: string;
   codeSnippet: string;
@@ -101,17 +96,17 @@ const MODULES: ModuleData[] = [
                 
         return df[self.feature_cols]`,
     termCommand: "curl -X POST /predict -d '{\"TransactionAmt\": 49.99, ...}'",
-    termSimulation: (step, _, prob) => `[POST] /predict | Status: 200 | Latency: 42ms | Prob: ${prob.toFixed(4)} | Result: ${prob > 0.5 ? "FRAUD" : "LEGIT"}`,
+    termSimulation: (_, __, prob) => `[POST] /predict | Status: 200 | Latency: 42ms | Prob: ${prob.toFixed(4)} | Result: ${prob > 0.5 ? "FRAUD" : "LEGIT"}`,
     maxSteps: 20,
     info: {
-      title: "Production Inference",
-      description: "Stateless pipeline ensuring 100% feature parity between training and serving.",
+      title: "Building the Pipeline",
+      description: "My goal was to ensure 100% feature parity between my training environment and this serving pipeline.",
       dataset: "IEEE-CIS Fraud",
       model: "XGBoost v2.0",
       latency: "< 50ms",
       keyConcept: "Schema Alignment",
       highlights: ["Imputation via Medians", "Label Encoding Persistence", "Temporal Engineering"],
-      insight: "Inference must be a perfect mirror of training transformations to avoid skew."
+      insight: "I learned that even small differences in how data is imputed can lead to completely wrong predictions in production."
     }
   },
   {
@@ -145,17 +140,17 @@ const MODULES: ModuleData[] = [
     )
     return model`,
     termCommand: "python src/components/model_trainer.py",
-    termSimulation: (step, _, loss) => `[Epoch ${Math.floor(step/5)}] Step ${step} | val-auc: ${(0.85 + (step/200)).toFixed(4)} | early_stop_count: 0`,
+    termSimulation: (step) => `[Epoch ${Math.floor(step/5)}] Step ${step} | val-auc: ${(0.85 + (step/200)).toFixed(4)} | early_stop_count: 0`,
     maxSteps: 50,
     info: {
-      title: "XGBoost Training",
-      description: "Optimizing for ROC-AUC on highly imbalanced (3% fraud) financial data.",
+      title: "Tackling Imbalance",
+      description: "Fraud detection is tricky because fraud is rare. I used XGBoost weighting to help the model learn from rare cases.",
       dataset: "400+ Features",
       model: "Gradient Boosting",
       latency: "N/A (Training)",
       keyConcept: "Imbalance Handling",
       highlights: ["scale_pos_weight Tuning", "Stratified Split", "Early Stopping (AUC)"],
-      insight: "Accuracy is a lie in fraud; ROC-AUC and scale_pos_weight are your best friends."
+      insight: "Focusing on ROC-AUC instead of Accuracy is what actually makes the model catch fraud."
     }
   },
   {
@@ -183,17 +178,17 @@ async def predict_fraud(transaction: Transaction):
         logger.error(f"Prediction failed: {exc}")
         raise HTTPException(status_code=500)`,
     termCommand: "uvicorn app:app --host 0.0.0.0 --port 8000",
-    termSimulation: (step, _, __) => `INFO: [${new Date().toLocaleTimeString()}] 127.0.0.1:5421 - "POST /predict HTTP/1.1" 200 OK`,
+    termSimulation: () => `INFO: [${new Date().toLocaleTimeString()}] 127.0.0.1:5421 - "POST /predict HTTP/1.1" 200 OK`,
     maxSteps: 30,
     info: {
-      title: "FastAPI REST Server",
-      description: "High-performance async API for real-time scoring integration.",
+      title: "Learning Async APIs",
+      description: "I built this FastAPI service to learn how to handle high-concurrency scoring with sub-50ms response times.",
       dataset: "IEEE-CIS",
       model: "XGBoost",
       latency: "10-20ms (API overhead)",
       keyConcept: "Async I/O",
       highlights: ["Pydantic Validation", "Lifespan Model Loading", "Batch Processing"],
-      insight: "Model loading should happen once at startup using FastAPI lifespan events."
+      insight: "FastAPI's lifespan events are perfect for loading heavy ML models once at startup."
     }
   }
 ];
@@ -204,18 +199,24 @@ export default function ICMFraudDetectionDemo() {
   
   const [activeModuleIdx, setActiveModuleIdx] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [logs, setLogs] = useState<string[]>([]);
+  const [logs, setLogs] = useState<string[]>([
+    "Initializing IEEE-CIS Fraud Detection environment...",
+    "Connecting to artifact registry...",
+    "Ready."
+  ]);
   const [showInfo, setShowInfo] = useState(true);
   
   const activeModule = MODULES[activeModuleIdx];
 
   useEffect(() => {
-    setLogs([
-      "Initializing IEEE-CIS Fraud Detection environment...",
-      "Connecting to artifact registry...",
-      "Ready."
-    ]);
-    setIsRunning(false);
+    setTimeout(() => {
+      setLogs([
+        "Initializing IEEE-CIS Fraud Detection environment...",
+        "Connecting to artifact registry...",
+        "Ready."
+      ]);
+      setIsRunning(false);
+    }, 0);
   }, [activeModuleIdx]);
   
   useEffect(() => {
@@ -224,7 +225,9 @@ export default function ICMFraudDetectionDemo() {
     let step = 0;
     let val = 0.5;
     
-    setLogs([`$ ${activeModule.termCommand}`, "Starting execution..."]);
+    setTimeout(() => {
+      setLogs([`$ ${activeModule.termCommand}`, "Starting execution..."]);
+    }, 0);
 
     const interval = setInterval(() => {
       step++;

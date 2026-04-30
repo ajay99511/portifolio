@@ -1,18 +1,13 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
   Box, 
   Search, 
   RefreshCw, 
   ChevronDown, 
   ChevronUp, 
-  ExternalLink, 
   Send,
-  AlertTriangle,
-  CheckCircle2,
-  Clock,
   MessageSquare,
   Filter,
   ArrowRight
@@ -35,47 +30,47 @@ const COLORS = {
 };
 
 const MOCK_REPOS = [
-  { id: '1', owner: 'facebook', name: 'react', status: 'done', description: 'A JavaScript library for building user interfaces' },
-  { id: '2', owner: 'tailwindlabs', name: 'tailwindcss', status: 'done', description: 'A utility-first CSS framework for rapid UI development' },
-  { id: '3', owner: 'vercel', name: 'next.js', status: 'processing', description: 'The React Framework' },
-  { id: '4', owner: 'microsoft', name: 'vscode', status: 'pending', description: 'Visual Studio Code' }
+  { id: '1', owner: 'ajay99511', name: 'Social_Networking_Application', status: 'done', description: 'Full-stack social platform built with .NET and Angular.' },
+  { id: '2', owner: 'ajay99511', name: 'GitScripe', status: 'done', description: 'Agentic Git intelligence platform using RAG and LLMs.' },
+  { id: '3', owner: 'ajay99511', name: 'DL_Algorithms', status: 'processing', description: 'From-scratch implementations of core Deep Learning models.' },
+  { id: '4', owner: 'ajay99511', name: 'RepoPulse', status: 'pending', description: 'Personal workspace management dashboard.' }
 ];
 
 const MOCK_SUMMARIES = [
   {
     id: 's1',
-    commitSha: 'a7b3c9d1e2f3g4h5i6j7k8l9m0n1o2p3',
-    shortSummary: 'Implement robust OAuth2 callback handler with automatic token refresh',
-    detailedSummary: 'This change introduces a more resilient OAuth2 flow. It handles various failure modes in the callback endpoint and implements a background refresh mechanism that triggers before token expiration.',
-    inferredIntent: 'Improving authentication reliability and user session longevity by preventing silent failures during token renewal.',
-    authorName: 'engineering-pro',
-    committedAt: '2026-03-24T10:00:00Z',
-    additions: 142,
-    deletions: 12,
-    riskLevel: 'high',
-    tags: ['auth', 'security', 'api'],
+    commitSha: 'g7s2a9d1e2f3g4h5i6j7k8l9m0n1o2p3',
+    shortSummary: 'Implement multi-agent pipeline for hierarchical commit analysis',
+    detailedSummary: 'This change introduces the core agentic workflow. It orchestrates a DiffAnalyzer to extract changes and a SummaryAgent to infer developer intent, grouping them by architectural impact.',
+    inferredIntent: 'Improving the depth of commit analysis by using specialized agents for different parts of the summary generation.',
+    authorName: 'ajay99511',
+    committedAt: '2026-04-20T14:30:00Z',
+    additions: 215,
+    deletions: 45,
+    riskLevel: 'medium',
+    tags: ['agents', 'llm', 'backend'],
     status: 'done',
     fileSummaries: {
-      'src/auth/callback.ts': 'Redesigned callback logic to handle state mismatch and transient network errors.',
-      'src/auth/token-manager.ts': 'New helper for managing JWT lifecycle and refresh triggers.'
+      'src/agents/pipeline.ts': 'Implemented the orchestrator for multi-agent coordination.',
+      'src/lib/rag/context.ts': 'Added logic to fetch relevant architectural context for the agents.'
     }
   },
   {
     id: 's2',
-    commitSha: 'b2c4d6e8f0a2c4d6e8f0a2c4d6e8f0a2',
-    shortSummary: 'Update documentation for the new clustering configuration API',
-    detailedSummary: 'Updated the README and deployment guides to reflect the changes in how cluster nodes are configured in production environments.',
-    inferredIntent: 'Ensuring deployment documentation matches the current system architecture to reduce developer friction.',
-    authorName: 'docs-wizard',
-    committedAt: '2026-03-23T15:30:00Z',
-    additions: 45,
-    deletions: 2,
-    riskLevel: 'low',
-    tags: ['docs', 'config'],
+    commitSha: 's1n8r3e8f0a2c4d6e8f0a2c4d6e8f0a2',
+    shortSummary: 'Integrate SignalR for real-time chat synchronization',
+    detailedSummary: 'Implemented a SignalR hub on the .NET backend and a reactive service in the Angular frontend to enable instant message delivery and presence tracking.',
+    inferredIntent: 'Learning how to handle bi-directional, persistent connections for a seamless real-time user experience.',
+    authorName: 'ajay99511',
+    committedAt: '2026-03-15T09:15:00Z',
+    additions: 120,
+    deletions: 8,
+    riskLevel: 'medium',
+    tags: ['real-time', 'dotnet', 'angular'],
     status: 'done',
     fileSummaries: {
-      'docs/deployment.md': 'Added sections on horizontal scaling and node affinity.',
-      'README.md': 'Updated quickstart examples.'
+      'API/Hubs/MessageHub.cs': 'Defined the SignalR hub for message routing and connection management.',
+      'client/src/app/_services/message.service.ts': 'Built the Angular service to consume SignalR events and update state.'
     }
   }
 ];
@@ -347,7 +342,7 @@ export default function GitScripeDemo() {
                       <Search className="w-6 h-6 text-[#30363d]" />
                     </div>
                     <p className="text-xs text-[#8b949e]">
-                      Ask questions about this repository's history, architecture, or recent changes.
+                      Ask questions about this repository&apos;s history, architecture, or recent changes.
                     </p>
                   </div>
                 ) : (

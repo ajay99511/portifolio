@@ -15,7 +15,6 @@ import {
   X,
   Menu,
   Maximize2,
-  MoreVertical,
   Library,
   ArrowLeft
 } from "lucide-react";
@@ -46,63 +45,58 @@ const COLORS = {
 const MOCK_FOLDERS = [
   {
     id: "f1",
-    name: "Engineering",
+    name: "Research",
     isExpanded: true,
     children: [
-      { id: "f1-1", name: "Architecture", isExpanded: false },
-      { id: "f1-2", name: "Frontend", isExpanded: true },
+      { id: "f1-1", name: "Deep_Learning", isExpanded: false },
+      { id: "f1-2", name: "Agentic_Workflows", isExpanded: true },
     ]
   },
   {
     id: "f2",
-    name: "Personal",
-    isExpanded: false,
-    children: []
+    name: "Implementation",
+    isExpanded: true,
+    children: [
+      { id: "f2-1", name: "Backend_API", isExpanded: false },
+      { id: "f2-2", name: "Frontend_UI", isExpanded: false },
+    ]
   },
   {
     id: "f3",
-    name: "Projects",
+    name: "Drafts",
     isExpanded: false,
     children: []
   }
 ];
 
 const MOCK_FILES = [
-  { id: "m1", name: "React_State_Management.md", date: "Today", folderId: "f1-2" },
-  { id: "m2", name: "Tailwind_Best_Practices.md", date: "Yesterday", folderId: "f1-2" },
-  { id: "m3", name: "Architecture_Overview.md", date: "2d ago", folderId: "f1-1" },
-  { id: "m4", name: "NextJS_App_Router.md", date: "1w ago", folderId: "f1-2" },
+  { id: "m1", name: "Why_I_Built_This.md", date: "Today", folderId: "f1-2" },
+  { id: "m2", name: "Transformer_Architecture.md", date: "Yesterday", folderId: "f1-1" },
+  { id: "m3", name: "SignalR_Implementation.md", date: "2d ago", folderId: "f2-1" },
+  { id: "m4", name: "Riverpod_Patterns.md", date: "1w ago", folderId: "f2-2" },
 ];
 
 const MOCK_CONTENT = `
-# React State Management
+# Why I Built MD Explorer
 
-State management is one of the most critical aspects of building modern web applications. In React, there are several ways to handle state:
+As I started building more complex projects, I found myself writing a lot of documentation. standard file explorers didn't give me the reading experience I wanted for Markdown.
 
-## 1. Local State (useState)
-The simplest form of state management. Used for state that only affects a single component.
+## My Learning Goals
+1. **Flutter Desktop**: I wanted to see how far I could push Flutter on Windows/macOS.
+2. **State Management**: Using Riverpod to sync state across three independent panels was a great challenge.
+3. **Productivity**: I needed a way to quickly jump between research notes and implementation drafts.
 
-\`\`\`javascript
-const [count, setCount] = useState(0);
-\`\`\`
+## Key Features
+- **3-Panel Layout**: Inspired by IDEs but focused purely on reading.
+- **Deep Linking**: Easily reference other docs in my library.
+- **Syntax Highlighting**: Critical for my technical notes.
 
-## 2. Context API
-Built-in React feature for passing data through the component tree without having to pass props down manually at every level.
-
-## 3. External Libraries
-- **Zustand**: Small, fast, and scalable.
-- **Redux**: Predictable state container.
-- **Riverpod**: A reactive caching and state management framework.
-
----
-
-> Tip: Always start with the simplest solution and scale up as needed.
+> "A tool is only as good as the focus it enables."
 `;
 
 export default function MdExplorerDemo() {
   const [selectedFolderId, setSelectedFolderId] = useState("f1-2");
   const [selectedFileId, setSelectedFileId] = useState("m1");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeMobilePanel, setActiveMobilePanel] = useState<"tree" | "files" | "viewer">("files");
   const [quickStartDone, setQuickStartDone] = useState(false);

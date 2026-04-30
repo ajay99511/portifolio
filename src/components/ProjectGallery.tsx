@@ -9,7 +9,7 @@ import { usePinnedProjects } from "@/hooks/usePinnedProjects";
 
 export default function ProjectGallery() {
   const allProjects = projects;
-  const { pinnedIds, togglePin, isMounted, isPinned } = usePinnedProjects();
+  const { togglePin, isMounted, isPinned } = usePinnedProjects();
 
   return (
     <section className="min-h-screen pt-24 pb-16 px-6 md:px-24">

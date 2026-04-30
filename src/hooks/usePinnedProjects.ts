@@ -8,22 +8,27 @@ export function usePinnedProjects() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    // Using setTimeout to avoid cascading render warning in some lint configurations
+    const timer = setTimeout(() => setIsMounted(true), 0);
     const stored = localStorage.getItem("pinned-projects");
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
-          setPinnedIds(parsed);
+          setTimeout(() => setPinnedIds(parsed), 0);
           return;
         }
-      } catch (e) {
+      } catch {
         // ignore JSON parse errors
       }
     }
-    // Default to the first 4 projects (or all if 4 or fewer)
-    const defaultIds = projects.slice(0, 4).map(p => p.id);
-    setPinnedIds(defaultIds);
+    // Default to projects marked as pinned, falling back to first 4 if none are marked
+    const defaultIds = projects.some(p => p.pinned)
+      ? projects.filter(p => p.pinned).slice(0, 4).map(p => p.id)
+      : projects.slice(0, 4).map(p => p.id);
+    
+    setTimeout(() => setPinnedIds(defaultIds), 0);
+    return () => clearTimeout(timer);
   }, []);
 
   const togglePin = (id: string) => {

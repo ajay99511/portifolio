@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -9,19 +8,13 @@ import {
   Play, 
   ChevronRight,
   ChevronDown,
-  Info,
-  Activity,
-  ShieldCheck,
-  Zap,
   BarChart3,
-  Search,
   PanelRightClose,
   PanelRightOpen,
-  Server,
-  Database,
   Layout,
   Droplets,
-  TrendingUp
+  TrendingUp,
+  LucideIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import DemoQuickStart from "@/components/demos/DemoQuickStart";
@@ -47,8 +40,7 @@ const THEME = {
 type ModuleData = {
   id: string;
   label: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  icon: any;
+  icon: LucideIcon;
   files: { name: string; type: "dir" | "file"; children?: { name: string; type: "file" }[], isOpen?: boolean }[];
   codeFilename: string;
   codeSnippet: string;
@@ -70,7 +62,7 @@ type ModuleData = {
 const MODULES: ModuleData[] = [
   {
     id: "dashboard",
-    label: "BI Dashboard",
+    label: "My Dashboard",
     icon: Layout,
     files: [
       { name: "root", type: "dir", isOpen: true, children: [{ name: "app.py", type: "file" }] },
@@ -80,10 +72,10 @@ const MODULES: ModuleData[] = [
     codeSnippet: `import streamlit as st
 import plotly.express as px
 
-st.title("ðŸ’§ Groundwater Analytics")
+st.title("ðŸ’§ My Groundwater Analytics")
 
 # Scenario Analysis Tool
-st.header("ðŸ”® Scenario Prediction")
+st.header("ðŸ”® Simulation Tool")
 col1, col2 = st.columns(2)
 
 with col1:
@@ -95,31 +87,31 @@ usage_intensity = usage / (avail + 1e-5)
 recharge_eff = rain / (total_rain + 1e-5)
 
 prediction = model.predict([[rain, usage, usage_intensity, recharge_eff]])
-st.metric("Predicted Situation", prediction)`,
+st.metric("Predicted Stress Level", prediction)`,
     termCommand: "streamlit run app.py",
-    termSimulation: (step, _, __) => `INFO: [${new Date().toLocaleTimeString()}] Streamlit server started.\nLocal URL: http://localhost:8501\nNetwork URL: http://192.168.1.5:8501`,
+    termSimulation: () => `INFO: [${new Date().toLocaleTimeString()}] Streamlit server started.\nLocal URL: http://localhost:8501\nNetwork URL: http://192.168.1.5:8501`,
     maxSteps: 10,
     info: {
-      title: "Streamlit BI Interface",
-      description: "Interactive dashboard for environmental scenario simulation and water stress analysis.",
+      title: "Building the Interface",
+      description: "I built this dashboard to visualize how changes in rainfall and usage affect water stress in real-time.",
       dataset: "Indian States Groundwater",
       model: "Random Forest",
       tech: "Streamlit + Plotly",
       keyConcept: "Scenario Simulation",
       highlights: ["What-If Analysis", "Dynamic Plotly Charts", "Sidebar Navigation"],
-      insight: "Stakeholders need to visualize future scenarios to make informed irrigation policy decisions."
+      insight: "I learned that seeing the data move with a slider makes it much easier to understand the 'tipping points' of water stress."
     }
   },
   {
     id: "engineering",
-    label: "Feature Engineering",
+    label: "Learning Features",
     icon: TrendingUp,
     files: [
       { name: "src", type: "dir", isOpen: true, children: [{ name: "train.py", type: "file" }] }
     ],
     codeFilename: "train.py",
     codeSnippet: `def feature_engineering(df):
-    """Domain-specific groundwater metrics."""
+    """My custom groundwater metrics."""
     # Usage Intensity: Ratio of extraction to availability
     df['Usage_Intensity'] = df['Total_Usage'] / (df['Net annual availability'] + 1e-5)
     
@@ -134,17 +126,17 @@ st.metric("Predicted Situation", prediction)`,
 df = feature_engineering(pd.read_csv('Groundwater.csv'))
 model.fit(df[features], df['Situation'])`,
     termCommand: "python train.py",
-    termSimulation: (step, _, __) => `[Feature Engineering] Calculated Usage_Intensity...\n[Feature Engineering] Calculated Recharge_Efficiency...\n[Training] RF Accuracy: 0.94 | F1: 0.92`,
+    termSimulation: () => `[Feature Engineering] Calculated Usage_Intensity...\n[Feature Engineering] Calculated Recharge_Efficiency...\n[Training] RF Accuracy: 0.94 | F1: 0.92`,
     maxSteps: 15,
     info: {
       title: "Domain Feature Design",
-      description: "Transforming raw environmental measurements into robust stress indicators.",
+      description: "My exploration into creating 'Stress Ratios' that tell a better story than raw volumetric data.",
       dataset: "Groundwater.csv",
       model: "Domain Analytics",
       tech: "Pandas + NumPy",
       keyConcept: "Feature Discovery",
       highlights: ["Usage Ratios", "Efficiency Indices", "Null Value Handling"],
-      insight: "Engineered ratios capture 'stress' significantly better than raw volumetric volumes alone."
+      insight: "Creating 'Usage Intensity' was a breakthrough—it allowed the model to focus on the balance of water rather than just volume."
     }
   },
   {
@@ -162,21 +154,21 @@ feature_rank = pd.DataFrame({
     'Importance': importances
 }).sort_values('Importance', ascending=False)
 
-# Notice: Engineered features 'Usage_Intensity' 
+# Notice: My custom features 'Usage_Intensity' 
 # and 'Recharge_Efficiency' typically rank 
 # in the Top 3 importance scorers.`,
     termCommand: "python -m insights.evaluate",
-    termSimulation: (step, _, __) => `Top Feature 1: Usage_Intensity (0.342)\nTop Feature 2: Total_Rainfall (0.215)\nTop Feature 3: Recharge_Efficiency (0.188)`,
+    termSimulation: () => `Top Feature 1: Usage_Intensity (0.342)\nTop Feature 2: Total_Rainfall (0.215)\nTop Feature 3: Recharge_Efficiency (0.188)`,
     maxSteps: 12,
     info: {
-      title: "Explainable Analytics",
-      description: "Quantifying factor contribution to groundwater stress classification.",
+      title: "Analyzing the 'Why'",
+      description: "Checking which factors my model values most to ensure it has learned the right patterns.",
       dataset: "Validation Set",
       model: "Random Forest",
       tech: "Scikit-Learn",
       keyConcept: "Gini Importance",
       highlights: ["Feature Ranking", "Explainability", "Model Validation"],
-      insight: "Our engineered features (Usage_Intensity) prove more predictive than any single raw sensor input."
+      insight: "Seeing my custom features at the top confirmed that my domain-specific approach was the right path."
     }
   }
 ];
@@ -187,18 +179,24 @@ export default function SMPredDemo() {
   
   const [activeModuleIdx, setActiveModuleIdx] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [logs, setLogs] = useState<string[]>([]);
+  const [logs, setLogs] = useState<string[]>([
+    "Initializing Groundwater Analytics Environment...",
+    "Connecting to Scikit-Learn backends...",
+    "Ready."
+  ]);
   const [showInfo, setShowInfo] = useState(true);
   
   const activeModule = MODULES[activeModuleIdx];
 
   useEffect(() => {
-    setLogs([
-      "Initializing Groundwater Analytics Environment...",
-      "Connecting to Scikit-Learn backends...",
-      "Ready."
-    ]);
-    setIsRunning(false);
+    setTimeout(() => {
+      setLogs([
+        "Initializing Groundwater Analytics Environment...",
+        "Connecting to Scikit-Learn backends...",
+        "Ready."
+      ]);
+      setIsRunning(false);
+    }, 0);
   }, [activeModuleIdx]);
   
   useEffect(() => {
@@ -206,7 +204,9 @@ export default function SMPredDemo() {
     
     let step = 0;
     
-    setLogs([`$ ${activeModule.termCommand}`, "Starting execution..."]);
+    setTimeout(() => {
+      setLogs([`$ ${activeModule.termCommand}`, "Starting execution..."]);
+    }, 0);
 
     const interval = setInterval(() => {
       step++;

@@ -1,579 +1,551 @@
 import { Project } from "@/types";
 
-export const projects: Project[] = [
+const rawProjects: Project[] = [
   {
     id: "social-network",
     batchId: "BATCH_01",
-    index: "00",
     pinned: true,
     title: "SocialNetwork",
-    subtitle: "Enterprise Full-Stack Social Platform",
-    description: "A comprehensive social networking platform built with Angular and a high-performance ASP.NET Core Web API.",
-    longDescription: "SocialNetwork is a production-grade dating and social application featuring real-time messaging, secure authentication, and complex user relationship management. The backend is architected with ASP.NET Core, utilizing the Repository pattern and Unit of Work for robust data access, while the frontend leverages Angular's reactive components and shared services to provide a seamless user experience.",
+    subtitle: "My Deep Dive into Full-Stack Systems",
+    description: "A personal project to master real-time communication and complex backend architecture using .NET and Angular.",
+    longDescription: "I built SocialNetwork to understand how large-scale social platforms handle state and security. This was my 'proving ground' for mastering the Repository pattern, Unit of Work, and real-time synchronization with SignalR. It taught me how to bridge a strictly-typed C# backend with a reactive Angular frontend while maintaining high performance and secure JWT-based authentication.",
     techStack: ["C#", ".NET Core 8", "Angular 18", "SQL Server", "SignalR", "Cloudinary"],
     demoKind: "social-network",
     repoUrl: "https://github.com/ajay99511/Social_Networking_Application",
     highlights: [
-      "Architected a scalable REST API using ASP.NET Core and Entity Framework Core.",
-      "Implemented real-time messaging and notifications with SignalR web sockets.",
-      "Built a secure JWT-based authentication system with ASP.NET Core Identity.",
-      "Developed a responsive, feature-rich frontend using Angular with reactive forms and resolvers."
+      "Learned to architect a scalable API using the Repository and Unit of Work patterns.",
+      "Explored real-time bi-directional communication using SignalR web sockets.",
+      "Deep-dived into ASP.NET Core Identity for secure, token-based authentication.",
+      "Mastered reactive state management in Angular for a fluid, 'single-page' feel."
     ],
     stats: {
       nodes: 8,
-      complexity: "Enterprise Full-Stack",
+      complexity: "Learning Full-Stack Patterns",
     },
     contextBanner: {
-      challenge: "Building a high-performance social platform requires low-latency communication and a strictly typed, secure backend.",
-      solution: "Leveraged C#/.NET for a type-safe, high-throughput API integrated with an Angular reactive frontend."
+      challenge: "I wanted to understand how to build a secure, real-time platform that doesn't sacrifice performance as it grows.",
+      solution: "Implemented a decoupled architecture where .NET handles the heavy lifting and Angular provides a responsive UI."
     },
     quickStartSteps: [
       {
-        title: "Login and Authenticate",
-        description: "Experience the secure login flow which connects to the .NET Identity backend and retrieves a JWT Bearer token."
+        title: "Login Flow",
+        description: "See how I implemented secure JWT authentication connecting to the .NET Identity system."
       },
       {
-        title: "Explore Members",
-        description: "Browse the member list with server-side pagination and view detailed profiles fetched via efficient SQL Server queries."
+        title: "Member Exploration",
+        description: "Browse profiles loaded via server-side pagination—a key technique I learned for handling large datasets."
       },
       {
-        title: "Real-time Messaging",
-        description: "Test the messaging interface powered by SignalR, enabling instant data synchronization between users."
+        title: "Live Chat",
+        description: "Test the messaging system I built with SignalR to see real-time updates without page refreshes."
       }
     ],
     previewPanels: [
       { label: "Real-time", iconName: "MessageSquare" },
-      { label: "Security", iconName: "Shield" },
-      { label: "Full-Stack", iconName: "Users" }
+      { label: "Auth", iconName: "Shield" },
+      { label: "State", iconName: "Users" }
     ]
   },
   {
     id: "md-explorer",
     batchId: "BATCH_01",
-    index: "00",
     pinned: true,
     title: "MD Explorer",
-    subtitle: "Responsive Markdown Reader",
-    description: "A premium, desktop-optimized Markdown explorer with a 3-panel layout and cross-platform support.",
-    longDescription: "MD Explorer is a sophisticated documentation management tool designed for power users. Built with Flutter and Riverpod, it features a responsive 3-panel architecture (Folder Tree, File List, and Markdown Viewer) optimized for large-scale documentation. It includes features like persistent folder management, deep-linking, bookmarks, and syntax-highlighted code blocks, delivering a seamless reading experience across desktop and mobile.",
+    subtitle: "A Better Way to Read My Docs",
+    description: "Built out of a personal need for a cleaner Markdown reader, exploring Flutter's desktop capabilities.",
+    longDescription: "As I wrote more documentation, I found standard file explorers lacking. I built MD Explorer to learn Flutter's desktop-first development and state management with Riverpod. It features a custom 3-panel layout that makes navigating complex project docs much easier, teaching me about responsive UI design across different form factors.",
     techStack: ["Flutter", "Dart", "Riverpod", "Markdown", "Window Manager", "Path"],
     demoKind: "md-explorer",
     repoUrl: "https://github.com/ajay99511/md_doc_viewer",
     highlights: [
-      "3-panel responsive layout optimized for Desktop, Tablet, and Mobile.",
-      "Reactive state management using Riverpod for instant UI updates.",
-      "Customizable Markdown viewer with support for syntax highlighting and font scaling.",
-      "Smart folder scanning system that manages project-specific documentation."
+      "Designed a responsive 3-panel layout from scratch for optimal desktop reading.",
+      "Experimented with Riverpod to manage complex UI state and file system navigation.",
+      "Integrated custom Markdown rendering with syntax highlighting for better readability.",
+      "Learned to handle local file system watchers and directory indexing in Dart."
     ],
     stats: {
       nodes: 6,
-      complexity: "Responsive UI + State Sync",
+      complexity: "State Management & Desktop UI",
     },
     contextBanner: {
-      challenge: "Standard file explorers lack deep integration for reading and navigating Markdown-heavy documentation repositories.",
-      solution: "A specialized 3-panel documentation explorer that prioritizes readability and folder hierarchy."
+      challenge: "I needed a tool that could quickly index and display my project notes without the clutter of a full IDE.",
+      solution: "A lightweight, 3-panel documentation explorer focused on speed and deep-linking."
     },
     quickStartSteps: [
       {
-        title: "Explore Folder Tree",
-        description: "Navigate through your managed documentation folders using the hierarchical tree in the left panel."
+        title: "Navigate Folders",
+        description: "Explore the folder tree I designed to handle deeply nested documentation structures."
       },
       {
-        title: "Filter and Find",
-        description: "Use the instant search in the file list panel to quickly locate specific Markdown documents within a folder."
+        title: "Search & Filter",
+        description: "Try the instant search—I built this to quickly jump between files in large repositories."
       },
       {
-        title: "Read & Customize",
-        description: "Open documents in the reader panel. Try bookmarking a file or switching to fullscreen mode for focused reading."
+        title: "Read Experience",
+        description: "Open a file to see the custom Markdown rendering and bookmarking system I implemented."
       }
     ],
     previewPanels: [
       { label: "Folders", iconName: "Folder" },
       { label: "Reader", iconName: "Book" },
-      { label: "Search", iconName: "Search" }
+      { label: "UI Flow", iconName: "Search" }
     ]
   },
   {
     id: "sm-pred",
     batchId: "BATCH_01",
-    index: "00",
     pinned: true,
     title: "Groundwater Analytics",
-    subtitle: "Environmental BI Dashboard",
-    description: "Interactive analytics platform for groundwater stress prediction and scenario simulation using Random Forest.",
-    longDescription: "Groundwater Analytics is a professional Business Intelligence (BI) dashboard that transforms raw exploratory data into actionable environmental insights. Built with Streamlit and Plotly, it features domain-specific feature engineering—like Usage Intensity and Recharge Efficiency—to predict water stress levels and allow stakeholders to simulate 'What-If' scenarios for sustainable water management.",
+    subtitle: "Exploring Environmental Data with ML",
+    description: "A data science project where I learned to predict water stress using Random Forest and interactive visualization.",
+    longDescription: "I've always been interested in how data can help solve environmental issues. This project was my first deep dive into the 'why' behind ML predictions. I learned how to engineer domain-specific features like 'Recharge Efficiency' and used Plotly to make the data tell a story. It taught me that a model is only as good as the features you create for it.",
     techStack: ["Python", "Streamlit", "Plotly", "Scikit-Learn", "Pandas", "Joblib"],
     demoKind: "sm-pred",
     repoUrl: "https://github.com/ajay99511/Soil-Moisture-Prediction",
     highlights: [
-      "Interactive Scenario Analysis tool for simulating environmental impact.",
-      "Domain-specific feature engineering improving model ROC-AUC and interpretability.",
-      "Dynamic Plotly visualizations for spatial and temporal trend analysis.",
-      "Explainable AI integration showcasing top physiological stress drivers."
+      "Learned the importance of feature engineering by creating custom environmental metrics.",
+      "Used Scikit-Learn's Random Forest to model complex, non-linear water stress patterns.",
+      "Built an interactive dashboard with Streamlit to make ML insights accessible.",
+      "Explored Explainable AI (XAI) to understand which factors most influence water stress."
     ],
     stats: {
       nodes: 4,
-      complexity: "BI + Predictive Analytics",
+      complexity: "ML Feature Engineering",
     },
     contextBanner: {
-      challenge: "Environmental data is often fragmented and volumetric, making it difficult for policymakers to assess real-time water stress.",
-      solution: "A unified BI dashboard that translates raw volumes into intensity ratios and provides interactive scenario planning."
+      challenge: "Environmental data is messy. I wanted to see if I could extract meaningful predictions from complex rainfall and usage patterns.",
+      solution: "Combined robust data preprocessing with a Random Forest model and a visual 'What-If' simulator."
     },
     quickStartSteps: [
       {
-        title: "Explore the Dashboard",
-        description: "Examine the Streamlit interface and interactive Plotly charts showing state-wise groundwater distribution."
+        title: "Explore Analytics",
+        description: "Interact with the Plotly maps—I built these to visualize spatial trends in groundwater."
       },
       {
-        title: "Engineer Domain Features",
-        description: "Review the training logic that transforms raw rainfall and usage data into robust stress indicators."
+        title: "Feature Engineering",
+        description: "See how I transformed raw data into 'Stress Ratios' to help the model learn better."
       },
       {
         title: "Simulate Scenarios",
-        description: "Use the 'What-If' analysis tool to adjust rainfall and usage parameters and see the real-time impact on predictions."
+        description: "Use the simulator I built to see how changes in rainfall affect predicted water levels."
       }
     ],
     previewPanels: [
-      { label: "Dashboard", iconName: "Layout" },
-      { label: "Analytics", iconName: "TrendingUp" },
-      { label: "Insights", iconName: "Droplets" }
+      { label: "Maps", iconName: "Layout" },
+      { label: "Trends", iconName: "TrendingUp" },
+      { label: "Nature", iconName: "Droplets" }
     ]
   },
   {
     id: "gitscripe",
     batchId: "BATCH_01",
-    index: "00",
     pinned: true,
     title: "GitScripe",
-    subtitle: "Agentic Git Intelligence",
-    description: "An AI-powered Git repository analyzer that generates hierarchical commit summaries and enables context-aware repository chat.",
-    longDescription: "GitScripe is an agentic platform designed to transform raw Git history into structured intelligence. It utilizes a multi-agent pipeline (DiffAnalyzer, SummaryAgent, CriticAgent) to process commits, infer developer intent, and assess risk levels. Featuring a GitHub-inspired dark UI, it allows teams to quickly understand complex changes and interact with their codebase through a RAG-powered chat interface.",
+    subtitle: "My Experiment with AI Agents",
+    description: "An exploration into LLM agents and RAG to make sense of complex Git repository histories.",
+    longDescription: "GitScripe was born from my curiosity about LLM agents. I wanted to see if I could build a system that doesn't just list commits, but actually 'understands' the intent behind them. I learned how to orchestrate multiple agents (Analyzer, Summarizer, Critic) and implemented a RAG pipeline so I could chat with my own codebase history.",
     techStack: ["Node.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "Redis", "Ollama"],
     demoKind: "gitscripe",
     repoUrl: "https://github.com/ajay99511/GitScripe",
     highlights: [
-      "Multi-agent LLM pipeline for high-fidelity commit analysis and intent inference.",
-      "Hierarchical summaries with module-level grouping and automated risk assessment.",
-      "Context-aware RAG chat interface for querying repository history and architecture.",
-      "Real-time sync progress with background worker orchestration via Redis/BullMQ."
+      "Built a multi-agent pipeline to process and critique Git diffs for better summaries.",
+      "Implemented a RAG (Retrieval-Augmented Generation) system for repository-aware chat.",
+      "Learned background job orchestration with Redis and BullMQ for processing large repos.",
+      "Developed a GitHub-style dark UI to present AI insights in a familiar developer context."
     ],
     stats: {
       nodes: 12,
-      complexity: "Agentic Workflows + RAG",
+      complexity: "AI Agents & RAG",
     },
     contextBanner: {
-      challenge: "Understanding large, fast-moving repositories and their commit history is time-consuming and prone to missing critical context.",
-      solution: "An agentic system that automatically distills repository changes into searchable intelligence and interactive context."
+      challenge: "Commit messages are often vague. I wanted to use AI to automatically infer intent and summarize changes accurately.",
+      solution: "A multi-stage agentic pipeline that analyzes diffs and groups them by architectural impact."
     },
     quickStartSteps: [
       {
-        title: "Discover Repositories",
-        description: "Browse your GitHub repositories and sync them to start the agentic analysis pipeline."
+        title: "Sync Repo",
+        description: "Watch the background workers I built process repository history in real-time."
       },
       {
-        title: "Analyze Commit Intelligence",
-        description: "Explore hierarchical summaries that infer developer intent, track file changes, and highlight security risks."
+        title: "AI Summaries",
+        description: "Review the intent-based summaries generated by the multi-agent pipeline."
       },
       {
-        title: "Chat with Codebase",
-        description: "Use the built-in AI assistant to ask questions about the repository's history, specific changes, or architectural decisions."
+        title: "Code Chat",
+        description: "Ask the AI questions about the code—powered by the RAG system I implemented."
       }
     ],
     previewPanels: [
-      { label: "Summaries", iconName: "MessageSquare" },
+      { label: "Agents", iconName: "MessageSquare" },
       { label: "Insights", iconName: "ShieldCheck" },
-      { label: "Chat", iconName: "Search" }
+      { label: "Context", iconName: "Search" }
     ]
   },
   {
     id: "db-pred",
     batchId: "BATCH_01",
-    index: "00",
     pinned: false,
     title: "Diabetes XAI API",
-    subtitle: "Explainable Medical ML",
-    description: "Production-grade diabetes prediction API using XGBoost and SHAP for transparent medical diagnostics.",
-    longDescription: "This project implements a high-recall machine learning pipeline for diabetes diagnosis using the PIMA Indians dataset. It features Bayesian optimization with Optuna, SMOTE for class imbalance, and SHAP (Explainable AI) to provide medical reasoning for every prediction, identifying the top physiological risk drivers for each patient.",
+    subtitle: "Learning Explainable Medical AI",
+    description: "A project focused on building trustworthy ML models with clear reasoning using XGBoost and SHAP.",
+    longDescription: "I built this to learn how to make AI predictions transparent, which is critical in healthcare. I explored SHAP (Explainable AI) to show exactly why a model predicts a certain risk level. This project taught me about class imbalance handling with SMOTE and how to use Optuna for Bayesian hyperparameter optimization to reach high recall.",
     techStack: ["Python", "FastAPI", "XGBoost", "Optuna", "SHAP", "Docker"],
     demoKind: "db-pred",
     repoUrl: "https://github.com/ajay99511/Diabetes-Prediction",
     highlights: [
-      "Optimized for 83.4% ROC-AUC using Bayesian hyperparameter search.",
-      "Integrated SHAP (XAI) to provide transparent, human-readable medical reasoning.",
-      "Advanced data pipeline with KNNImputation and SMOTE over-sampling.",
-      "Containerized FastAPI service with full Pydantic data validation."
+      "Learned to use SHAP values to provide human-readable reasoning for ML predictions.",
+      "Mastered hyperparameter tuning using Bayesian optimization with Optuna.",
+      "Handled extreme class imbalance using SMOTE and KNNImputation techniques.",
+      "Built a production-ready API with FastAPI and containerized it with Docker."
     ],
     stats: {
       nodes: 5,
-      complexity: "Medical ML + XAI",
+      complexity: "Explainable AI (XAI)",
     },
     contextBanner: {
-      challenge: "Medical AI requires high transparency and recall to be trusted by clinicians and avoid missed diagnoses.",
-      solution: "A production-grade API combining high-performance XGBoost with SHAP explainability for clear diagnostic reasoning."
+      challenge: "A simple 'Yes/No' isn't enough for medical AI. I wanted to provide 'Why' for every prediction.",
+      solution: "Integrated SHAP explainability directly into the API response to highlight top physiological risk factors."
     },
     quickStartSteps: [
       {
-        title: "Bayesian Optimization",
-        description: "Watch Optuna explore the hyperparameter space to find the optimal XGBoost configuration for medical recall."
+        title: "Optuna Tuning",
+        description: "See how I used automated tuning to maximize the model's diagnostic recall."
       },
       {
-        title: "Explainable Diagnosis",
-        description: "Test the inference endpoint and view the SHAP-driven medical analysis identifying top risk factors."
+        title: "XAI Reasoning",
+        description: "Examine the SHAP analysis—I built this to show which patient features drive the prediction."
       },
       {
-        title: "Cloud Deployment",
-        description: "Examine the Docker configuration ensuring the complex ML stack is portable and scalable."
+        title: "API Interface",
+        description: "Test the FastAPI endpoints I designed for easy integration with medical systems."
       }
     ],
     previewPanels: [
-      { label: "Diagnostics", iconName: "Microscope" },
-      { label: "Reasoning", iconName: "BrainCircuit" },
-      { label: "Deployment", iconName: "Server" }
+      { label: "Reasoning", iconName: "Microscope" },
+      { label: "AI Logic", iconName: "BrainCircuit" },
+      { label: "API", iconName: "Server" }
     ]
   },
   {
     id: "repo-pulse",
     batchId: "BATCH_01",
-    index: "00",
     pinned: false,
     title: "RepoPulse",
-    subtitle: "GitHub Repository Manager",
-    description: "A premium repository management dashboard with custom spaces and local directory binding.",
-    longDescription: "RepoPulse is a sleek, dark-themed Next.js dashboard designed to organize GitHub repositories into customizable 'Spaces'. It features a command palette, local VS Code directory binding, advanced filtering, and a serverless Gist-based sync mechanism for configuration roaming.",
+    subtitle: "My Personal Project Command Center",
+    description: "A custom dashboard I built to organize my messy GitHub repositories and bind them to local folders.",
+    longDescription: "I have too many projects! I built RepoPulse to learn Next.js 14 and created a personal 'command center'. It helps me group repos into 'Spaces' and, through a small local helper, opens them directly in VS Code. It taught me about serverless sync (using GitHub Gists) and building modern, glassmorphic UIs.",
     techStack: ["Next.js", "React", "Tailwind CSS", "Zustand", "NextAuth", "Framer Motion"],
     demoKind: "repo-pulse",
     repoUrl: "https://github.com/ajay99511/RepoPulse",
     highlights: [
-      "Custom 'Spaces' organization system to group related repositories.",
-      "Local machine path binding to quickly open repos in VS Code.",
-      "Serverless architecture leveraging GitHub Gists for config roaming.",
-      "Premium glassmorphic UI with advanced search and filtering."
+      "Built a custom 'Spaces' system to organize repositories by interest or stack.",
+      "Learned to bridge the browser and local machine with VS Code directory binding.",
+      "Implemented a serverless config sync using GitHub Gists as a lightweight database.",
+      "Experimented with Framer Motion to create a premium, interactive user experience."
     ],
     stats: {
       nodes: 5,
-      complexity: "Dashboard / Next.js",
+      complexity: "Productivity Tooling",
     },
     contextBanner: {
-      challenge: "Managing dozens of GitHub repos across different contexts is chaotic and disconnected from local environments.",
-      solution: "A unified command center that groups repos into Spaces and binds them directly to local IDE paths."
+      challenge: "Managing dozens of learning projects across different folders was becoming a headache.",
+      solution: "A unified dashboard that organizes my work and connects directly to my local development environment."
     },
     quickStartSteps: [
       {
-        title: "Explore the Dashboard",
-        description: "View the comprehensive statistics in the header and browse the BentoGrid of repositories."
+        title: "Repo Spaces",
+        description: "Browse the 'Spaces' I created—this was my solution for project categorization."
       },
       {
-        title: "Navigate Spaces",
-        description: "Use the left sidebar to switch between 'All Projects' and customized Spaces to filter your view."
+        title: "Sync System",
+        description: "See how I used Gists for roaming settings without needing a full backend."
       },
       {
-        title: "Interact with Repos",
-        description: "Hover over repository cards to see quick actions like copying the clone URL or launching the local path in VS Code."
+        title: "Local Launch",
+        description: "Check out the VS Code binding—I built this to jump into code faster."
       }
     ],
     previewPanels: [
-      { label: "Dashboard", iconName: "LayoutGrid" },
+      { label: "Command", iconName: "LayoutGrid" },
       { label: "Spaces", iconName: "FolderPlus" },
-      { label: "Settings", iconName: "Settings" }
+      { label: "Visuals", iconName: "Settings" }
     ]
   },
   {
     id: "icm-fraud-detection",
     batchId: "BATCH_01",
-    index: "00",
     pinned: false,
     title: "ICM Fraud Detection",
-    subtitle: "Real-time ML Scoring Service",
-    description: "Production-grade fraud detection system leveraging XGBoost and FastAPI for sub-100ms transaction scoring.",
-    longDescription: "ICM Fraud Detection is a high-performance machine learning service built to identify fraudulent financial transactions in real-time. Using the IEEE-CIS dataset, it implements a complete pipeline from feature engineering and class-imbalance handling to a container-ready REST API. The system focuses on low-latency inference and high ROC-AUC, simulating the core decision engine of major payment processors.",
+    subtitle: "Real-time Scoring with Imbalanced Data",
+    description: "An ML project exploring how to catch fraud in high-volume streams with extreme class imbalance.",
+    longDescription: "I built this to tackle one of the hardest problems in ML: extreme class imbalance (only 1% fraud). I learned how to use XGBoost's internal weighting and feature engineering to maintain sub-100ms latency. This project was my introduction to building high-throughput inference services with FastAPI.",
     techStack: ["Python", "FastAPI", "XGBoost", "Pandas", "Scikit-learn", "Joblib"],
     demoKind: "icm-fraud-detection",
     repoUrl: "https://github.com/ajay99511/ICM_Fraud_Detection",
     highlights: [
-      "Sub-100ms inference latency optimized for real-time payment processing.",
-      "Advanced XGBoost configuration with scale_pos_weight for 30x class imbalance.",
-      "Stateless inference pipeline ensuring feature parity via persistent encoders.",
-      "Production-ready REST API with Pydantic validation and batch scoring."
+      "Explored XGBoost's scale_pos_weight to handle extreme 30:1 class imbalance.",
+      "Built a low-latency inference pipeline optimized for sub-100ms scoring.",
+      "Learned the importance of feature parity between training and production environments.",
+      "Implemented a stateless FastAPI service designed for easy horizontal scaling."
     ],
     stats: {
       nodes: 4,
-      complexity: "MLOps + Inference",
+      complexity: "Imbalanced Learning",
     },
     contextBanner: {
-      challenge: "High-volume card transactions require millisecond-level fraud decisions without sacrificing precision or handling extreme class imbalance.",
-      solution: "An end-to-end ML scoring service with schema-aligned inference, XGBoost optimization, and a production-grade FastAPI interface."
+      challenge: "How do you build a model that can catch rare fraud events without slowing down the user experience?",
+      solution: "A combination of cost-sensitive learning (XGBoost) and a highly optimized Python inference service."
     },
     quickStartSteps: [
       {
-        title: "Inference Pipeline",
-        description: "Examine the preprocessing logic that handles categorical encoding and numeric imputation with training-time parity."
+        title: "Imbalance Logic",
+        description: "Review how I configured the model to focus on rare fraud cases."
       },
       {
-        title: "XGBoost Training",
-        description: "Review the model trainer's configuration for handling extreme class imbalance using scale_pos_weight and AUC metrics."
+        title: "Fast Inference",
+        description: "Test the scoring endpoint—I optimized this for real-time performance."
       },
       {
-        title: "REST API",
-        description: "Test the FastAPI endpoints for single and batch fraud predictions with Pydantic validation."
+        title: "Data Pipeline",
+        description: "See the preprocessing steps I built to keep features consistent for the model."
       }
     ],
     previewPanels: [
-      { label: "Real-time", iconName: "Activity" },
-      { label: "Prevention", iconName: "ShieldCheck" },
-      { label: "Data", iconName: "Database" }
+      { label: "Latency", iconName: "Activity" },
+      { label: "Security", iconName: "ShieldCheck" },
+      { label: "Streams", iconName: "Database" }
     ]
   },
   {
     id: "chronos-planner",
     batchId: "BATCH_01",
-    index: "01",
     pinned: false,
     title: "Chronos Planner",
-    subtitle: "Desktop-first productivity planner",
-    description:
-      "Flutter productivity system with schedule orchestration, templates, analytics, and focus HUD.",
-    longDescription:
-      "Chronos Planner is a cross-platform planning engine built with Flutter, Drift, and Provider. The app combines a weekly scheduler, reusable work-plan templates, a notes/timer/list workspace, and a real-time analytics layer tuned for deep-focus workflows.",
-    techStack: [
-      "Flutter",
-      "Dart",
-      "Drift ORM",
-      "SQLite",
-      "Provider",
-      "Window Manager",
-    ],
+    subtitle: "Building My Ideal Study System",
+    description: "A Flutter project to manage my learning schedule, featuring offline storage and focus tracking.",
+    longDescription: "I needed a way to manage my study sessions more effectively, so I built Chronos. This was my deep dive into Flutter's offline-first capabilities using SQLite (Drift). I learned how to build a complex template system and a 'Focus HUD' that stays on top of other windows while I code.",
+    techStack: ["Flutter", "Dart", "Drift ORM", "SQLite", "Provider", "Window Manager"],
     demoKind: "chronos",
     repoUrl: "https://github.com/ajay99511/chronos_planner",
     highlights: [
-      "Rolling 7-day schedule with task CRUD, sort controls, and undo stack recovery.",
-      "Template engine with recurring-day application and cross-day propagation.",
-      "Focus HUD desktop mode (always-on-top) for next-task execution.",
-      "Analytics for efficiency, focus hours, energy peaks, and category distribution.",
+      "Mastered offline-first architecture using Drift (SQLite) for reliable data storage.",
+      "Built a custom scheduling engine with support for reusable task templates.",
+      "Implemented an 'Always-on-Top' Focus HUD to keep my goals visible during work.",
+      "Created an analytics dashboard to track my learning efficiency over time."
     ],
     stats: {
       nodes: 7,
-      complexity: "Offline-First + MVVM",
+      complexity: "Offline-First Mobile",
     },
     contextBanner: {
-      challenge: "Productivity tools lack deep-focus workflow support and actionable analytics",
-      solution: "A planner engine with schedule orchestration, templates, focus HUD, and real-time efficiency tracking",
+      challenge: "Generic planners didn't fit my study workflow. I wanted a tool that combined planning with active focus tracking.",
+      solution: "A Flutter app with a persistent task overlay and a local-first database for zero-latency interaction."
     },
     quickStartSteps: [
       {
-        title: "Navigate the Weekly Schedule",
-        description: "Click any day in the 7-day strip to view and manage tasks. Try adding a task or toggling one complete.",
+        title: "Schedule Tasks",
+        description: "Manage your day with the 7-day view I designed for quick task entry."
       },
       {
-        title: "Explore WorkPlans & Templates",
-        description: "Switch to WorkPlans in the sidebar to see reusable day templates. Apply one to populate a day instantly.",
+        title: "Use Templates",
+        description: "Check out the WorkPlans—I built this to automate my recurring study routines."
       },
       {
-        title: "Check Analytics & Focus HUD",
-        description: "Open Analytics for efficiency metrics and category breakdowns. Try Focus HUD for a distraction-free next-task view.",
-      },
+        title: "Focus Mode",
+        description: "Launch the Focus HUD to see the desktop overlay I implemented for deep work."
+      }
     ],
     previewPanels: [
       { label: "Schedule", iconName: "CalendarDays" },
-      { label: "Analytics", iconName: "BarChart3" },
-      { label: "Focus HUD", iconName: "Bolt" },
+      { label: "Stats", iconName: "BarChart3" },
+      { label: "HUD", iconName: "Bolt" }
     ],
   },
   {
     id: "dayvault-memory-palace",
     batchId: "BATCH_01",
-    index: "02",
     pinned: false,
-    title: "DayVault (Memory Palace)",
-    subtitle: "Secure offline journaling platform",
-    description:
-      "Encrypted journaling and personal ranking system with lock-screen security and rich media references.",
-    longDescription:
-      "DayVault is an offline-first, cross-platform journal built with Flutter, Riverpod, and ObjectBox. It blends secure entry storage, calendar-based recall, identity ranking boards, and profile diagnostics under a glassmorphic interface with biometric and PIN-based protection.",
-    techStack: [
-      "Flutter",
-      "Dart",
-      "Riverpod",
-      "ObjectBox",
-      "AES-256 / PBKDF2",
-      "Local Auth",
-    ],
+    title: "DayVault",
+    subtitle: "Exploring Security & Privacy in Flutter",
+    description: "An encrypted journal exploring biometric authentication and secure local storage.",
+    longDescription: "I wanted a private place for my thoughts that felt truly secure. DayVault was my project for learning about mobile security—implementing AES-256 encryption and biometric locks. It taught me how to handle sensitive data locally using ObjectBox and build a glassmorphic UI that feels premium yet private.",
+    techStack: ["Flutter", "Dart", "Riverpod", "ObjectBox", "AES-256 / PBKDF2", "Local Auth"],
     demoKind: "dayvault",
     repoUrl: "https://github.com/ajay99511/DayVault",
     highlights: [
-      "PIN + biometric lock flow with attempt throttling and lockout behavior.",
-      "Story/event journal editor with draft auto-save and media references.",
-      "Calendar recall with day drill-down and quick entry creation.",
-      "Preference ranking workspace with categories, stars, and reorder support.",
+      "Learned to implement biometric and PIN-based security with lockout protection.",
+      "Explored secure local storage using ObjectBox and AES encryption for entries.",
+      "Designed a glassmorphic UI to give the 'Vault' a modern, high-end feel.",
+      "Built a calendar-based recall system for easy navigation of past memories."
     ],
     stats: {
       nodes: 4,
-      complexity: "Security + Offline Sync",
+      complexity: "Mobile Security Patterns",
     },
     contextBanner: {
-      challenge: "Journal apps sacrifice security for convenience, leaving private memories exposed",
-      solution: "An encrypted memory palace with biometric auth, calendar recall, and identity ranking boards",
+      challenge: "Most journal apps store data in the cloud. I wanted to build one that keeps everything encrypted on-device.",
+      solution: "An offline-first vault using PBKDF2 for key derivation and local biometric hardware for access."
     },
     quickStartSteps: [
       {
-        title: "Unlock the Vault",
-        description: "Enter PIN 2160 or tap \"Bio\" to bypass. This simulates the biometric + PIN auth flow with attempt throttling.",
+        title: "Unlock Vault",
+        description: "Test the security flow—I built this with biometric fallback and PIN protection."
       },
       {
-        title: "Browse & Create Memories",
-        description: "Explore the journal feed, search memories, or tap \"New\" to create a story or event entry with mood tags.",
+        title: "Write Memory",
+        description: "Create a journal entry to see the rich-text editor and mood tagging system."
       },
       {
-        title: "Discover Identity Rankings",
-        description: "Switch to Identity to see your ranked favorites — movies, books, places. Add items and reorder them.",
-      },
+        title: "Identity Rankings",
+        description: "Explore the 'Identity' board where I learned to implement drag-and-drop reordering."
+      }
     ],
     previewPanels: [
-      { label: "Lock Screen", iconName: "Lock" },
+      { label: "Security", iconName: "Lock" },
       { label: "Journal", iconName: "CalendarDays" },
-      { label: "Rankings", iconName: "FolderHeart" },
+      { label: "Identity", iconName: "FolderHeart" }
     ],
   },
   {
     id: "fastbeat-media-player",
     batchId: "BATCH_01",
-    index: "03",
     pinned: false,
     title: "FastBeat Media Player",
-    subtitle: "Premium offline media player",
-    description:
-      "100% offline Android media player with Jetpack Compose, Media3 ExoPlayer, and smart queue management.",
-    longDescription:
-      "FastBeat is a powerful, modern offline media player for Android built from the ground up to deliver a premium experience for both video and audio. Built with Kotlin, Jetpack Compose, Media3, Room, and Hilt, it provides a seamless and immersive way to enjoy your local media without any internet connection, featuring an advanced video player with gesture controls and an immersive audio experience with a smart queue system.",
+    subtitle: "My Journey with Modern Android Development",
+    description: "A clean, ad-free media player built to master Jetpack Compose and the Media3 ExoPlayer stack.",
+    longDescription: "I was tired of ad-heavy media players, so I built my own. FastBeat was my project to learn the latest Android standards: Jetpack Compose for UI, Media3 for playback, and Hilt for dependency injection. It taught me how to handle background services and build a high-performance media library using Room.",
     techStack: ["Kotlin", "Jetpack Compose", "Media3", "Room", "Hilt/Dagger", "Coroutines/Flow"],
     demoKind: "fastbeat",
     repoUrl: "https://github.com/ajay99511/FastBeat",
     highlights: [
-      "Architected a Clean Architecture-lite MVVM stack with Repository pattern and Hilt DI.",
-      "Built a reactive state management system using Kotlin Coroutines Flow, eliminating LiveData entirely.",
-      "Implemented a Room 2.7 database with 8 entities modeling playback history, analytics, and playlists.",
-      "Developed a foreground MediaSessionService with ExoPlayer supporting background audio playback.",
-      "Engineered a fullscreen video player with touch gesture recognition and Picture-in-Picture mode.",
+      "Learned the latest Android UI patterns using Jetpack Compose and Material 3.",
+      "Explored complex background processing with Media3 ExoPlayer and Foreground Services.",
+      "Built a robust local media database using Room with Coroutines and Flow.",
+      "Implemented a Clean Architecture-lite stack to keep the playback logic modular."
     ],
     stats: {
       nodes: 5,
-      complexity: "MVVM + Clean Architecture",
+      complexity: "Modern Android Stack",
     },
     contextBanner: {
-      challenge: "Standard media players are ad-heavy, clunky, and lack deep analytics for local media",
-      solution: "A premium, 100% offline media player with advanced gestures, smart queue, and a rich analytics dashboard",
+      challenge: "Building a media player that feels smooth while handling thousands of local files in the background is tough.",
+      solution: "Leveraged Kotlin Coroutines for non-blocking I/O and Jetpack Compose for a lag-free, reactive UI."
     },
     quickStartSteps: [
       {
-        title: "Play Your Media",
-        description: "Explore the audio library and start playing a track to see the immersive player and queue system.",
+        title: "Playback Engine",
+        description: "Play a track to see the Media3 integration and the custom queue system I built."
       },
       {
-        title: "View Your Stats",
-        description: "Switch to the Analytics dashboard to see your listening habits, streaks, and top tracks.",
+        title: "Listening Stats",
+        description: "Check the analytics—I implemented this to track my personal listening habits."
       },
       {
-        title: "Manage Playlists",
-        description: "Create and manage playlists with custom sorting, all saved securely offline via Room DB.",
-      },
+        title: "Library View",
+        description: "See how I used Room to index local files for near-instant searching and sorting."
+      }
     ],
     previewPanels: [
       { label: "Player", iconName: "PlayCircle" },
       { label: "Library", iconName: "Music" },
-      { label: "Analytics", iconName: "BarChart3" },
+      { label: "Stats", iconName: "BarChart3" }
     ],
   },
   {
     id: "personal-assist",
     batchId: "BATCH_01",
-    index: "04",
     pinned: false,
-    title: "Personal Agent Workbench",
-    subtitle: "Local AI Desktop Environment",
-    description: "A Tauri-based desktop application providing a unified interface for local AI models, agentic workflows, and workspace management.",
-    longDescription: "Personal Agent Workbench is a unified desktop environment built with React, Vite, and Tauri. It provides a secure, locally-hosted interface for managing large language models, running agentic background tasks, and configuring workspace permissions for autonomous workflows. Features include a dual-pane chat system, comprehensive system health monitoring, and an auditable workspace permission system.",
+    title: "PAW (Personal Agent Workbench)",
+    subtitle: "Centralizing My Local AI Tools",
+    description: "A Tauri-based desktop environment I built to manage local LLMs and autonomous agent experiments.",
+    longDescription: "I wanted a single place to experiment with local AI without jumping between terminals. PAW is my exploration into Tauri and Rust. I built it to provide a secure, UI-driven way to manage local models, handle agent permissions, and monitor system health. It taught me how to bridge a React frontend with a high-performance Rust backend.",
     techStack: ["React", "Vite", "Tauri", "TypeScript", "TanStack Query", "Rust"],
     demoKind: "personal-assist",
     repoUrl: "https://github.com/ajay99511/PAW",
     highlights: [
-      "Tauri-based desktop architecture bridging web front-end with native Rust capabilities.",
-      "Workspace permission engine for securely exposing local directories to AI agents.",
-      "Dual-mode chat interface with standard LLM responses and RAG-enhanced Smart Mode.",
-      "System health and background task monitoring dashboard.",
+      "Learned to build cross-platform desktop apps with Tauri and Rust integration.",
+      "Designed a custom permission system for exposing local directories to AI agents.",
+      "Implemented a dual-mode chat interface with support for RAG and streaming responses.",
+      "Built a system monitor to track local LLM performance and background agent tasks."
     ],
     stats: {
       nodes: 6,
-      complexity: "Local AI + Desktop Environment",
+      complexity: "Cross-Platform AI Tooling",
     },
     contextBanner: {
-      challenge: "Managing local AI models and agents across different terminal windows is fragmented and insecure",
-      solution: "A unified desktop interface with centralized chat, model management, and strict workspace permissions",
+      challenge: "Running local AI agents can be messy and hard to monitor. I wanted a 'dashboard' for my experiments.",
+      solution: "A unified desktop interface that bridges web technologies with native OS-level capabilities via Rust."
     },
     quickStartSteps: [
       {
-        title: "Interact with the AI",
-        description: "Open the Chat interface and test the streaming responses. Toggle Smart Mode to see RAG capabilities in action.",
+        title: "Agent Chat",
+        description: "Test the chat interface—I built this with streaming support for local Ollama models."
       },
       {
-        title: "Explore the Dashboard",
-        description: "Switch to the Workspace view to see how local directories are securely exposed to AI agents with granular permissions.",
+        title: "Workspace Prep",
+        description: "See how I designed the workspace view to securely share folders with AI agents."
       },
       {
-        title: "Check System Health",
-        description: "Notice the active system status indicators in the sidebar ensuring your local AI backend is running smoothly.",
-      },
+        title: "System Monitor",
+        description: "Check the sidebar—I added real-time health checks for the local AI backend."
+      }
     ],
     previewPanels: [
-      { label: "Chat Engine", iconName: "MessageSquare" },
-      { label: "Workspaces", iconName: "FolderKey" },
-      { label: "Agents", iconName: "Cpu" },
+      { label: "Chat", iconName: "MessageSquare" },
+      { label: "Security", iconName: "FolderKey" },
+      { label: "Agents", iconName: "Cpu" }
     ],
   },
   {
     id: "dl-algorithms",
     batchId: "BATCH_01",
-    index: "05",
     title: "Deep Learning Mastery",
-    subtitle: "PyTorch Curriculum & Algorithms",
-    description: "A research-grade deep learning curriculum covering MLPs, Transformers, Vision Models, and RLHF—all optimized for CPU training.",
-    longDescription: "This repository houses a comprehensive suite of Deep Learning algorithms built from scratch using PyTorch. It features a complete pipeline from foundational Multi-Layer Perceptrons to complex architectures like GPT-style Causal Self-Attention models, Vision Transformers (ViT), and advanced alignment techniques including Supervised Fine-Tuning (SFT) and Reinforcement Learning from Human Feedback (RLHF).",
+    subtitle: "Learning AI from First Principles",
+    description: "A collection of core DL algorithms I built from scratch in PyTorch to truly understand how they work.",
+    longDescription: "I believe the best way to learn is to build. I created this repository to master Deep Learning from the ground up—moving from basic MLPs to Transformers and RLHF. Every model here is implemented without high-level abstractions, teaching me the intricate details of backpropagation, attention mechanisms, and model alignment.",
     techStack: ["Python", "PyTorch", "Transformers", "Hypothesis", "Machine Learning"],
     demoKind: "dl-algorithms",
     repoUrl: "https://github.com/ajay99511/DL_Algorithms",
     highlights: [
-      "Config-driven training loops with structured JSONL logging and checkpointing.",
-      "Custom implementation of Multi-head Causal Self-Attention and Vision Transformers.",
-      "Complete RLHF pipeline with Reward Modeling and PPO.",
-      "Property-based testing suite using Hypothesis to verify correctness.",
+      "Implemented Transformers and Causal Self-Attention from scratch to master the math.",
+      "Explored the full RLHF pipeline, including Reward Modeling and PPO alignment.",
+      "Learned to use Hypothesis for property-based testing of neural network layers.",
+      "Developed a custom training loop with structured logging and checkpointing for CPU-only runs."
     ],
     stats: {
       nodes: 6,
-      complexity: "Model Architectures & Training",
+      complexity: "First-Principles AI",
     },
     contextBanner: {
-      challenge: "Understanding complex deep learning architectures requires looking beneath high-level framework abstractions",
-      solution: "A transparent, thoroughly documented set of raw model implementations and training loops built from first principles",
+      challenge: "Frameworks like Hugging Face hide the 'magic'. I wanted to peel back the layers and build everything myself.",
+      solution: "A transparent library of model implementations focused on readability and mathematical correctness."
     },
     quickStartSteps: [
       {
-        title: "Explore the Architectures",
-        description: "Browse the file tree to discover implementations of GPT-style pre-training, SFT/RLHF alignment, and Vision Transformers.",
+        title: "View Architectures",
+        description: "Explore the GPT and Vision Transformer code—I built these using raw PyTorch tensors."
       },
       {
-        title: "Examine the Code",
-        description: "Review the syntax-highlighted code for the CausalSelfAttention layer, showcasing fused QKV projections and causal masking.",
+        title: "Study RLHF",
+        description: "Check out the alignment logic—I implemented this to learn how to 'steer' AI models."
       },
       {
-        title: "Run the Training Loop",
-        description: "Click 'Run Model' to simulate a PyTorch training session and watch the loss metrics decrease in the terminal output.",
-      },
+        title: "Simulate Training",
+        description: "Run the model demo to see the training loop and loss metrics I designed for CPU learning."
+      }
     ],
     previewPanels: [
-      { label: "Training", iconName: "TerminalSquare" },
-      { label: "Algorithms", iconName: "Code2" },
-      { label: "Models", iconName: "Network" },
+      { label: "Terminal", iconName: "TerminalSquare" },
+      { label: "Code", iconName: "Code2" },
+      { label: "Math", iconName: "Network" }
     ],
   },
 ];
+
+export const projects: Project[] = rawProjects.map((p, i) => ({
+  ...p,
+  index: (i + 1).toString().padStart(2, "0"),
+}));
 
 export function getProjectById(id: string) {
   return projects.find((project) => project.id === id);

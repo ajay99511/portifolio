@@ -20,43 +20,28 @@ interface ProjectInteractiveViewProps {
   project: Project;
 }
 
+const DEMO_COMPONENTS: Record<string, React.ElementType> = {
+  chronos: ChronosPlannerDemo,
+  dayvault: DayVaultDemo,
+  fastbeat: FastBeatDemo,
+  "personal-assist": PersonalAssistDemo,
+  "dl-algorithms": DLAlgorithmsDemo,
+  "repo-pulse": RepoPulseDemo,
+  "icm-fraud-detection": ICMFraudDetectionDemo,
+  "db-pred": DbPredDemo,
+  "sm-pred": SMPredDemo,
+  gitscripe: GitScripeDemo,
+  "md-explorer": MdExplorerDemo,
+  "social-network": SocialNetworkDemo,
+};
+
 function renderDemo(project: Project) {
-  if (project.demoKind === "chronos") {
-    return <ChronosPlannerDemo />;
+  const DemoComponent = DEMO_COMPONENTS[project.demoKind];
+  
+  if (DemoComponent) {
+    return <DemoComponent />;
   }
-  if (project.demoKind === "dayvault") {
-    return <DayVaultDemo />;
-  }
-  if (project.demoKind === "fastbeat") {
-    return <FastBeatDemo />;
-  }
-  if (project.demoKind === "personal-assist") {
-    return <PersonalAssistDemo />;
-  }
-  if (project.demoKind === "dl-algorithms") {
-    return <DLAlgorithmsDemo />;
-  }
-  if (project.demoKind === "repo-pulse") {
-    return <RepoPulseDemo />;
-  }
-  if (project.demoKind === "icm-fraud-detection") {
-    return <ICMFraudDetectionDemo />;
-  }
-  if (project.demoKind === "db-pred") {
-    return <DbPredDemo />;
-  }
-  if (project.demoKind === "sm-pred") {
-    return <SMPredDemo />;
-  }
-  if (project.demoKind === "gitscripe") {
-    return <GitScripeDemo />;
-  }
-  if (project.demoKind === "md-explorer") {
-    return <MdExplorerDemo />;
-  }
-  if (project.demoKind === "social-network") {
-    return <SocialNetworkDemo />;
-  }
+  
   return (
     <div className="h-full border border-zinc-800 rounded-lg p-6 text-zinc-400 font-mono text-xs uppercase tracking-widest">
       No interactive demo configured for this project.

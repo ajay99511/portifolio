@@ -10,8 +10,6 @@ import {
   Search,
   Filter,
   Star,
-  GitFork,
-  Check,
   Copy,
   ExternalLink,
   ChevronDown
@@ -225,8 +223,8 @@ export default function RepoPulseDemo() {
         <div className="p-4 border-t mt-auto flex items-center gap-3" style={{ borderColor: THEME.border }}>
           <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-purple-500 shrink-0 border border-white/20" />
           <div className="flex flex-col min-w-0">
-            <span className="text-sm font-bold truncate">Alex Developer</span>
-            <span className="text-[10px] truncate" style={{ color: THEME.textMuted }}>@alexdev</span>
+            <span className="text-sm font-bold truncate">Ajay Developer</span>
+            <span className="text-[10px] truncate" style={{ color: THEME.textMuted }}>@ajaydev</span>
           </div>
         </div>
       </aside>

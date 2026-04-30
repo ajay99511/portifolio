@@ -1,20 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import {
-  MessageSquare,
-  BrainCircuit,
-  Cpu,
-  Bot,
-  Download,
-  Mic,
-  FolderKey,
-  Settings,
-  Activity,
-  Send,
-  Sun,
-  Moon,
-} from "lucide-react";
 import { cn } from "@/lib/utils";
 import DemoQuickStart from "@/components/demos/DemoQuickStart";
 import { projects } from "@/lib/projects";
@@ -25,7 +11,6 @@ const C = {
   bgSecondary: "#111827",
   bgCard: "rgba(17, 24, 39, 0.7)",
   bgInput: "rgba(255, 255, 255, 0.06)",
-  bgHover: "rgba(255, 255, 255, 0.08)",
   bgGlass: "rgba(255, 255, 255, 0.04)",
   textPrimary: "#f1f5f9",
   textSecondary: "#94a3b8",
@@ -38,8 +23,6 @@ const C = {
   successBg: "rgba(52, 211, 153, 0.15)",
   warning: "#fbbf24",
 };
-
-type PageId = "chat" | "memory" | "models" | "agents" | "workspace" | "jobs" | "health";
 
 const NAV_ITEMS = [
   { id: "chat", label: "Chat", icon: "💬" },
@@ -54,31 +37,29 @@ const NAV_ITEMS = [
   { id: "telegram", label: "Telegram", icon: "✈️" },
 ] as const;
 
-export default function PersonalAssistDemo() {
-  const [quickStartDone, setQuickStartDone] = useState(false);
-  const projectData = projects.find((p) => p.id === "personal-assist");
-  
-  const [activePage, setActivePage] = useState<string>("chat");
-  const [apiOnline] = useState(true);
-  const [theme] = useState<"dark" | "light">("dark");
-  const [smartMode, setSmartMode] = useState(true);
-  const [streamMode, setStreamMode] = useState(true);
+interface ChatPageProps {
+  chatInput: string;
+  setChatInput: (val: string) => void;
+  smartMode: boolean;
+  setSmartMode: (val: boolean) => void;
+  streamMode: boolean;
+  setStreamMode: (val: boolean) => void;
+}
 
-  // Chat Mock State
-  const [chatInput, setChatInput] = useState("");
+const ChatPage = ({ chatInput, setChatInput, smartMode, setSmartMode, streamMode, setStreamMode }: ChatPageProps) => {
   const mockMessages = [
     { role: "assistant", content: "Hello! I am PersonalAssist. How can I help you today with your local AI tasks?", timestamp: "10:42 AM" },
     { role: "user", content: "Can you analyze the errors in src/main.rs?", timestamp: "10:44 AM" },
     { role: "assistant", content: "I found a lifetime borrow checker error in `src/main.rs` on line 42. You're trying to return a reference to a locally scoped variable. I suggest using an `Arc` or cloning the data.", timestamp: "10:45 AM", memoryUsed: true, model: "llama3-8b-instruct" },
   ];
 
-  const ChatPage = () => (
+  return (
     <div className="flex flex-col h-full w-full overflow-hidden">
       {/* Header */}
       <div className="flex justify-between items-center px-4 py-3 border-b" style={{ borderColor: C.border, background: C.bgSecondary }}>
         <div className="flex items-center gap-3">
           <button className="text-xl" style={{ color: C.textPrimary }}>☰</button>
-          <div className="font-semibold text-base">Rust Debugging Session</div>
+          <div className="font-semibold text-base">Local LLM Experiment</div>
         </div>
       </div>
 
@@ -150,61 +131,75 @@ export default function PersonalAssistDemo() {
       </div>
     </div>
   );
+};
 
-  const WorkspacePage = () => (
-    <div className="p-6 h-full overflow-y-auto">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-semibold m-0" style={{ color: C.textPrimary }}>Workspace Management</h1>
-        <div className="flex gap-3">
-          <button className="px-4 py-2 rounded-md text-[13px] font-medium border" style={{ background: C.bgGlass, color: C.textSecondary, borderColor: C.border }}>
-            🔒 Test Permissions
-          </button>
-          <button className="px-4 py-2 rounded-md text-[13px] font-medium border border-transparent" style={{ background: `linear-gradient(135deg, #818cf8, #6366f1)`, color: "#ffffff" }}>
-            + New Workspace
-          </button>
+const WorkspacePage = () => (
+  <div className="p-6 h-full overflow-y-auto">
+    <div className="flex justify-between items-center mb-6">
+      <h1 className="text-xl font-semibold m-0" style={{ color: C.textPrimary }}>Workspace Management</h1>
+      <div className="flex gap-3">
+        <button className="px-4 py-2 rounded-md text-[13px] font-medium border" style={{ background: C.bgGlass, color: C.textSecondary, borderColor: C.border }}>
+          🔒 Test Permissions
+        </button>
+        <button className="px-4 py-2 rounded-md text-[13px] font-medium border border-transparent" style={{ background: `linear-gradient(135deg, #818cf8, #6366f1)`, color: "#ffffff" }}>
+          + New Workspace
+        </button>
+      </div>
+    </div>
+
+    <div className="grid gap-4">
+      {/* Workspace Card 1 */}
+      <div className="p-4 rounded-xl border backdrop-blur-md" style={{ background: C.bgCard, borderColor: C.border, boxShadow: `0 4px 12px rgba(0,0,0,0.3)` }}>
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="text-sm font-semibold mb-2" style={{ color: C.textPrimary }}>my-portfolio</h3>
+            <div className="text-[13px] mb-2" style={{ color: C.textMuted }}>📁 C:\Users\ajaye\My_Products\portifolio</div>
+            <div className="text-xs" style={{ color: C.textMuted }}>Read: **/* | Write: src/**/*, app/**/*</div>
+          </div>
+          <div className="flex gap-2">
+            <button className="px-3 py-1.5 rounded-md text-sm border" style={{ background: C.bgGlass, borderColor: C.border }}>📋</button>
+            <button className="px-3 py-1.5 rounded-md text-sm border" style={{ background: "rgba(248, 113, 113, 0.15)", borderColor: "rgba(248, 113, 113, 0.15)" }}>🗑️</button>
+          </div>
+        </div>
+        <div className="mt-3 flex gap-2">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold" style={{ background: C.accentGlow, color: C.accentPrimary }}>⚡ Execute</span>
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold" style={{ background: C.successBg, color: C.success }}>🔀 Git</span>
         </div>
       </div>
 
-      <div className="grid gap-4">
-        {/* Workspace Card 1 */}
-        <div className="p-4 rounded-xl border backdrop-blur-md" style={{ background: C.bgCard, borderColor: C.border, boxShadow: `0 4px 12px rgba(0,0,0,0.3)` }}>
-          <div className="flex justify-between items-start">
-            <div>
-              <h3 className="text-sm font-semibold mb-2" style={{ color: C.textPrimary }}>portfolio-project</h3>
-              <div className="text-[13px] mb-2" style={{ color: C.textMuted }}>📁 C:\Users\ajaye\My_Products\portifolio</div>
-              <div className="text-xs" style={{ color: C.textMuted }}>Read: **/* | Write: src/**/*, app/**/*</div>
-            </div>
-            <div className="flex gap-2">
-              <button className="px-3 py-1.5 rounded-md text-sm border" style={{ background: C.bgGlass, borderColor: C.border }}>📋</button>
-              <button className="px-3 py-1.5 rounded-md text-sm border" style={{ background: "rgba(248, 113, 113, 0.15)", borderColor: "rgba(248, 113, 113, 0.15)" }}>🗑️</button>
-            </div>
+      {/* Workspace Card 2 */}
+      <div className="p-4 rounded-xl border backdrop-blur-md" style={{ background: C.bgCard, borderColor: C.border }}>
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="text-sm font-semibold mb-2" style={{ color: C.textPrimary }}>deep-learning-lab</h3>
+            <div className="text-[13px] mb-2" style={{ color: C.textMuted }}>📁 C:\Users\ajaye\My_Products\portifolio\.temp_dl_algo</div>
+            <div className="text-xs" style={{ color: C.textMuted }}>Read: **/*.py | Write: None</div>
           </div>
-          <div className="mt-3 flex gap-2">
-            <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold" style={{ background: C.accentGlow, color: C.accentPrimary }}>⚡ Execute</span>
-            <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold" style={{ background: C.successBg, color: C.success }}>🔀 Git</span>
+          <div className="flex gap-2">
+            <button className="px-3 py-1.5 rounded-md text-sm border" style={{ background: C.bgGlass, borderColor: C.border }}>📋</button>
+            <button className="px-3 py-1.5 rounded-md text-sm border" style={{ background: "rgba(248, 113, 113, 0.15)", borderColor: "rgba(248, 113, 113, 0.15)" }}>🗑️</button>
           </div>
         </div>
-
-        {/* Workspace Card 2 */}
-        <div className="p-4 rounded-xl border backdrop-blur-md" style={{ background: C.bgCard, borderColor: C.border }}>
-          <div className="flex justify-between items-start">
-            <div>
-              <h3 className="text-sm font-semibold mb-2" style={{ color: C.textPrimary }}>agent-framework</h3>
-              <div className="text-[13px] mb-2" style={{ color: C.textMuted }}>📁 C:\Agents\PersonalAssist\core</div>
-              <div className="text-xs" style={{ color: C.textMuted }}>Read: **/*.py | Write: None</div>
-            </div>
-            <div className="flex gap-2">
-              <button className="px-3 py-1.5 rounded-md text-sm border" style={{ background: C.bgGlass, borderColor: C.border }}>📋</button>
-              <button className="px-3 py-1.5 rounded-md text-sm border" style={{ background: "rgba(248, 113, 113, 0.15)", borderColor: "rgba(248, 113, 113, 0.15)" }}>🗑️</button>
-            </div>
-          </div>
-          <div className="mt-3 flex gap-2">
-            <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold" style={{ background: "rgba(251, 191, 36, 0.15)", color: C.warning }}>🌐 Network</span>
-          </div>
+        <div className="mt-3 flex gap-2">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold" style={{ background: "rgba(251, 191, 36, 0.15)", color: C.warning }}>🌐 Network</span>
         </div>
       </div>
     </div>
-  );
+  </div>
+);
+
+export default function PersonalAssistDemo() {
+  const [quickStartDone, setQuickStartDone] = useState(false);
+  const projectData = projects.find((p) => p.id === "personal-assist");
+  
+  const [activePage, setActivePage] = useState<string>("chat");
+  const [apiOnline] = useState(true);
+  const [theme] = useState<"dark" | "light">("dark");
+  const [smartMode, setSmartMode] = useState(true);
+  const [streamMode, setStreamMode] = useState(true);
+
+  // Chat Mock State
+  const [chatInput, setChatInput] = useState("");
 
   return (
     <div className="h-full rounded-lg overflow-hidden relative font-sans text-sm flex" style={{ background: C.bgPrimary, color: C.textPrimary }}>
@@ -257,7 +252,16 @@ export default function PersonalAssistDemo() {
 
       {/* ── Main Content ── */}
       <main className="flex-1 flex flex-col overflow-hidden" style={{ background: C.bgPrimary }}>
-        {activePage === "chat" && <ChatPage />}
+        {activePage === "chat" && (
+          <ChatPage 
+            chatInput={chatInput} 
+            setChatInput={setChatInput} 
+            smartMode={smartMode} 
+            setSmartMode={setSmartMode} 
+            streamMode={streamMode} 
+            setStreamMode={setStreamMode} 
+          />
+        )}
         {activePage === "workspace" && <WorkspacePage />}
         {activePage !== "chat" && activePage !== "workspace" && (
           <div className="flex-1 flex items-center justify-center flex-col text-center p-12">
