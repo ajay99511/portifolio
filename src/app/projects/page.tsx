@@ -14,8 +14,8 @@ export default function ProjectsPage() {
       <Navbar />
       <ProjectGallery />
 
-      <footer className="py-12 px-6 md:px-24 border-t border-zinc-900 bg-black text-center">
-        <p className="font-mono text-[10px] text-zinc-600 uppercase tracking-widest">
+      <footer className="py-8 sm:py-12 section-px border-t border-zinc-900 bg-black text-center safe-bottom">
+        <p className="font-mono text-[9px] sm:text-[10px] text-zinc-600 uppercase tracking-widest">
           © 2026 AJAY // FULL_STACK_ENGINEER // PORTFOLIO_PREVIEW
         </p>
       </footer>

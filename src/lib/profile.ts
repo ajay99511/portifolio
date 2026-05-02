@@ -4,7 +4,7 @@ export const profile = {
   location: "United States / Remote",
   status: "Azure Certified Developer",
   summary:
-    "Results-driven Full-Stack Software Engineer with hands-on experience building scalable marketplace applications using modern technologies. Proficient in Node.js, React Native, TypeScript, and Azure Cloud Services with expertise in RESTful API design, microservices architecture, and containerized deployments using Docker and Kubernetes.",
+    "Full-Stack Software Engineer and AI Enthusiast with a strong foundation in scalable systems, cloud computing, and machine learning. Passionate about deep learning, large language models (LLMs), and research-driven innovation. Proven expertise in end-to-end system design, RESTful APIs, and cloud-native architectures (Azure/AWS). Actively contributes to open-source projects, including OpenClaw (approved pull request, listed as contributor). Seeking to leverage technical and research skills in a master’s program focused on AI/ML and advanced data science.",
   github: "https://github.com/ajay99511",
   linkedin: "https://www.linkedin.com/in/e-aj-47b71238b/",
   leetcode: "https://leetcode.com/u/ajay216/",

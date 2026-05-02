@@ -12,7 +12,7 @@ export default function ProjectGallery() {
   const { togglePin, isMounted, isPinned } = usePinnedProjects();
 
   return (
-    <section className="min-h-screen pt-24 pb-16 px-6 md:px-24">
+    <section className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 section-px">
       {/* Back navigation */}
       <motion.div
         initial={{ opacity: 0, x: -12 }}
@@ -21,7 +21,7 @@ export default function ProjectGallery() {
       >
         <Link
           href="/#archive"
-          className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest mb-12"
+          className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest mb-8 sm:mb-12 py-2"
         >
           <ArrowLeft size={14} /> Back_To_Home
         </Link>
@@ -32,21 +32,26 @@ export default function ProjectGallery() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="mb-16"
+        className="mb-10 sm:mb-16"
       >
         <h2 className="font-mono text-sm text-brand-orange mb-2 uppercase tracking-widest flex items-center gap-2">
           <span className="w-8 h-[1px] bg-brand-orange" /> All_Projects
         </h2>
-        <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter">Complete Archive</h1>
-        <p className="text-zinc-500 text-sm font-mono mt-3 uppercase tracking-wider flex items-center gap-2">
+        <h1
+          className="font-bold uppercase tracking-tighter"
+          style={{ fontSize: "var(--text-3xl)" }}
+        >
+          Complete Archive
+        </h1>
+        <p className="text-zinc-500 text-xs sm:text-sm font-mono mt-3 uppercase tracking-wider flex items-center gap-2">
           <Layers size={14} className="text-zinc-600" />
           {allProjects.length} {allProjects.length === 1 ? "project" : "projects"} in collection
         </p>
       </motion.div>
 
-      {/* Projects Grid */}
+      {/* Projects Grid — sm breakpoint added for tablets */}
       {allProjects.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {allProjects.map((project, idx) => (
             <ProjectCard
               key={project.id}
@@ -59,7 +64,7 @@ export default function ProjectGallery() {
           ))}
         </div>
       ) : (
-        <div className="border border-zinc-800 bg-zinc-950/70 p-16 text-center">
+        <div className="border border-zinc-800 bg-zinc-950/70 p-10 sm:p-16 text-center">
           <Layers size={40} className="text-zinc-700 mx-auto mb-4" />
           <p className="text-zinc-500 font-mono text-sm uppercase tracking-wider mb-2">
             No projects yet

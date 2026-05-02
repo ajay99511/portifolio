@@ -1,5 +1,10 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Code } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { Code, Menu, X } from "lucide-react";
 import { profile } from "@/lib/profile";
 
 const GithubIcon = ({ size = 24 }: { size?: number }) => (
@@ -17,28 +22,147 @@ const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
   </svg>
 );
 
+const NAV_LINKS = [
+  { href: "/#expertise", label: "Expertise" },
+  { href: "/#archive", label: "Archive" },
+  { href: "/projects", label: "Projects" },
+  { href: "/#timeline", label: "Timeline" },
+];
+
+const SOCIAL_LINKS = [
+  { href: profile.github, icon: GithubIcon, label: "GitHub" },
+  { href: profile.linkedin, icon: LinkedinIcon, label: "LinkedIn" },
+  { href: profile.leetcode, icon: Code, label: "LeetCode" },
+];
+
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Close menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-morphism px-6 py-4 flex justify-between items-center">
-      <Link href="/" className="font-mono text-xl font-bold tracking-tighter">
-        <span className="text-brand-orange">_</span>AJAY
-      </Link>
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 glass-morphism px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+        <Link href="/" className="font-mono text-lg sm:text-xl font-bold tracking-tighter">
+          <span className="text-brand-orange">_</span>AJAY
+        </Link>
 
-      <div className="flex items-center gap-6">
-        <div className="hidden md:flex gap-6 font-mono text-sm uppercase tracking-widest text-zinc-400">        
-          <Link href="/#expertise" className="hover:text-white transition-colors">Expertise</Link>
-          <Link href="/#archive" className="hover:text-white transition-colors">Archive</Link>
-          <Link href="/projects" className="hover:text-white transition-colors">Projects</Link>
-          <Link href="/#timeline" className="hover:text-white transition-colors">Timeline</Link>
-        </div>
+        {/* Desktop nav links */}
+        <div className="flex items-center gap-6">
+          <div className="hidden md:flex gap-6 font-mono text-sm uppercase tracking-widest text-zinc-400">        
+            {NAV_LINKS.map(link => (
+              <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
+                {link.label}
+              </Link>
+            ))}
+          </div>
 
-        <div className="flex items-center gap-4 text-zinc-400">
-          <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><GithubIcon size={20} /></a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><LinkedinIcon size={20} /></a>
-          <a href={profile.leetcode} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Code size={20} /></a>
+          {/* Social icons — always visible */}
+          <div className="hidden sm:flex items-center gap-4 text-zinc-400">
+            {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
+              <a key={label} href={href} target="_blank" rel="noreferrer" className="hover:text-white transition-colors" aria-label={label}>
+                <Icon size={20} />
+              </a>
+            ))}
+          </div>
+
+          {/* Hamburger toggle — mobile only */}
+          <button
+            className="md:hidden p-2 -mr-2 text-zinc-400 hover:text-white transition-colors"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* ── Mobile Menu Overlay ── */}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              className="mobile-menu-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMenuOpen(false)}
+              aria-hidden="true"
+            />
+
+            {/* Panel */}
+            <motion.div
+              className="mobile-menu-panel"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 300 }}
+            >
+              {/* Close */}
+              <div className="flex justify-end mb-8">
+                <button
+                  onClick={() => setMenuOpen(false)}
+                  className="p-2 text-zinc-500 hover:text-white transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Nav links */}
+              <nav className="flex flex-col gap-1 mb-10">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 + i * 0.05 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className="block px-4 py-3 font-mono text-sm uppercase tracking-widest text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <span className="text-brand-orange mr-2">//</span>
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+
+              {/* Social links */}
+              <div className="mt-auto border-t border-white/5 pt-6">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-zinc-600 mb-4">Connect</p>
+                <div className="flex items-center gap-5 text-zinc-500">
+                  {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
+                    <a key={label} href={href} target="_blank" rel="noreferrer" className="hover:text-white transition-colors" aria-label={label}>
+                      <Icon size={20} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 export default Navbar;

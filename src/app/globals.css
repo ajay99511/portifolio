@@ -17,6 +17,28 @@
   --foreground: #ffffff;
   --font-inter: "Inter";
   --font-jetbrains-mono: "JetBrains Mono";
+
+  /* ── Fluid spacing scale ── */
+  --space-xs:  clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm:  clamp(0.5rem, 1vw, 0.75rem);
+  --space-md:  clamp(0.75rem, 1.5vw, 1rem);
+  --space-lg:  clamp(1rem, 2vw, 1.5rem);
+  --space-xl:  clamp(1.5rem, 3vw, 2.5rem);
+  --space-2xl: clamp(2rem, 5vw, 4rem);
+
+  /* ── Fluid typography scale ── */
+  --text-xs:   clamp(0.625rem, 0.6rem + 0.15vw, 0.75rem);
+  --text-sm:   clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-base: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-lg:   clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  --text-xl:   clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  --text-2xl:  clamp(1.375rem, 1.1rem + 1.2vw, 2rem);
+  --text-3xl:  clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
+  --text-hero: clamp(2.5rem, 2rem + 4vw, 6rem);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 @layer base {
@@ -24,13 +46,79 @@
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-inter);
+    overflow-x: hidden;
     @apply antialiased;
   }
 }
 
+/* ── Reusable section padding ── */
+.section-px {
+  padding-left: clamp(1rem, 3vw, 6rem);
+  padding-right: clamp(1rem, 3vw, 6rem);
+}
+
+/* ── Glass morphism ── */
 .glass-morphism {
   @apply bg-black/40 backdrop-blur-md border border-white/10;
 }
 
+/* ── Zinc text utilities ── */
 .text-zinc-400 { color: #a1a1aa; }
 .text-zinc-600 { color: #52525b; }
+
+/* ── Mobile menu overlay ── */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.mobile-menu-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  width: min(85vw, 320px);
+  background: #0a0a0a;
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+/* ── Custom scrollbar (subtle) ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Hide scrollbar on horizontal scroll containers ── */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Safe area support for notched devices ── */
+@supports(padding: max(0px)) {
+  .safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
