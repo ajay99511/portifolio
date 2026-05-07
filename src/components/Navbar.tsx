@@ -26,6 +26,7 @@ const NAV_LINKS = [
   { href: "/#expertise", label: "Expertise" },
   { href: "/#archive", label: "Archive" },
   { href: "/projects", label: "Projects" },
+  { href: "/certifications", label: "Certifications" },
   { href: "/#timeline", label: "Timeline" },
 ];
 
@@ -78,7 +79,7 @@ const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 className="hover:text-white transition-colors"
-                aria-current={link.href === "/projects" && pathname === "/projects" ? "page" : undefined}
+                aria-current={link.href === pathname ? "page" : undefined}
               >
                 {link.label}
               </Link>

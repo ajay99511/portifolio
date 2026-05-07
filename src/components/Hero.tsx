@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronRight, FileText, MapPin, Cpu, Sparkles, Radar } from "lucide-react";
+import { ChevronRight, FileText, MapPin, Cpu, Sparkles, Radar, BadgeCheck } from "lucide-react";
 import Link from "next/link";
 import { profile } from "@/lib/profile";
 
@@ -56,6 +56,12 @@ const Hero = () => {
               className="px-6 sm:px-8 py-3.5 sm:py-4 border border-zinc-700 font-mono text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-zinc-900/60 transition-colors uppercase"
             >
               <FileText size={18} /> Preview_Resume
+            </Link>
+            <Link
+              href="/certifications"
+              className="px-6 sm:px-8 py-3.5 sm:py-4 border border-brand-cyan/35 text-brand-cyan font-mono text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-brand-cyan/10 transition-colors uppercase"
+            >
+              <BadgeCheck size={18} /> View_Certifications
             </Link>
           </div>
 

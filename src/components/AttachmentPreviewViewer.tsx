@@ -137,6 +137,12 @@ function previewByType(
 export default function AttachmentPreviewViewer({
   attachment,
 }: AttachmentPreviewViewerProps) {
+  const backHref = attachment.group === "certification" ? "/certifications" : "/";
+  const backLabel =
+    attachment.group === "certification"
+      ? "Back_To_Certifications"
+      : "Back_To_Portfolio";
+
   const officeEmbedUrl = useMemo(() => {
     if (attachment.kind !== "doc" && attachment.kind !== "excel") {
       return null;
@@ -168,11 +174,11 @@ export default function AttachmentPreviewViewer({
         className="mb-6 sm:mb-8"
       >
         <Link
-          href="/"
+          href={backHref}
           className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest"
         >
           <ArrowLeft size={14} />
-          Back_To_Portfolio
+          {backLabel}
         </Link>
       </motion.div>
 
