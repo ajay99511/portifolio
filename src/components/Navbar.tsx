@@ -38,11 +38,7 @@ const SOCIAL_LINKS = [
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  // Close menu on route change
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+  const closeMenu = () => setMenuOpen(false);
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -54,18 +50,36 @@ const Navbar = () => {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
+
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 glass-morphism px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
-        <Link href="/" className="font-mono text-lg sm:text-xl font-bold tracking-tighter">
+      <nav className="fixed top-0 left-0 right-0 z-50 glass-morphism px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center border-b border-white/5">
+        <Link href="/" className="font-display text-lg sm:text-xl font-semibold tracking-tight">
           <span className="text-brand-orange">_</span>AJAY
         </Link>
 
         {/* Desktop nav links */}
         <div className="flex items-center gap-6">
-          <div className="hidden md:flex gap-6 font-mono text-sm uppercase tracking-widest text-zinc-400">        
+          <div className="hidden md:flex gap-6 font-mono text-sm uppercase tracking-widest text-zinc-400">
             {NAV_LINKS.map(link => (
-              <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
+              <Link
+                key={link.href}
+                href={link.href}
+                className="hover:text-white transition-colors"
+                aria-current={link.href === "/projects" && pathname === "/projects" ? "page" : undefined}
+              >
                 {link.label}
               </Link>
             ))}
@@ -74,7 +88,7 @@ const Navbar = () => {
           {/* Social icons — always visible */}
           <div className="hidden sm:flex items-center gap-4 text-zinc-400">
             {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
-              <a key={label} href={href} target="_blank" rel="noreferrer" className="hover:text-white transition-colors" aria-label={label}>
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label={label}>
                 <Icon size={20} />
               </a>
             ))}
@@ -86,6 +100,7 @@ const Navbar = () => {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
+            aria-controls="mobile-navigation-panel"
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -109,6 +124,7 @@ const Navbar = () => {
 
             {/* Panel */}
             <motion.div
+              id="mobile-navigation-panel"
               className="mobile-menu-panel"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -138,9 +154,9 @@ const Navbar = () => {
                     <Link
                       href={link.href}
                       className="block px-4 py-3 font-mono text-sm uppercase tracking-widest text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-                      onClick={() => setMenuOpen(false)}
+                      onClick={closeMenu}
                     >
-                      <span className="text-brand-orange mr-2">//</span>
+                      <span className="text-brand-orange mr-2">{"//"}</span>
                       {link.label}
                     </Link>
                   </motion.div>
@@ -152,7 +168,7 @@ const Navbar = () => {
                 <p className="font-mono text-[10px] uppercase tracking-widest text-zinc-600 mb-4">Connect</p>
                 <div className="flex items-center gap-5 text-zinc-500">
                   {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
-                    <a key={label} href={href} target="_blank" rel="noreferrer" className="hover:text-white transition-colors" aria-label={label}>
+                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label={label}>
                       <Icon size={20} />
                     </a>
                   ))}

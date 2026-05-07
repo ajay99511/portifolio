@@ -1,51 +1,106 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import { projects } from "@/lib/projects";
 
-export function usePinnedProjects() {
-  const [pinnedIds, setPinnedIds] = useState<string[]>([]);
-  const [isMounted, setIsMounted] = useState(false);
+const DEFAULT_PIN_LIMIT = 4;
+const PINNED_KEY = "pinned-projects";
+const subscribers = new Set<() => void>();
 
-  useEffect(() => {
-    // Using setTimeout to avoid cascading render warning in some lint configurations
-    const timer = setTimeout(() => setIsMounted(true), 0);
-    const stored = localStorage.getItem("pinned-projects");
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          setTimeout(() => setPinnedIds(parsed), 0);
-          return;
-        }
-      } catch {
-        // ignore JSON parse errors
-      }
+function getDefaultPinnedIds() {
+  return projects.some((project) => project.pinned)
+    ? projects
+        .filter((project) => project.pinned)
+        .slice(0, DEFAULT_PIN_LIMIT)
+        .map((project) => project.id)
+    : projects.slice(0, DEFAULT_PIN_LIMIT).map((project) => project.id);
+}
+
+const defaultPinnedIds = getDefaultPinnedIds();
+const defaultPinnedIdsSnapshot = JSON.stringify(defaultPinnedIds);
+
+function sanitizePinnedIds(value: unknown) {
+  if (!Array.isArray(value)) return defaultPinnedIds;
+  return value
+    .filter((item): item is string => typeof item === "string")
+    .slice(0, DEFAULT_PIN_LIMIT);
+}
+
+function getServerPinnedSnapshot() {
+  return defaultPinnedIdsSnapshot;
+}
+
+function getPinnedSnapshot() {
+  if (typeof window === "undefined") return defaultPinnedIdsSnapshot;
+
+  try {
+    const stored = window.localStorage.getItem(PINNED_KEY);
+    if (!stored) return defaultPinnedIdsSnapshot;
+
+    const parsed = JSON.parse(stored);
+    return JSON.stringify(sanitizePinnedIds(parsed));
+  } catch {
+    return defaultPinnedIdsSnapshot;
+  }
+}
+
+function emitPinnedChange() {
+  subscribers.forEach((subscriber) => subscriber());
+}
+
+function subscribePinnedProjects(callback: () => void) {
+  subscribers.add(callback);
+
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === PINNED_KEY) {
+      callback();
     }
-    // Default to projects marked as pinned, falling back to first 4 if none are marked
-    const defaultIds = projects.some(p => p.pinned)
-      ? projects.filter(p => p.pinned).slice(0, 4).map(p => p.id)
-      : projects.slice(0, 4).map(p => p.id);
-    
-    setTimeout(() => setPinnedIds(defaultIds), 0);
-    return () => clearTimeout(timer);
-  }, []);
+  };
+
+  window.addEventListener("storage", onStorage);
+
+  return () => {
+    subscribers.delete(callback);
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
+function writePinnedIds(ids: string[]) {
+  window.localStorage.setItem(PINNED_KEY, JSON.stringify(ids));
+  emitPinnedChange();
+}
+
+export function usePinnedProjects() {
+  const pinnedSnapshot = useSyncExternalStore(
+    subscribePinnedProjects,
+    getPinnedSnapshot,
+    getServerPinnedSnapshot
+  );
+  const pinnedIds = useMemo(() => {
+    try {
+      return sanitizePinnedIds(JSON.parse(pinnedSnapshot));
+    } catch {
+      return defaultPinnedIds;
+    }
+  }, [pinnedSnapshot]);
+
+  const isMounted = true;
 
   const togglePin = (id: string) => {
-    setPinnedIds((prev) => {
-      let newIds = [...prev];
-      if (newIds.includes(id)) {
-        newIds = newIds.filter(pid => pid !== id);
-      } else {
-        if (newIds.length >= 4) {
-          // Replace the oldest pin (first in array)
-          newIds.shift();
-        }
-        newIds.push(id);
-      }
-      localStorage.setItem("pinned-projects", JSON.stringify(newIds));
-      return newIds;
-    });
+    const nextPinnedIds = [...pinnedIds];
+
+    if (nextPinnedIds.includes(id)) {
+      const filtered = nextPinnedIds.filter((pinId) => pinId !== id);
+      writePinnedIds(filtered);
+      return;
+    }
+
+    if (nextPinnedIds.length >= DEFAULT_PIN_LIMIT) {
+      // Replace the oldest pin (first in array)
+      nextPinnedIds.shift();
+    }
+    nextPinnedIds.push(id);
+    writePinnedIds(nextPinnedIds);
   };
 
   const isPinned = (id: string) => pinnedIds.includes(id);

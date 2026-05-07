@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, X, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -37,14 +37,27 @@ export default function DemoQuickStart({ projectId, steps, onComplete }: DemoQui
     }
   }, [projectId, onComplete]);
 
-  const dismiss = () => {
+  const dismiss = useCallback(() => {
     const storageKey = `quickstart-seen-${projectId}`;
     if (typeof window !== "undefined") {
       sessionStorage.setItem(storageKey, "true");
     }
     setDismissed(true);
     onComplete();
-  };
+  }, [projectId, onComplete]);
+
+  useEffect(() => {
+    if (!visible || dismissed) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        dismiss();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [visible, dismissed, dismiss]);
 
   const advance = () => {
     if (currentStep < steps.length - 1) {
@@ -68,6 +81,11 @@ export default function DemoQuickStart({ projectId, steps, onComplete }: DemoQui
         transition={{ duration: 0.3 }}
         className="absolute inset-0 z-50 flex items-center justify-center"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.6)", backdropFilter: "blur(4px)" }}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) {
+            dismiss();
+          }
+        }}
       >
         <motion.div
           key={currentStep}
@@ -76,6 +94,9 @@ export default function DemoQuickStart({ projectId, steps, onComplete }: DemoQui
           exit={{ opacity: 0, y: -12, scale: 0.97 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
           className="relative max-w-md w-full mx-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="demo-quickstart-title"
         >
           {/* Card */}
           <div
@@ -125,7 +146,7 @@ export default function DemoQuickStart({ projectId, steps, onComplete }: DemoQui
             </div>
 
             {/* Content */}
-            <h3 className="text-lg font-bold text-white mb-2 tracking-tight">
+            <h3 id="demo-quickstart-title" className="text-lg font-bold text-white mb-2 tracking-tight">
               {step.title}
             </h3>
             <p className="text-sm text-zinc-400 leading-relaxed mb-6">

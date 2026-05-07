@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { 
   Book, 
   Folder, 
@@ -94,6 +94,13 @@ As I started building more complex projects, I found myself writing a lot of doc
 > "A tool is only as good as the focus it enables."
 `;
 
+function activateOnEnterOrSpace(event: KeyboardEvent, action: () => void) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    action();
+  }
+}
+
 export default function MdExplorerDemo() {
   const [selectedFolderId, setSelectedFolderId] = useState("f1-2");
   const [selectedFileId, setSelectedFileId] = useState("m1");
@@ -136,6 +143,9 @@ export default function MdExplorerDemo() {
                 <div 
                   className="flex items-center gap-2 px-4 py-2 hover:bg-white/5 cursor-pointer"
                   onClick={() => setSelectedFolderId(folder.id)}
+                  onKeyDown={(event) => activateOnEnterOrSpace(event, () => setSelectedFolderId(folder.id))}
+                  role="button"
+                  tabIndex={0}
                 >
                   {folder.children.length > 0 ? (folder.isExpanded ? <ChevronDown size={14} style={{ color: COLORS.textMuted }} /> : <ChevronRight size={14} style={{ color: COLORS.textMuted }} />) : <div className="w-[14px]" />}
                   <Folder size={18} style={{ color: COLORS.folderIcon }} />
@@ -149,6 +159,9 @@ export default function MdExplorerDemo() {
                       child.id === selectedFolderId ? "bg-[#1E3A5F]" : "hover:bg-white/5"
                     )}
                     onClick={() => setSelectedFolderId(child.id)}
+                    onKeyDown={(event) => activateOnEnterOrSpace(event, () => setSelectedFolderId(child.id))}
+                    role="button"
+                    tabIndex={0}
                   >
                     <Folder size={18} style={{ color: COLORS.folderIcon }} />
                     <span style={{ color: child.id === selectedFolderId ? "white" : COLORS.textPrimary }}>{child.name}</span>
@@ -183,7 +196,11 @@ export default function MdExplorerDemo() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              {searchQuery && <X size={14} className="cursor-pointer" style={{ color: COLORS.textMuted }} onClick={() => setSearchQuery("")} />}
+              {searchQuery && (
+                <button type="button" onClick={() => setSearchQuery("")} className="p-0.5" aria-label="Clear search">
+                  <X size={14} style={{ color: COLORS.textMuted }} />
+                </button>
+              )}
             </div>
           </div>
 
@@ -196,6 +213,9 @@ export default function MdExplorerDemo() {
                   selectedFileId === file.id ? "bg-[#1E3A5F]" : "hover:bg-white/5"
                 )}
                 onClick={() => setSelectedFileId(file.id)}
+                onKeyDown={(event) => activateOnEnterOrSpace(event, () => setSelectedFileId(file.id))}
+                role="button"
+                tabIndex={0}
               >
                 <FileText size={18} style={{ color: selectedFileId === file.id ? COLORS.accent : COLORS.fileIcon }} />
                 <div className="flex flex-col min-w-0">
@@ -267,6 +287,14 @@ export default function MdExplorerDemo() {
                     className="flex items-center gap-3 py-3 border-b" 
                     style={{ borderColor: COLORS.borderSubtle }}
                     onClick={() => { setSelectedFolderId(folder.id); setActiveMobilePanel("files"); }}
+                    onKeyDown={(event) =>
+                      activateOnEnterOrSpace(event, () => {
+                        setSelectedFolderId(folder.id);
+                        setActiveMobilePanel("files");
+                      })
+                    }
+                    role="button"
+                    tabIndex={0}
                   >
                     <Folder size={20} style={{ color: COLORS.folderIcon }} />
                     <span className="text-[15px]" style={{ color: COLORS.textPrimary }}>{folder.name}</span>
@@ -290,6 +318,14 @@ export default function MdExplorerDemo() {
                     className="p-4 rounded-xl border flex items-center gap-3 mb-2 active:scale-[0.98] transition-all"
                     style={{ background: COLORS.backgroundElevated, borderColor: COLORS.borderSubtle }}
                     onClick={() => { setSelectedFileId(file.id); setActiveMobilePanel("viewer"); }}
+                    onKeyDown={(event) =>
+                      activateOnEnterOrSpace(event, () => {
+                        setSelectedFileId(file.id);
+                        setActiveMobilePanel("viewer");
+                      })
+                    }
+                    role="button"
+                    tabIndex={0}
                   >
                     <FileText size={20} style={{ color: COLORS.fileIcon }} />
                     <div className="flex flex-col min-w-0">

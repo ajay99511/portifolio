@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Oxanium, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -12,9 +12,18 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const oxanium = Oxanium({
+  variable: "--font-oxanium",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "Ajay Portfolio Preview",
-  description: "Interactive project previews and engineering portfolio for Ajay",
+  title: {
+    default: "Ajay // Full-Stack Engineer",
+    template: "%s | Ajay Portfolio",
+  },
+  description:
+    "Interactive engineering portfolio by Ajay featuring high-fidelity project showcases, systems design thinking, and AI-centric product builds.",
 };
 
 export const viewport: Viewport = {
@@ -31,9 +40,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${oxanium.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden">
+      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden selection:bg-brand-orange/80 selection:text-black">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         {children}
       </body>
     </html>

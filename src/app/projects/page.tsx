@@ -10,13 +10,13 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main className="flex-1">
+    <main id="main-content" className="flex-1">
       <Navbar />
       <ProjectGallery />
 
-      <footer className="py-8 sm:py-12 section-px border-t border-zinc-900 bg-black text-center safe-bottom">
-        <p className="font-mono text-[9px] sm:text-[10px] text-zinc-600 uppercase tracking-widest">
-          © 2026 AJAY // FULL_STACK_ENGINEER // PORTFOLIO_PREVIEW
+      <footer className="py-8 sm:py-12 section-px border-t border-white/8 bg-black/85 text-center safe-bottom">
+        <p className="font-mono text-[9px] sm:text-[10px] text-zinc-500 uppercase tracking-[0.18em]">
+          Copyright 2026 AJAY // FULL_STACK_ENGINEER // PORTFOLIO_PREVIEW
         </p>
       </footer>
     </main>

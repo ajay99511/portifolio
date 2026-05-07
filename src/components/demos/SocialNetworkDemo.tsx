@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { 
   Users, 
   Heart, 
@@ -40,6 +40,13 @@ interface User {
   lastActive: string;
   bio: string;
   photo: string;
+}
+
+function activateOnEnterOrSpace(event: KeyboardEvent, action: () => void) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    action();
+  }
 }
 
 export default function SocialNetworkDemo() {
@@ -105,13 +112,20 @@ export default function SocialNetworkDemo() {
       <div className="ml-auto flex items-center gap-3">
         {isLoggedIn ? (
           <div className="flex items-center gap-3">
-            <Bell size={18} className="text-zinc-500 cursor-pointer" />
+            <Bell size={18} className="text-zinc-500" aria-hidden="true" />
             <div className="flex items-center gap-2 pl-3 border-l" style={{ borderColor: COLORS.border }}>
               <div className="relative w-8 h-8 rounded-full overflow-hidden border">
                 <Image src="https://i.pravatar.cc/150?u=ajay" alt="Me" fill className="object-cover" />
               </div>
               <span className="text-sm font-semibold hidden md:block">Welcome, Ajay</span>
-              <LogOut size={18} className="text-zinc-500 cursor-pointer" onClick={() => setIsLoggedIn(false)} />
+              <button
+                type="button"
+                onClick={() => setIsLoggedIn(false)}
+                className="p-1 text-zinc-500 hover:text-zinc-700"
+                aria-label="Log out"
+              >
+                <LogOut size={18} />
+              </button>
             </div>
           </div>
         ) : (
@@ -138,13 +152,14 @@ export default function SocialNetworkDemo() {
         {!isLoggedIn && (
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button 
+              type="button"
               onClick={handleLogin}
               className="px-8 py-3 rounded-full text-lg font-bold text-white transition-all hover:scale-105 shadow-xl"
               style={{ background: COLORS.primary }}
             >
               Explore the App
             </button>
-            <button className="px-8 py-3 rounded-full text-lg font-bold border-2 transition-all hover:bg-zinc-50" style={{ borderColor: COLORS.primary, color: COLORS.primary }}>
+            <button type="button" className="px-8 py-3 rounded-full text-lg font-bold border-2 transition-all hover:bg-zinc-50" style={{ borderColor: COLORS.primary, color: COLORS.primary }}>
               View My Story
             </button>
           </div>
@@ -267,7 +282,7 @@ export default function SocialNetworkDemo() {
         <div className="flex items-center gap-4">
           <div className="flex items-center bg-white rounded-full border px-3 py-1.5 shadow-sm">
             <Search size={16} className="text-zinc-400" />
-            <input type="text" placeholder="Search members..." className="bg-transparent border-none outline-none text-xs w-40 ml-2" />
+            <input type="text" placeholder="Search members..." aria-label="Search members" className="bg-transparent border-none outline-none text-xs w-40 ml-2" />
           </div>
         </div>
       </div>
@@ -277,7 +292,15 @@ export default function SocialNetworkDemo() {
           <div 
             key={user.id}
             onClick={() => { setSelectedUser(user); setActivePage("detail"); }}
+            onKeyDown={(event) =>
+              activateOnEnterOrSpace(event, () => {
+                setSelectedUser(user);
+                setActivePage("detail");
+              })
+            }
             className="group cursor-pointer bg-white rounded-2xl shadow-md border border-zinc-100 overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            role="button"
+            tabIndex={0}
           >
             <div className="relative aspect-square overflow-hidden">
               <Image 
@@ -388,6 +411,7 @@ export default function SocialNetworkDemo() {
               <input 
                 type="text" 
                 placeholder="Send a message..." 
+                aria-label="Message input"
                 className="flex-1 bg-zinc-100 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-[#E95420] outline-none" 
               />
               <button className="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg" style={{ background: COLORS.primary }}>

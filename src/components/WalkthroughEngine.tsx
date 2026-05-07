@@ -62,6 +62,8 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
           <button
             className="lg:hidden w-full flex items-center justify-between py-2.5 px-3 border border-zinc-800 bg-zinc-900/40 rounded-md text-zinc-400 hover:text-white transition-colors mb-4"
             onClick={() => setBriefingOpen(!briefingOpen)}
+            aria-expanded={briefingOpen}
+            aria-controls="technical-briefing-panel"
           >
             <span className="font-mono text-[10px] uppercase tracking-widest">
               {briefingOpen ? "Hide" : "Show"} Technical Briefing
@@ -71,7 +73,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
         </div>
 
         {/* Collapsible content on mobile */}
-        <div className={`${briefingOpen ? "block" : "hidden"} lg:block px-4 sm:px-6 lg:px-8 pb-4 lg:pb-0 flex-1`}>
+        <div id="technical-briefing-panel" className={`${briefingOpen ? "block" : "hidden"} lg:block px-4 sm:px-6 lg:px-8 pb-4 lg:pb-0 flex-1`}>
           {/* Long description — mobile only (hidden on lg since shown above) */}
           <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-6 lg:hidden">{project.longDescription}</p>
 
@@ -182,8 +184,8 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
                     disabled={currentStep === steps.length - 1}
                     className="px-3 sm:px-4 py-2 bg-brand-orange text-black font-bold text-[11px] sm:text-xs uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 hover:bg-orange-600 disabled:opacity-30 disabled:hover:bg-brand-orange transition-colors"
                   >
-                    <span className="hidden xs:inline">Proceed</span>
-                    <span className="xs:hidden">Next</span>
+                    <span className="hidden min-[420px]:inline">Proceed</span>
+                    <span className="min-[420px]:hidden">Next</span>
                     <ChevronRight size={12} className="sm:w-[14px] sm:h-[14px]" />
                   </button>
                 </div>

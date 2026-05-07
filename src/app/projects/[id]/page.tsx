@@ -1,8 +1,7 @@
-import { getProjectById } from "@/lib/projects";
+import { getProjectById, projects } from "@/lib/projects";
 import Navbar from "@/components/Navbar";
 import ProjectInteractiveView from "@/components/ProjectInteractiveView";
 import { notFound } from "next/navigation";
-import { projects } from "@/lib/projects";
 
 interface ProjectPageProps {
   params: Promise<{
@@ -23,7 +22,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-black">
+    <main id="main-content" className="min-h-screen bg-black">
       <Navbar />
       <ProjectInteractiveView project={project} />
     </main>
