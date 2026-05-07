@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronRight, Download, MapPin, Cpu, Sparkles, Radar } from "lucide-react";
+import { ChevronRight, FileText, MapPin, Cpu, Sparkles, Radar } from "lucide-react";
 import Link from "next/link";
 import { profile } from "@/lib/profile";
 
@@ -51,13 +51,12 @@ const Hero = () => {
               View_Project_Archive
               <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            <a
-              href="/Ajay_Resume.pdf"
-              download
+            <Link
+              href="/preview/resume"
               className="px-6 sm:px-8 py-3.5 sm:py-4 border border-zinc-700 font-mono text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-zinc-900/60 transition-colors uppercase"
             >
-              <Download size={18} /> Download_Resume
-            </a>
+              <FileText size={18} /> Preview_Resume
+            </Link>
           </div>
 
           <div className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 font-mono text-[10px] uppercase tracking-[0.14em]">
