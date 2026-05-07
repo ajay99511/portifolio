@@ -26,6 +26,7 @@ const NAV_LINKS = [
   { href: "/#expertise", label: "Expertise" },
   { href: "/#archive", label: "Archive" },
   { href: "/projects", label: "Projects" },
+  { href: "/blogs", label: "Blogs" },
   { href: "/certifications", label: "Certifications" },
   { href: "/#timeline", label: "Timeline" },
 ];
