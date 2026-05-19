@@ -1,22 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Folder, 
   FileCode2, 
   TerminalSquare, 
   Play, 
-  ChevronRight,
-  ChevronDown,
-  Info,
   Network,
   Activity,
   BrainCircuit,
   Zap,
   BarChart,
   Layers,
-  PanelRightClose,
-  PanelRightOpen,
+  Maximize2,
+  X,
+  Lightbulb,
+  Cpu,
   LucideIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -44,7 +43,7 @@ type ModuleData = {
   id: string;
   label: string;
   icon: LucideIcon;
-  files: { name: string; type: "dir" | "file"; children?: { name: string; type: "file" }[], isOpen?: boolean }[];
+  architectureImage: string;
   codeFilename: string;
   codeSnippet: string;
   termCommand: string;
@@ -67,10 +66,7 @@ const MODULES: ModuleData[] = [
     id: "backprop",
     label: "MLP",
     icon: Network,
-    files: [
-      { name: "backprop", type: "dir", isOpen: true, children: [{ name: "model.py", type: "file" }, { name: "train.py", type: "file" }, { name: "data.py", type: "file" }] },
-      { name: "shared", type: "dir", children: [{ name: "config.py", type: "file" }] }
-    ],
+    architectureImage: "/DL_Gallary/backprop_architecture.png",
     codeFilename: "model.py",
     codeSnippet: `import torch.nn as nn
 
@@ -117,9 +113,7 @@ def initialize_weights(model: MLP, strategy: str):
     id: "pretrain",
     label: "GPT Pretrain",
     icon: BrainCircuit,
-    files: [
-      { name: "pretrain", type: "dir", isOpen: true, children: [{ name: "model.py", type: "file" }, { name: "train.py", type: "file" }, { name: "tokenizer.py", type: "file" }] }
-    ],
+    architectureImage: "/DL_Gallary/pretrain_architecture.png",
     codeFilename: "model.py",
     codeSnippet: `class CausalSelfAttention(nn.Module):
     def __init__(self, d_model: int, n_heads: int, dropout: float, context_length: int):
@@ -164,9 +158,7 @@ def initialize_weights(model: MLP, strategy: str):
     id: "finetune",
     label: "RLHF",
     icon: Activity,
-    files: [
-      { name: "finetune", type: "dir", isOpen: true, children: [{ name: "rlhf.py", type: "file" }, { name: "sft.py", type: "file" }, { name: "reward_model.py", type: "file" }] }
-    ],
+    architectureImage: "/DL_Gallary/finetune_architecture.png",
     codeFilename: "rlhf.py",
     codeSnippet: `def ppo_step(policy, ref_policy, reward_model, batch, config, logger):
     input_ids = batch["input_ids"]
@@ -209,9 +201,7 @@ def initialize_weights(model: MLP, strategy: str):
     id: "visiontx",
     label: "Vision TX",
     icon: Layers,
-    files: [
-      { name: "visiontx", type: "dir", isOpen: true, children: [{ name: "model.py", type: "file" }, { name: "baseline.py", type: "file" }, { name: "attention_viz.py", type: "file" }] }
-    ],
+    architectureImage: "/DL_Gallary/visiontx_architecture.png",
     codeFilename: "model.py",
     codeSnippet: `class PatchEmbedding(nn.Module):
     """Splits image into non-overlapping patches and projects to d_model."""
@@ -259,9 +249,7 @@ class ViT(nn.Module):
     id: "infer",
     label: "Inference",
     icon: Zap,
-    files: [
-      { name: "infer", type: "dir", isOpen: true, children: [{ name: "kv_cache.py", type: "file" }, { name: "inference.py", type: "file" }, { name: "reasoning.py", type: "file" }] }
-    ],
+    architectureImage: "/DL_Gallary/infer_architecture.png",
     codeFilename: "kv_cache.py",
     codeSnippet: `class KVCache:
     """Stores past key/value tensors to avoid recomputation."""
@@ -298,9 +286,7 @@ def benchmark_kv_cache(model, prompts, tokenizer, config):
     id: "evaluate",
     label: "Evaluation",
     icon: BarChart,
-    files: [
-      { name: "evaluate", type: "dir", isOpen: true, children: [{ name: "evaluate.py", type: "file" }, { name: "calibration.py", type: "file" }, { name: "weight_analysis.py", type: "file" }] }
-    ],
+    architectureImage: "/DL_Gallary/evaluate_architecture.png",
     codeFilename: "evaluate.py",
     codeSnippet: `def run_evaluation(model_name: str, tasks: dict[str, int], config, logger):
     """Wrap lm_eval.simple_evaluate() to run benchmark evaluation."""
@@ -342,244 +328,196 @@ def benchmark_kv_cache(model, prompts, tokenizer, config):
   }
 ];
 
+type BottomTab = "insights" | "code" | "terminal";
+
 export default function DLAlgorithmsDemo() {
   const [quickStartDone, setQuickStartDone] = useState(false);
   const projectData = projects.find((p) => p.id === "dl-algorithms");
-  
   const [activeModuleIdx, setActiveModuleIdx] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [logs, setLogs] = useState<string[]>([
-    "Initializing PyTorch DL environment...",
-    "Found device: CPU (Simulated)",
-    "Ready."
-  ]);
-  const [showInfo, setShowInfo] = useState(true);
-  
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [bottomTab, setBottomTab] = useState<BottomTab>("insights");
+  const termRef = useRef<HTMLDivElement>(null);
+  const [logs, setLogs] = useState<string[]>(["Initializing PyTorch DL environment...", "Found device: CPU (Simulated)", "Ready."]);
   const activeModule = MODULES[activeModuleIdx];
 
   useEffect(() => {
-    setTimeout(() => {
-      setLogs([
-        "Initializing PyTorch DL environment...",
-        "Found device: CPU (Simulated)",
-        "Ready."
-      ]);
-      setIsRunning(false);
-    }, 0);
+    setTimeout(() => { setLogs(["Initializing PyTorch DL environment...", "Found device: CPU (Simulated)", "Ready."]); setIsRunning(false); }, 0);
   }, [activeModuleIdx]);
-  
+
   useEffect(() => {
     if (!isRunning) return;
-    
-    let step = 0;
-    let epoch = 1;
-    let loss = 2.5;
-    
-    setTimeout(() => {
-      setLogs([`$ ${activeModule.termCommand}`, "Starting training loop..."]);
-    }, 0);
-
+    let step = 0, epoch = 1, loss = 2.5;
+    setTimeout(() => { setLogs([`$ ${activeModule.termCommand}`, "Starting training loop..."]); }, 0);
     const interval = setInterval(() => {
-      step++;
-      loss = loss * 0.98;
-      
-      if (step > 10) {
-        step = 1;
-        epoch++;
-      }
-      
+      step++; loss *= 0.98;
+      if (step > 10) { step = 1; epoch++; }
       const newLog = activeModule.termSimulation(step, epoch, loss);
-      
-      setLogs(prev => {
-        const next = [...prev, newLog];
-        return next.length > 50 ? next.slice(next.length - 50) : next;
-      });
-      
-      if (epoch >= activeModule.maxEpochs) {
-        setIsRunning(false);
-        setLogs(prev => [...prev, "Training completed successfully."]);
-        clearInterval(interval);
-      }
+      setLogs(prev => { const next = [...prev, newLog]; return next.length > 50 ? next.slice(next.length - 50) : next; });
+      if (epoch >= activeModule.maxEpochs) { setIsRunning(false); setLogs(prev => [...prev, "Training completed successfully."]); clearInterval(interval); }
     }, 300);
-    
     return () => clearInterval(interval);
   }, [isRunning, activeModule]);
 
+  useEffect(() => { if (termRef.current) termRef.current.scrollTop = termRef.current.scrollHeight; }, [logs]);
+
+  const statsItems = [
+    { label: "Dataset", value: activeModule.info.dataset },
+    { label: "Parameters", value: activeModule.info.params },
+    { label: "Training", value: activeModule.info.cpuTime },
+    { label: "Core Concept", value: activeModule.info.keyConcept },
+  ];
+
   return (
     <div className="h-full rounded-lg border overflow-hidden flex flex-col font-sans text-sm relative shadow-2xl" style={{ borderColor: THEME.border, background: THEME.bgBase, color: THEME.textMain }}>
-      
-      <div className="h-12 border-b flex items-center px-2 shrink-0 overflow-x-auto hide-scrollbar" style={{ borderColor: THEME.border, background: THEME.bgSidebar }}>
-        <div className="flex gap-1 min-w-max">
+
+      {/* ── Module Tab Bar ── */}
+      <div className="h-11 border-b flex items-center px-2 shrink-0 overflow-x-auto hide-scrollbar" style={{ borderColor: THEME.border, background: THEME.bgSidebar }}>
+        <div className="flex gap-0.5 min-w-max">
           {MODULES.map((mod, idx) => {
             const Icon = mod.icon;
             const isActive = idx === activeModuleIdx;
             return (
-              <button
-                key={mod.id}
-                onClick={() => setActiveModuleIdx(idx)}
-                className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-md transition-all text-xs font-medium",
-                  isActive ? "bg-white/10 shadow-sm" : "hover:bg-white/5 opacity-70 hover:opacity-100"
-                )}
-                style={{ color: isActive ? THEME.textMain : THEME.textMuted }}
-              >
-                <Icon size={14} style={{ color: isActive ? THEME.accent : "currentColor" }} />
+              <button key={mod.id} onClick={() => setActiveModuleIdx(idx)}
+                className={cn("relative flex items-center gap-2 px-3.5 py-2 rounded-md transition-all text-xs font-semibold", isActive ? "bg-white/10" : "hover:bg-white/5 opacity-60 hover:opacity-100")}
+                style={{ color: isActive ? "#fff" : THEME.textMuted }}>
+                <Icon size={13} style={{ color: isActive ? THEME.accent : "currentColor" }} />
                 {mod.label}
+                {isActive && <span className="absolute bottom-0 left-2 right-2 h-[2px] rounded-full" style={{ background: THEME.accent }} />}
               </button>
             );
           })}
         </div>
-        <div className="ml-auto flex items-center gap-2 pl-4">
-          <button 
-            onClick={() => setIsRunning(!isRunning)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium transition-colors whitespace-nowrap"
-            style={{ background: isRunning ? "rgba(248, 113, 113, 0.15)" : "rgba(88, 166, 255, 0.15)", color: isRunning ? "#f87171" : THEME.accent }}
-          >
-            {isRunning ? "⏹ Stop" : <><Play size={12} /> Run</>}
-          </button>
-          <button 
-            onClick={() => setShowInfo(!showInfo)}
-            className="p-1.5 rounded-sm transition-colors hover:bg-white/10"
-            style={{ color: THEME.textMuted }}
-          >
-            {showInfo ? <PanelRightClose size={16} /> : <PanelRightOpen size={16} />}
-          </button>
-        </div>
       </div>
 
-      <div className="flex flex-1 overflow-hidden relative">
-        
-        <div className="w-[180px] md:w-[220px] border-r shrink-0 flex flex-col overflow-y-auto" style={{ borderColor: THEME.border, background: THEME.bgSidebar }}>
-          <div className="px-4 py-3 text-[10px] font-bold tracking-widest uppercase" style={{ color: THEME.textMuted }}>
-            File Explorer
+      {/* ── Main Content ── */}
+      <div className="flex-1 overflow-y-auto">
+
+        {/* Title + Description */}
+        <div className="px-5 pt-4 pb-3">
+          <h3 className="text-base font-bold text-white mb-1">{activeModule.info.title}</h3>
+          <p className="text-xs leading-relaxed" style={{ color: THEME.textMuted }}>{activeModule.info.description}</p>
+        </div>
+
+        {/* Architecture Diagram */}
+        <div className="px-5 pb-3">
+          <div className="relative group rounded-lg border overflow-hidden cursor-pointer" style={{ borderColor: THEME.border, background: "#0a0e14" }}
+            onClick={() => setLightboxOpen(true)}>
+            <img src={activeModule.architectureImage} alt={`${activeModule.info.title} Architecture`}
+              className="w-full h-auto max-h-[380px] object-contain p-3 transition-transform duration-300 group-hover:scale-[1.02]"
+              loading="eager" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <button className="absolute top-3 right-3 p-1.5 rounded-md border transition-all opacity-0 group-hover:opacity-100"
+              style={{ borderColor: THEME.border, background: "rgba(0,0,0,0.7)", color: THEME.textMuted }}
+              onClick={(e) => { e.stopPropagation(); setLightboxOpen(true); }}>
+              <Maximize2 size={14} />
+            </button>
+            <div className="absolute bottom-3 left-3 text-[10px] font-mono uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: THEME.textMuted }}>
+              Click to expand
+            </div>
           </div>
-          <div className="flex flex-col pb-4">
-            {activeModule.files.map((dir, idx) => (
-              <div key={idx}>
-                <div className="flex items-center gap-1.5 px-3 py-1.5 cursor-pointer hover:bg-white/5 transition-colors text-sm font-medium" style={{ color: THEME.textMain }}>
-                  {dir.isOpen !== false ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                  <Folder size={14} style={{ color: THEME.accent }} />
-                  <span className="truncate">{dir.name}</span>
-                </div>
-                {dir.isOpen !== false && dir.children?.map((file, fIdx) => (
-                  <div 
-                    key={fIdx} 
-                    className="flex items-center gap-2 pl-9 pr-3 py-1.5 cursor-pointer text-[13px] transition-colors"
-                    style={{ 
-                      background: file.name === activeModule.codeFilename ? "rgba(88, 166, 255, 0.1)" : "transparent",
-                      color: file.name === activeModule.codeFilename ? THEME.accent : THEME.textMuted
-                    }}
-                  >
-                    <FileCode2 size={14} />
-                    <span className="truncate">{file.name}</span>
-                  </div>
-                ))}
+        </div>
+
+        {/* Stats Strip */}
+        <div className="px-5 pb-3">
+          <div className="flex gap-2 overflow-x-auto hide-scrollbar">
+            {statsItems.map((s) => (
+              <div key={s.label} className="flex-1 min-w-[110px] border rounded-md px-3 py-2" style={{ borderColor: THEME.border, background: "rgba(22,27,34,0.6)" }}>
+                <p className="text-[10px] uppercase tracking-wider mb-0.5" style={{ color: THEME.textMuted }}>{s.label}</p>
+                <p className="text-xs font-semibold text-white truncate" title={s.value}>{s.value}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="flex-1 flex flex-col min-w-0" style={{ background: THEME.bgPanel }}>
-          <div className="flex border-b text-xs shrink-0" style={{ borderColor: THEME.border, background: THEME.bgSidebar }}>
-            <div className="px-4 py-2.5 flex items-center gap-2 border-r border-t-2 bg-transparent" style={{ borderColor: THEME.border, borderTopColor: THEME.accent }}>
-              <FileCode2 size={14} style={{ color: THEME.accent }} />
-              <span style={{ color: THEME.textMain }} className="font-medium">{activeModule.codeFilename}</span>
-            </div>
-          </div>
-          
-          <div className="flex-1 overflow-y-auto p-4 font-mono text-[13px] leading-relaxed whitespace-pre" style={{ color: THEME.textMain }}>
-            {activeModule.codeSnippet.split('\n').map((line, i) => {
-              let coloredLine = line
-                .replace(/\b(class|def|import|from|return|if|else|elif|for|in|while|try|except|with|as|pass|super|async|await)\b/g, `<span style="color: ${THEME.keyword}">$1</span>`)
-                .replace(/\b(nn\.Module|nn\.Linear|nn\.ReLU|nn\.Dropout|nn\.Sequential|nn\.Conv2d|Tensor|KVCache)\b/g, `<span style="color: ${THEME.class}">$1</span>`)
-                .replace(/\b([A-Za-z_][A-Za-z0-9_]*)\s*(?=\()/g, `<span style="color: ${THEME.function}">$1</span>`);
-              
-              if (line.trim().startsWith('"""') || line.trim().startsWith('#')) {
-                coloredLine = `<span style="color: ${THEME.comment}">${line}</span>`;
-              }
-              return (
-                <div key={i} className="flex hover:bg-white/5 px-2 -mx-2 rounded-sm group">
-                  <span className="w-8 shrink-0 text-right pr-4 select-none opacity-50 group-hover:opacity-100 transition-opacity" style={{ color: THEME.border }}>{i + 1}</span>
-                  <span dangerouslySetInnerHTML={{ __html: coloredLine }} />
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="h-[220px] shrink-0 border-t flex flex-col relative" style={{ borderColor: THEME.border, background: THEME.bgTerminal }}>
-            <div className="h-9 border-b flex items-center px-4 gap-4 text-xs font-semibold uppercase tracking-wider" style={{ borderColor: THEME.border, color: THEME.textMuted }}>
-              <div className="flex items-center gap-1.5 text-white">
-                <TerminalSquare size={14} /> Console
-              </div>
-            </div>
-            <div className="flex-1 overflow-y-auto p-3 font-mono text-[12px] leading-relaxed" style={{ color: THEME.textMuted }}>
-              {logs.map((log, i) => (
-                <div key={i} className={log.startsWith('$') ? "text-white font-medium mb-2" : ""}>
-                  {log}
-                </div>
+        {/* Bottom Tabbed Panel */}
+        <div className="px-5 pb-4">
+          <div className="border rounded-lg overflow-hidden" style={{ borderColor: THEME.border, background: THEME.bgSidebar }}>
+            {/* Tab headers */}
+            <div className="flex border-b text-xs" style={{ borderColor: THEME.border }}>
+              {([["insights", Lightbulb, "Insights"], ["code", FileCode2, "Code"], ["terminal", TerminalSquare, "Terminal"]] as [BottomTab, LucideIcon, string][]).map(([key, TabIcon, label]) => (
+                <button key={key} onClick={() => { setBottomTab(key); if (key === "terminal" && !isRunning) { /* ready */ } }}
+                  className={cn("flex items-center gap-1.5 px-4 py-2.5 font-semibold transition-all", bottomTab === key ? "border-b-2" : "opacity-60 hover:opacity-100")}
+                  style={{ color: bottomTab === key ? "#fff" : THEME.textMuted, borderColor: bottomTab === key ? THEME.accent : "transparent" }}>
+                  <TabIcon size={13} />{label}
+                </button>
               ))}
-              {isRunning && <div className="animate-pulse inline-block">_</div>}
+              {bottomTab === "terminal" && (
+                <div className="ml-auto pr-3 flex items-center">
+                  <button onClick={() => setIsRunning(!isRunning)}
+                    className="flex items-center gap-1.5 px-3 py-1 rounded text-[11px] font-semibold transition-colors"
+                    style={{ background: isRunning ? "rgba(248,113,113,0.15)" : "rgba(88,166,255,0.15)", color: isRunning ? "#f87171" : THEME.accent }}>
+                    {isRunning ? "⏹ Stop" : <><Play size={11} /> Run</>}
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Tab content */}
+            <div className="h-[220px] overflow-y-auto">
+              {bottomTab === "insights" && (
+                <div className="p-4 space-y-4">
+                  <div className="border rounded-md p-3" style={{ borderColor: THEME.border, background: "rgba(0,0,0,0.25)" }}>
+                    <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: THEME.textMuted }}>Learner Insight</p>
+                    <p className="text-sm font-medium leading-snug" style={{ color: THEME.accent }}>{activeModule.info.insight}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: THEME.textMuted }}>Core Algorithms</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {activeModule.info.algorithms.map((alg, i) => (
+                        <span key={i} className="px-2.5 py-1 rounded-full text-[11px] font-medium border" style={{ borderColor: "rgba(88,166,255,0.3)", color: THEME.accent, background: "rgba(88,166,255,0.08)" }}>{alg}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+              {bottomTab === "code" && (
+                <div className="p-4 font-mono text-[12px] leading-relaxed whitespace-pre overflow-x-auto" style={{ color: THEME.textMain }}>
+                  <div className="text-[10px] font-semibold uppercase tracking-wider mb-2 flex items-center gap-1.5" style={{ color: THEME.textMuted }}>
+                    <FileCode2 size={12} style={{ color: THEME.accent }} />{activeModule.codeFilename}
+                  </div>
+                  {activeModule.codeSnippet.split('\n').map((line, i) => {
+                    let c = line
+                      .replace(/\b(class|def|import|from|return|if|else|elif|for|in|while|try|except|with|as|pass|super|async|await)\b/g, `<span style="color:${THEME.keyword}">$1</span>`)
+                      .replace(/\b(nn\.Module|nn\.Linear|nn\.ReLU|nn\.Dropout|nn\.Sequential|nn\.Conv2d|Tensor|KVCache)\b/g, `<span style="color:${THEME.class}">$1</span>`)
+                      .replace(/\b([A-Za-z_][A-Za-z0-9_]*)\s*(?=\()/g, `<span style="color:${THEME.function}">$1</span>`);
+                    if (line.trim().startsWith('"""') || line.trim().startsWith('#')) c = `<span style="color:${THEME.comment}">${line}</span>`;
+                    return (<div key={i} className="flex hover:bg-white/5 px-1 -mx-1 rounded-sm group"><span className="w-7 shrink-0 text-right pr-3 select-none opacity-40" style={{ color: THEME.border }}>{i + 1}</span><span dangerouslySetInnerHTML={{ __html: c }} /></div>);
+                  })}
+                </div>
+              )}
+              {bottomTab === "terminal" && (
+                <div ref={termRef} className="p-3 font-mono text-[12px] leading-relaxed" style={{ color: THEME.textMuted, background: THEME.bgTerminal }}>
+                  {logs.map((log, i) => (<div key={i} className={log.startsWith('$') ? "text-white font-medium mb-1" : ""}>{log}</div>))}
+                  {isRunning && <span className="animate-pulse">_</span>}
+                </div>
+              )}
             </div>
           </div>
         </div>
-
-        {showInfo && (
-          <div className="w-[280px] shrink-0 border-l flex flex-col overflow-y-auto" style={{ borderColor: THEME.border, background: THEME.bgSidebar }}>
-            <div className="p-5 space-y-6">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Info size={16} style={{ color: THEME.accent }} />
-                  <h3 className="font-semibold text-white">{activeModule.info.title}</h3>
-                </div>
-                <p className="text-sm leading-relaxed" style={{ color: THEME.textMuted }}>
-                  {activeModule.info.description}
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <div className="border rounded-md p-3" style={{ borderColor: THEME.border, background: "rgba(0,0,0,0.2)" }}>
-                  <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: THEME.textMuted }}>Learner Insight</p>
-                  <p className="text-sm font-medium leading-snug" style={{ color: THEME.accent }}>{activeModule.info.insight}</p>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: THEME.textMuted }}>Project Architecture</p>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="border rounded-md p-2" style={{ borderColor: THEME.border }}>
-                    <p style={{ color: THEME.textMuted }}>Dataset</p>
-                    <p className="font-medium text-white truncate" title={activeModule.info.dataset}>{activeModule.info.dataset}</p>
-                  </div>
-                  <div className="border rounded-md p-2" style={{ borderColor: THEME.border }}>
-                    <p style={{ color: THEME.textMuted }}>Parameters</p>
-                    <p className="font-medium text-white">{activeModule.info.params}</p>
-                  </div>
-                  <div className="border rounded-md p-2" style={{ borderColor: THEME.border }}>
-                    <p style={{ color: THEME.textMuted }}>Training</p>
-                    <p className="font-medium text-white">{activeModule.info.cpuTime}</p>
-                  </div>
-                  <div className="border rounded-md p-2" style={{ borderColor: THEME.border }}>
-                    <p style={{ color: THEME.textMuted }}>Core Concept</p>
-                    <p className="font-medium text-white truncate" title={activeModule.info.keyConcept}>{activeModule.info.keyConcept}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: THEME.textMuted }}>Core Algorithms</p>
-                <ul className="text-xs space-y-1.5" style={{ color: THEME.textMain }}>
-                  {activeModule.info.algorithms.map((alg, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="mt-1 w-1 h-1 rounded-full shrink-0" style={{ background: THEME.accent }}></span>
-                      <span className="leading-tight">{alg}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* ── Lightbox Modal ── */}
+      <AnimatePresence>
+        {lightboxOpen && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center" style={{ background: "rgba(0,0,0,0.88)", backdropFilter: "blur(8px)" }}
+            onClick={() => setLightboxOpen(false)}>
+            <motion.div initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.92, opacity: 0 }} transition={{ duration: 0.25 }}
+              className="relative max-w-[92vw] max-h-[92vh]" onClick={(e) => e.stopPropagation()}>
+              <img src={activeModule.architectureImage} alt={`${activeModule.info.title} Architecture`} className="max-w-full max-h-[88vh] object-contain rounded-lg shadow-2xl" />
+              <button onClick={() => setLightboxOpen(false)} className="absolute -top-3 -right-3 p-2 rounded-full border shadow-lg transition-colors hover:bg-white/20"
+                style={{ background: "rgba(0,0,0,0.8)", borderColor: THEME.border, color: "#fff" }}>
+                <X size={16} />
+              </button>
+              <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
+                <p className="text-sm font-semibold text-white">{activeModule.info.title}</p>
+                <p className="text-[11px] mt-0.5" style={{ color: THEME.textMuted }}>Press Esc or click outside to close</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {!quickStartDone && projectData?.quickStartSteps && projectData.quickStartSteps.length > 0 && (
         <DemoQuickStart projectId="dl-algorithms" steps={projectData.quickStartSteps} onComplete={() => setQuickStartDone(true)} />
