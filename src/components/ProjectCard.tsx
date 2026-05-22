@@ -83,8 +83,8 @@ function DemoPreviewStrip({ panels }: { panels: PreviewPanel[] }) {
             key={panel.label}
             className="sm:flex-1 border border-zinc-800/90 bg-zinc-900/40 rounded-lg p-2.5 sm:p-3 flex flex-col items-center gap-1.5 sm:gap-2 group-hover:border-zinc-700 transition-colors"
           >
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-md bg-zinc-800/85 flex items-center justify-center group-hover:bg-brand-orange/12 transition-colors">
-              <Icon size={13} className="text-zinc-500 group-hover:text-brand-orange transition-colors sm:[&]:w-[14px] sm:[&]:h-[14px]" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-md bg-zinc-800/85 flex items-center justify-center group-hover:bg-brand-neon/8 transition-colors">
+              <Icon size={13} className="text-zinc-500 group-hover:text-brand-neon transition-colors sm:[&]:w-[14px] sm:[&]:h-[14px]" />
             </div>
             <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-widest text-zinc-600 group-hover:text-zinc-300 transition-colors text-center leading-tight">
               {panel.label}
@@ -120,7 +120,7 @@ export default function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
       viewport={{ once: true }}
-      className="neo-panel p-4 sm:p-6 flex flex-col gap-4 sm:gap-6 rounded-xl group hover:-translate-y-1 transition-transform"
+      className="neo-panel scanline p-4 sm:p-6 flex flex-col gap-4 sm:gap-6 rounded-xl group hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.04)]"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
@@ -158,7 +158,7 @@ export default function ProjectCard({
             )
           )}
         </div>
-        <ArrowUpRight className="text-zinc-500 group-hover:text-brand-cyan transition-colors shrink-0" size={18} />
+        <ArrowUpRight className="text-zinc-500 group-hover:text-brand-neon transition-colors shrink-0" size={18} />
       </div>
 
       <div className="space-y-2">
@@ -173,7 +173,7 @@ export default function ProjectCard({
         {project.techStack.slice(0, 5).map((tag) => (
           <span
             key={tag}
-            className="font-mono text-[9px] sm:text-[10px] text-zinc-400 uppercase border border-zinc-700/90 px-2 py-1 whitespace-nowrap shrink-0"
+            className="font-mono text-[9px] sm:text-[10px] text-zinc-400 uppercase border border-zinc-700/90 px-2 py-1 whitespace-nowrap shrink-0 hover:border-brand-neon/30 hover:text-brand-neon transition-colors"
           >
             #{tag}
           </span>

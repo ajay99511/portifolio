@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Expertise from "@/components/Expertise";
 import ProjectArchive from "@/components/ProjectArchive";
@@ -7,7 +6,6 @@ import Timeline from "@/components/Timeline";
 export default function Home() {
   return (
     <main id="main-content" className="flex-1 relative">
-      <Navbar />
       <Hero />
       <Expertise />
       <ProjectArchive />

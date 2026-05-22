@@ -46,7 +46,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
           </Link>
 
           <div className="mb-4 lg:mb-8">
-            <span className="font-mono text-xs text-brand-orange uppercase tracking-[0.2em] mb-2 block">
+            <span className="font-mono text-xs text-brand-neon uppercase tracking-[0.2em] mb-2 block">
               {project.batchId} {" // "} Artifact_{project.id.slice(0, 4).toUpperCase()}
             </span>
             <h1
@@ -111,15 +111,15 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
 
         {/* Step progress — always visible */}
         <div className="mt-auto p-4 sm:p-6 lg:p-8 lg:pt-0">
-          <div className="p-3 sm:p-4 bg-brand-orange/5 border border-brand-orange/20 rounded-sm">
-            <h4 className="font-mono text-[10px] text-brand-orange uppercase mb-2">Step_Status</h4>
+            <div className="p-3 sm:p-4 bg-brand-neon/5 border border-brand-neon/20 rounded-sm">
+              <h4 className="font-mono text-[10px] text-brand-neon uppercase mb-2">Step_Status</h4>
             <div className="flex gap-1 mb-2">
               {steps.map((_, i) => (
                 <div 
                   key={i} 
                   className={cn(
                     "h-1 flex-1 transition-colors",
-                    i <= currentStep ? "bg-brand-orange" : "bg-zinc-800"
+                    i <= currentStep ? "bg-brand-neon" : "bg-zinc-800"
                   )} 
                 />
               ))}
@@ -146,7 +146,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
             </div>
           </div>
           
-          <div className="flex-1 border-x border-b border-zinc-800 bg-[#0A0A0A] overflow-hidden relative min-h-[300px] sm:min-h-[400px]">
+          <div className="flex-1 border-x border-b border-zinc-800 bg-[#0A0A0A] overflow-hidden relative min-h-[300px] sm:min-h-[400px] halo-glow">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep}
@@ -164,7 +164,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
             <div className="absolute bottom-4 sm:bottom-8 left-3 right-3 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-20">
               <div className="glass-morphism px-3 sm:px-6 py-3 sm:py-4 flex items-center gap-3 sm:gap-8 w-full sm:w-auto sm:min-w-[360px] lg:min-w-[400px]">
                 <div className="flex-1 min-w-0">
-                  <div className="font-mono text-[9px] sm:text-[10px] text-brand-orange uppercase tracking-widest mb-0.5 sm:mb-1 truncate">
+                  <div className="font-mono text-[9px] sm:text-[10px] text-brand-neon uppercase tracking-widest mb-0.5 sm:mb-1 truncate">
                     Step {currentStep + 1} {" // "} {steps[currentStep].title}
                   </div>
                   <div className="text-[11px] sm:text-xs text-zinc-400 line-clamp-1">
@@ -175,7 +175,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
                   <button 
                     onClick={prevStep}
                     disabled={currentStep === 0}
-                    className="p-2 sm:p-2 border border-zinc-800 hover:bg-zinc-800 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                    className="interactive p-2 sm:p-2 border border-zinc-800 hover:bg-zinc-800 hover:border-brand-neon/30 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
                   >
                     <ChevronLeft size={14} className="sm:w-4 sm:h-4" />
                   </button>

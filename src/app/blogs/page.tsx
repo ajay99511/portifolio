@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
 import BlogCard from "@/components/blogs/BlogCard";
 import { getAllBlogPosts, getFeaturedBlogPosts } from "@/lib/blogs";
 
@@ -22,7 +21,6 @@ export default async function BlogsPage() {
 
   return (
     <main id="main-content" className="min-h-screen bg-black">
-      <Navbar />
 
       <section className="section-px pt-24 sm:pt-28 pb-12 sm:pb-16">
         <div className="mb-10 sm:mb-12">

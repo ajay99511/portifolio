@@ -1,6 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Oxanium, Space_Grotesk } from "next/font/google";
+import { JetBrains_Mono, Outfit, Oxanium, Space_Grotesk } from "next/font/google";
+import LayoutShell from "@/components/LayoutShell";
 import "./globals.css";
+
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+});
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -41,13 +47,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${oxanium.variable} h-full antialiased`}
+      className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${oxanium.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden selection:bg-brand-orange/80 selection:text-black">
+      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden selection:bg-brand-neon/30 selection:text-white">
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
-        {children}
+        <LayoutShell>
+          {children}
+        </LayoutShell>
       </body>
     </html>
   );

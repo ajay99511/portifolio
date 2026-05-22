@@ -20,9 +20,9 @@ interface ProjectInteractiveViewProps {
 function DemoBootScreen() {
   return (
     <div className="h-[480px] sm:h-[560px] border border-zinc-800 rounded-lg p-6 sm:p-8 flex flex-col justify-center items-center text-center gap-4 text-zinc-400">
-      <div className="w-12 h-12 rounded-full border border-brand-orange/40 border-t-brand-orange animate-spin" />
+      <div className="w-12 h-12 rounded-full border border-brand-neon/40 border-t-brand-neon animate-spin" />
       <div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brand-orange mb-2">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-brand-neon mb-2">
           Booting Interactive Artifact
         </p>
         <p className="text-sm text-zinc-400">Loading the selected project runtime...</p>
@@ -117,12 +117,12 @@ function ContextBanner({
   solution: string;
 }) {
   return (
-    <div className="mb-4 rounded-xl border border-orange-500/20 overflow-hidden scanline">
+    <div className="mb-4 rounded-xl border border-brand-neon/20 overflow-hidden scanline">
       <div
         className="px-3 sm:px-4 py-3 flex flex-col md:flex-row md:items-center gap-2 md:gap-4"
         style={{
           background:
-            "linear-gradient(135deg, rgba(255, 122, 24, 0.09) 0%, rgba(2, 10, 18, 0.7) 100%)",
+            "linear-gradient(135deg, rgba(0, 240, 255, 0.06) 0%, rgba(2, 10, 18, 0.7) 100%)",
         }}
       >
         <div className="flex items-center gap-2 shrink-0">
@@ -136,7 +136,7 @@ function ContextBanner({
         <ArrowRight size={16} className="text-zinc-600 hidden md:block shrink-0 mx-2" />
 
         <div className="flex items-center gap-2 shrink-0 mt-2 md:mt-0">
-          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-brand-cyan font-bold">
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-brand-neon font-bold">
             Solution
           </span>
         </div>
@@ -156,7 +156,7 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
           <div className="p-4 sm:p-6 lg:p-8">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest py-1"
+              className="interactive inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest py-1"
             >
               <ArrowLeft size={14} /> Back_To_Projects
             </Link>

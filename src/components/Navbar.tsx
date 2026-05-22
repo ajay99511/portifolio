@@ -69,7 +69,7 @@ const Navbar = () => {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 glass-morphism px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center border-b border-white/5">
         <Link href="/" className="font-display text-lg sm:text-xl font-semibold tracking-tight">
-          <span className="text-brand-orange">_</span>AJAY
+          <span className="text-brand-neon">_</span>AJAY
         </Link>
 
         {/* Desktop nav links */}
@@ -79,7 +79,7 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className="hover:text-white transition-colors"
+                className="interactive hover:text-brand-neon transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-brand-neon after:transition-all hover:after:w-full"
                 aria-current={link.href === pathname ? "page" : undefined}
               >
                 {link.label}
@@ -158,7 +158,7 @@ const Navbar = () => {
                       className="block px-4 py-3 font-mono text-sm uppercase tracking-widest text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
                       onClick={closeMenu}
                     >
-                      <span className="text-brand-orange mr-2">{"//"}</span>
+                      <span className="text-brand-neon mr-2">{"//"}</span>
                       {link.label}
                     </Link>
                   </motion.div>

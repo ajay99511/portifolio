@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
 import ProjectGallery from "@/components/ProjectGallery";
 
 export const metadata: Metadata = {
@@ -11,7 +10,6 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <main id="main-content" className="flex-1">
-      <Navbar />
       <ProjectGallery />
 
       <footer className="py-8 sm:py-12 section-px border-t border-white/8 bg-black/85 text-center safe-bottom">

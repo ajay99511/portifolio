@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Navbar from "@/components/Navbar";
 import AttachmentPreviewViewer from "@/components/AttachmentPreviewViewer";
 import { getAttachmentById, getAttachmentIds } from "@/lib/attachments";
 
@@ -44,7 +43,6 @@ export default async function AttachmentPreviewPage({
 
   return (
     <main id="main-content" className="min-h-screen bg-black">
-      <Navbar />
       <AttachmentPreviewViewer attachment={attachment} />
 
       <footer className="py-8 sm:py-12 section-px border-t border-white/8 bg-black/85 text-center safe-bottom">

@@ -1,5 +1,4 @@
 import { getProjectById, projects } from "@/lib/projects";
-import Navbar from "@/components/Navbar";
 import ProjectInteractiveView from "@/components/ProjectInteractiveView";
 import { notFound } from "next/navigation";
 
@@ -23,7 +22,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <main id="main-content" className="min-h-screen bg-black">
-      <Navbar />
       <ProjectInteractiveView project={project} />
     </main>
   );

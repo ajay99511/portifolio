@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Clock3, CalendarDays, Tag } from "lucide-react";
-import Navbar from "@/components/Navbar";
 import BlogCard from "@/components/blogs/BlogCard";
 import BlogMarkdown from "@/components/blogs/BlogMarkdown";
 import {
@@ -60,7 +59,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main id="main-content" className="min-h-screen bg-black">
-      <Navbar />
 
       <article className="section-px pt-24 sm:pt-28 pb-12 sm:pb-16">
         <div className="mb-8">
