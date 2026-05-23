@@ -58,69 +58,56 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedPosts = await getRelatedBlogPosts(post.slug, post.tags, 3);
 
   return (
-    <main id="main-content" className="min-h-screen bg-black">
-
-      <article className="section-px pt-24 sm:pt-28 pb-12 sm:pb-16">
-        <div className="mb-8">
+    <div className="min-h-screen flex flex-col items-center pt-24 pb-16">
+      <article className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="mb-10 sm:mb-14">
           <Link
             href="/blogs"
-            className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest"
+            className="inline-flex items-center gap-2 text-brand-neon/50 hover:text-brand-neon transition-colors font-mono text-xs uppercase tracking-widest mb-8"
           >
             <ArrowLeft size={14} />
-            Back_To_Blogs
+            Back to Archive
           </Link>
-        </div>
 
-        <header className="mb-8 sm:mb-10">
-          <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-zinc-700 text-[10px] font-mono uppercase tracking-wider text-zinc-400">
-              {post.category}
-            </span>
-            {post.tags.slice(0, 3).map((tag) => (
-              <span key={tag} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-zinc-700 text-[10px] font-mono uppercase tracking-wider text-zinc-500">
-                <Tag size={11} className="text-brand-orange" />
-                {tag}
-              </span>
-            ))}
+          <div className="mb-6 flex flex-wrap gap-2 text-[10px] font-mono uppercase tracking-widest text-brand-purple">
+            <span className="bg-brand-purple/5 border border-brand-purple/20 px-2 py-1">{post.category}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-4 max-w-4xl">{post.title}</h1>
-          <p className="text-zinc-400 text-sm sm:text-base max-w-3xl leading-relaxed mb-5">{post.description}</p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-white to-brand-purple tracking-tighter uppercase mb-4 leading-none">
+            {post.title}
+          </h1>
+          <p className="text-lg sm:text-xl text-blue-200/70 font-light mb-8 max-w-3xl leading-relaxed">
+            {post.description}
+          </p>
 
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] font-mono uppercase tracking-wider text-zinc-500">
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays size={13} />
-              {formatBlogDate(post.publishedAt)}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock3 size={13} />
-              {post.readingTimeMinutes} min read
-            </span>
-            <span>By {post.author}</span>
+          <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-surface-border">
+            <div className="flex items-center gap-x-4 gap-y-2 text-[11px] font-mono uppercase tracking-widest text-blue-200/50">
+              <span className="text-brand-neon">By {post.author}</span>
+              <span>{formatBlogDate(post.publishedAt)}</span>
+              <span className="inline-flex items-center gap-1">
+                <Clock3 size={13} />
+                {post.readingTimeMinutes} min read
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center gap-1 px-2 py-1 border border-brand-purple/30 bg-brand-purple/5 text-[9px] font-mono uppercase tracking-widest text-brand-purple"
+                >
+                  <Tag size={10} className="text-brand-purple" />
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </header>
 
-        <div className="neo-panel rounded-xl border border-zinc-800/90 p-5 sm:p-8 lg:p-10">
+        <section className="prose prose-invert max-w-none">
           <BlogMarkdown content={post.content} />
-        </div>
-
-        {relatedPosts.length > 0 ? (
-          <section className="mt-12 sm:mt-16">
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight mb-5">Related Posts</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-              {relatedPosts.map((relatedPost) => (
-                <BlogCard key={relatedPost.slug} post={relatedPost} />
-              ))}
-            </div>
-          </section>
-        ) : null}
+        </section>
       </article>
-
-      <footer className="py-8 sm:py-12 section-px border-t border-white/8 bg-black/85 text-center safe-bottom">
-        <p className="font-mono text-[9px] sm:text-[10px] text-zinc-500 uppercase tracking-[0.18em]">
-          Copyright 2026 AJAY // BLOG_READER
-        </p>
-      </footer>
-    </main>
+    </div>
   );
 }

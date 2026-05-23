@@ -1,14 +1,53 @@
-import type { Metadata } from "next";
-import BlogCard from "@/components/blogs/BlogCard";
-import { getAllBlogPosts, getFeaturedBlogPosts } from "@/lib/blogs";
+import Link from "next/link";
+import { ArrowUpRight, Clock3, Tag } from "lucide-react";
+import { BlogPost, formatBlogDate, getAllBlogPosts, getFeaturedBlogPosts } from "@/lib/blogs";
 
-export const metadata: Metadata = {
-  title: "Blogs",
-  description:
-    "Engineering notes, architecture patterns, and implementation playbooks by Ajay.",
-};
+function BlogCard({ post, featured = false }: { post: BlogPost; featured?: boolean }) {
+  return (
+    <article
+      className={`bg-surface-raised/50 rounded-none border border-surface-border group transition-all hover:-translate-y-1 ${
+        featured ? "p-5 sm:p-6 shadow-[0_0_30px_rgba(0,240,255,0.06)]" : "p-4 sm:p-5"
+      }`}
+    >
+      <div className="flex items-center justify-between gap-3 mb-3">
+        <span className="font-mono text-[10px] uppercase tracking-widest text-brand-neon/60">
+          {post.category}
+        </span>
+        <ArrowUpRight size={16} className="text-zinc-600 group-hover:text-brand-neon transition-colors" />
+      </div>
 
-export default async function BlogsPage() {
+      <h2 className={`${featured ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"} font-semibold text-white tracking-tight mb-2`}>
+        <Link href={`/blogs/${post.slug}`} className="hover:text-brand-neon transition-colors">
+          {post.title}
+        </Link>
+      </h2>
+
+      <p className="text-blue-200/60 font-light text-sm sm:text-base leading-relaxed mb-4">{post.description}</p>
+
+      <div className="flex flex-wrap items-center gap-2 mb-4">
+        {post.tags.slice(0, 3).map((tag) => (
+          <span
+            key={tag}
+            className="inline-flex items-center gap-1 px-2 py-1 rounded-none border border-brand-purple/30 bg-brand-purple/5 text-[10px] font-mono uppercase tracking-wider text-brand-purple"
+          >
+            <Tag size={11} className="text-brand-purple" />
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] font-mono uppercase tracking-wider text-brand-neon/50">
+        <span>{formatBlogDate(post.publishedAt)}</span>
+        <span className="inline-flex items-center gap-1">
+          <Clock3 size={12} />
+          {post.readingTimeMinutes} min read
+        </span>
+      </div>
+    </article>
+  );
+}
+
+export default async function Blogs() {
   const [posts, featuredPosts] = await Promise.all([
     getAllBlogPosts(),
     getFeaturedBlogPosts(1),
@@ -16,52 +55,45 @@ export default async function BlogsPage() {
 
   const featured = featuredPosts[0] ?? posts[0];
   const remaining = featured
-    ? posts.filter((post) => post.slug !== featured.slug)
+    ? posts.filter((post: BlogPost) => post.slug !== featured.slug)
     : posts;
 
   return (
-    <main id="main-content" className="min-h-screen bg-black">
-
-      <section className="section-px pt-24 sm:pt-28 pb-12 sm:pb-16">
+    <div className="min-h-screen bg-surface-bg flex flex-col items-center">
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-12 sm:pb-16">
         <div className="mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-700/80 bg-zinc-900/50 text-zinc-300 font-mono text-[10px] uppercase tracking-widest mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 border border-brand-neon/40 bg-brand-neon/5 text-brand-neon font-mono text-[10px] uppercase tracking-widest mb-4">
             Knowledge Stream
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight mb-4">Blogs & Insights</h1>
-          <p className="text-zinc-400 max-w-3xl text-sm sm:text-base leading-relaxed">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-white to-brand-purple tracking-tighter uppercase mb-4">Blogs & Insights</h1>
+          <p className="text-blue-200/60 font-light max-w-3xl text-sm sm:text-base leading-relaxed">
             A living archive of engineering decisions, architecture patterns, and practical lessons from building modern systems.
           </p>
         </div>
 
         {featured ? (
           <div className="mb-10 sm:mb-14">
-            <p className="font-mono text-[10px] uppercase tracking-widest text-brand-orange mb-3">Featured Post</p>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-brand-purple mb-3">Featured Post</p>
             <BlogCard post={featured} featured />
           </div>
         ) : null}
 
         {remaining.length > 0 ? (
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-zinc-500 mb-4">Recent Posts</p>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-brand-neon/60 mb-4">Recent Posts</p>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-              {remaining.map((post) => (
+              {remaining.map((post: BlogPost) => (
                 <BlogCard key={post.slug} post={post} />
               ))}
             </div>
           </div>
         ) : !featured ? (
-          <div className="neo-panel rounded-xl border border-zinc-800/85 p-8 sm:p-12 text-center">
-            <p className="font-mono text-[11px] uppercase tracking-widest text-zinc-500 mb-2">No blog posts yet</p>
-            <p className="text-zinc-400 text-sm">Create your first markdown post inside `src/content/blogs`.</p>
+          <div className="bg-surface-raised/50 border border-surface-border p-8 sm:p-12 text-center">
+            <p className="font-mono text-[11px] uppercase tracking-widest text-brand-neon/50 mb-2">No blog posts yet</p>
+            <p className="text-blue-200/60 text-sm">Create your first markdown post inside src/content/blogs.</p>
           </div>
         ) : null}
       </section>
-
-      <footer className="py-8 sm:py-12 section-px border-t border-white/8 bg-black/85 text-center safe-bottom">
-        <p className="font-mono text-[9px] sm:text-[10px] text-zinc-500 uppercase tracking-[0.18em]">
-          Copyright 2026 AJAY // ENGINEERING_BLOG
-        </p>
-      </footer>
-    </main>
+    </div>
   );
 }

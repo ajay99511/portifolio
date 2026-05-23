@@ -8,20 +8,20 @@ interface BlogMarkdownProps {
 
 export default function BlogMarkdown({ content }: BlogMarkdownProps) {
   return (
-    <div className="blog-prose text-zinc-200">
+    <div className="text-blue-100">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeSlug]}
         components={{
-          h1: ({ children }) => <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight mt-10 mb-5">{children}</h1>,
-          h2: ({ children }) => <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight mt-10 mb-4">{children}</h2>,
-          h3: ({ children }) => <h3 className="text-xl sm:text-2xl font-semibold tracking-tight mt-8 mb-3">{children}</h3>,
-          p: ({ children }) => <p className="text-zinc-300 leading-8 mb-5 text-[15px] sm:text-base">{children}</p>,
-          ul: ({ children }) => <ul className="mb-5 list-disc pl-6 space-y-2 text-zinc-300">{children}</ul>,
-          ol: ({ children }) => <ol className="mb-5 list-decimal pl-6 space-y-2 text-zinc-300">{children}</ol>,
-          li: ({ children }) => <li className="leading-7">{children}</li>,
+          h1: ({ children }) => <h1 className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-white to-brand-purple tracking-tighter uppercase mt-10 mb-5">{children}</h1>,
+          h2: ({ children }) => <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tighter uppercase mt-10 mb-4">{children}</h2>,
+          h3: ({ children }) => <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-8 mb-3">{children}</h3>,
+          p: ({ children }) => <p className="text-blue-200/70 leading-8 mb-5 text-[15px] sm:text-base font-light">{children}</p>,
+          ul: ({ children }) => <ul className="mb-5 list-disc list-outside pl-6 space-y-2 text-blue-200/70 marker:text-brand-neon/50">{children}</ul>,
+          ol: ({ children }) => <ol className="mb-5 list-decimal list-outside pl-6 space-y-2 text-blue-200/70 marker:text-brand-neon/50">{children}</ol>,
+          li: ({ children }) => <li className="leading-7 pl-1">{children}</li>,
           blockquote: ({ children }) => (
-            <blockquote className="border-l-2 border-brand-cyan/60 bg-brand-cyan/8 px-4 py-3 rounded-r-md mb-6 text-zinc-200 italic">
+            <blockquote className="border-l-2 border-brand-purple/60 bg-brand-purple/10 px-4 py-3 rounded-none mb-6 text-blue-200/80 italic shadow-[inset_0_0_20px_rgba(112,0,255,0.05)]">
               {children}
             </blockquote>
           ),
@@ -29,14 +29,14 @@ export default function BlogMarkdown({ content }: BlogMarkdownProps) {
             const isBlock = className?.includes("language-");
             if (isBlock) {
               return (
-                <code className={`${className} block bg-[#060b12] border border-zinc-800 rounded-lg p-4 overflow-x-auto text-[13px]`}>
+                <code className={`${className} block bg-surface-raised border border-surface-border rounded-none p-4 overflow-x-auto text-[13px] text-brand-neon font-mono`}>
                   {children}
                 </code>
               );
             }
 
             return (
-              <code className="bg-zinc-900 border border-zinc-700 rounded px-1.5 py-0.5 text-[0.9em] text-brand-cyan">
+              <code className="bg-brand-neon/10 border border-brand-neon/30 rounded-none px-1.5 py-0.5 text-[0.9em] text-brand-neon font-mono">
                 {children}
               </code>
             );
@@ -49,20 +49,20 @@ export default function BlogMarkdown({ content }: BlogMarkdownProps) {
                 href={href}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                className="text-brand-cyan hover:text-cyan-200 underline underline-offset-4"
+                className="text-brand-neon hover:text-white underline underline-offset-4 decoration-brand-neon/50 transition-colors font-mono"
               >
                 {children}
               </a>
             );
           },
-          hr: () => <hr className="my-8 border-zinc-800" />,
+          hr: () => <hr className="my-8 border-surface-border" />,
           table: ({ children }) => (
             <div className="overflow-x-auto mb-6">
-              <table className="min-w-full border-collapse border border-zinc-800 text-sm">{children}</table>
+              <table className="min-w-full border-collapse border border-surface-border text-sm font-mono text-left">{children}</table>
             </div>
           ),
-          th: ({ children }) => <th className="border border-zinc-800 bg-zinc-900 px-3 py-2 text-left">{children}</th>,
-          td: ({ children }) => <td className="border border-zinc-800 px-3 py-2 text-zinc-300">{children}</td>,
+          th: ({ children }) => <th className="border border-surface-border bg-surface-raised px-3 py-2 text-brand-neon uppercase tracking-wider">{children}</th>,
+          td: ({ children }) => <td className="border border-surface-border px-3 py-2 text-blue-200/70">{children}</td>,
         }}
       >
         {content}

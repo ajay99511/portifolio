@@ -47,9 +47,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${oxanium.variable} h-full antialiased`}
+      className="h-full antialiased"
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden selection:bg-brand-neon/30 selection:text-white">
+      <body className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${oxanium.variable} min-h-full flex flex-col`}>
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>

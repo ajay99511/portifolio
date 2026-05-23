@@ -1,186 +1,90 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Code, Menu, X } from "lucide-react";
-import { profile } from "@/lib/profile";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { X, Terminal, Code } from 'lucide-react';
+import { socialLinks, profile } from '@/lib/projects.data';
 
-const GithubIcon = ({ size = 24 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.24c3-.34 6-1.53 6-6.76a5.5 5.5 0 0 0-1.5-3.89c.15-.38.65-1.84-.15-3.84 0 0-1.2-.38-3.9 1.45a13.38 13.38 0 0 0-7 0C4.2 2.27 3 2.65 3 2.65c-.8 2-.3 3.46-.15 3.84A5.5 5.5 0 0 0 1.5 10.38c0 5.22 3 6.42 6 6.76a4.8 4.8 0 0 0-1 3.24v4" />
-    <path d="M1 19c3 1 4-1 5-1" />
+// Inline SVGs for icons removed from lucide-react 1.x
+const GitHubIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
   </svg>
 );
 
-const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
+const LinkedInIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
   </svg>
 );
 
-const NAV_LINKS = [
-  { href: "/#expertise", label: "Expertise" },
-  { href: "/#archive", label: "Archive" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blogs", label: "Blogs" },
-  { href: "/certifications", label: "Certifications" },
-  { href: "/#timeline", label: "Timeline" },
-];
+const SocialIcon = ({ platform, className }: { platform: string, className?: string }) => {
+  switch (platform) {
+    case 'GitHub': return <GitHubIcon className={className} />;
+    case 'LinkedIn': return <LinkedInIcon className={className} />;
+    case 'Twitter': return <X className={className} />;
+    case 'LeetCode': return <Code className={className} />;
+    default: return null;
+  }
+};
 
-const SOCIAL_LINKS = [
-  { href: profile.github, icon: GithubIcon, label: "GitHub" },
-  { href: profile.linkedin, icon: LinkedinIcon, label: "LinkedIn" },
-  { href: profile.leetcode, icon: Code, label: "LeetCode" },
-];
-
-const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+export default function Navbar() {
   const pathname = usePathname();
-  const closeMenu = () => setMenuOpen(false);
-
-  // Lock body scroll when menu is open
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeMenu();
-      }
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [menuOpen]);
+  const isHome = pathname === '/';
 
   return (
-    <>
-      <nav className="fixed top-0 left-0 right-0 z-50 glass-morphism px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center border-b border-white/5">
-        <Link href="/" className="font-display text-lg sm:text-xl font-semibold tracking-tight">
-          <span className="text-brand-neon">_</span>AJAY
+    <header className="sticky top-0 z-50 h-14 border-b border-surface-border bg-surface-bg/80 backdrop-blur-md">
+      <div className="mx-auto max-w-screen-2xl h-full px-6 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-8 h-8 bg-zinc-100 rounded-sm flex items-center justify-center text-black transition-transform group-hover:rotate-6">
+            <Terminal className="w-4 h-4" />
+          </div>
+          <div className="flex flex-col -space-y-1">
+            <span className="text-[11px] font-mono tracking-tighter text-zinc-500 uppercase">Engineer</span>
+            <span className="text-xs font-semibold tracking-tight text-white group-hover:text-brand-orange transition-colors uppercase">{profile.name}</span>
+          </div>
         </Link>
 
-        {/* Desktop nav links */}
-        <div className="flex items-center gap-6">
-          <div className="hidden md:flex gap-6 font-mono text-sm uppercase tracking-widest text-zinc-400">
-            {NAV_LINKS.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="interactive hover:text-brand-neon transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-brand-neon after:transition-all hover:after:w-full"
-                aria-current={link.href === pathname ? "page" : undefined}
-              >
-                {link.label}
-              </Link>
-            ))}
+        <nav className="flex items-center gap-8">
+          <div className="hidden sm:flex gap-6 items-center">
+            <Link 
+              href="/" 
+              className={`text-[10px] uppercase tracking-widest font-bold transition-all ${isHome ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+            >
+              / Directory
+            </Link>
+            <Link 
+              href="/certifications" 
+              className={`text-[10px] uppercase tracking-widest font-bold transition-all ${pathname.startsWith('/certifications') ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+            >
+              / Credentials
+            </Link>
+            <Link 
+              href="/blogs" 
+              className={`text-[10px] uppercase tracking-widest font-bold transition-all ${pathname.startsWith('/blogs') ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+            >
+              / Journals
+            </Link>
           </div>
+          
+          <div className="h-4 w-px bg-surface-border hidden sm:block" />
 
-          {/* Social icons — always visible */}
-          <div className="hidden sm:flex items-center gap-4 text-zinc-400">
-            {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label={label}>
-                <Icon size={20} />
+          <div className="flex items-center gap-4">
+            {socialLinks.map((link: any) => (
+              <a 
+                key={link.platform}
+                href={link.url}
+                target="_blank" 
+                rel="noreferrer"
+                className="text-zinc-500 hover:text-white transition-all hover:-translate-y-0.5"
+                title={link.platform}
+              >
+                <SocialIcon platform={link.platform} className="h-3.5 w-3.5" />
               </a>
             ))}
           </div>
-
-          {/* Hamburger toggle — mobile only */}
-          <button
-            className="md:hidden p-2 -mr-2 text-zinc-400 hover:text-white transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-navigation-panel"
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-      </nav>
-
-      {/* ── Mobile Menu Overlay ── */}
-      <AnimatePresence>
-        {menuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              className="mobile-menu-overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setMenuOpen(false)}
-              aria-hidden="true"
-            />
-
-            {/* Panel */}
-            <motion.div
-              id="mobile-navigation-panel"
-              className="mobile-menu-panel"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 28, stiffness: 300 }}
-            >
-              {/* Close */}
-              <div className="flex justify-end mb-8">
-                <button
-                  onClick={() => setMenuOpen(false)}
-                  className="p-2 text-zinc-500 hover:text-white transition-colors"
-                  aria-label="Close menu"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-
-              {/* Nav links */}
-              <nav className="flex flex-col gap-1 mb-10">
-                {NAV_LINKS.map((link, i) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 + i * 0.05 }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="block px-4 py-3 font-mono text-sm uppercase tracking-widest text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-                      onClick={closeMenu}
-                    >
-                      <span className="text-brand-neon mr-2">{"//"}</span>
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                ))}
-              </nav>
-
-              {/* Social links */}
-              <div className="mt-auto border-t border-white/5 pt-6">
-                <p className="font-mono text-[10px] uppercase tracking-widest text-zinc-600 mb-4">Connect</p>
-                <div className="flex items-center gap-5 text-zinc-500">
-                  {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
-                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label={label}>
-                      <Icon size={20} />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </>
+        </nav>
+      </div>
+    </header>
   );
-};
-export default Navbar;
+}
