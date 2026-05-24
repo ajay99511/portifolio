@@ -1,28 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@200;400;700;900&display=swap');
 @import "tailwindcss";
 
+:root {
+  --brand-neon: #00f0ff;
+  --brand-purple: #7000ff;
+  --brand-orange: #ff3300;
+  --surface-bg: #020205;
+  --surface-raised: #08080f;
+  --surface-border: rgba(0, 240, 255, 0.15);
+  
+  --text-primary: #dbeafe; /* blue-100 */
+  --text-muted: #bfdbfe; /* blue-200 */
+  --text-white: #ffffff;
+  --text-zinc-400: #a1a1aa;
+  --text-zinc-500: #71717a;
+  --gradient-mid: #ffffff;
+  
+  --text-hero: clamp(2.5rem, 8vw, 9rem);
+}
+
+.light {
+  --brand-neon: #008c99;
+  --brand-purple: #5b00cc;
+  --brand-orange: #e62e00;
+  --surface-bg: #f8fafc;
+  --surface-raised: #ffffff;
+  --surface-border: rgba(0, 140, 153, 0.2);
+  
+  --text-primary: #0f172a;
+  --text-muted: #475569;
+  --text-white: #000000;
+  --text-zinc-400: #334155;
+  --text-zinc-500: #64748b;
+  --gradient-mid: #0f172a;
+}
+
 @theme {
   --font-sans: "Outfit", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", ui-sans-serif, system-ui;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
-  --color-brand-neon: #00f0ff;
-  --color-brand-purple: #7000ff;
-  --color-brand-orange: #ff3300;
-  --color-surface-bg: #020205;
-  --color-surface-raised: #08080f;
-  --color-surface-border: rgba(0, 240, 255, 0.15);
-}
-
-/* Responsive hero font size — consumed via var(--text-hero) in Hero.tsx */
-:root {
-  --text-hero: clamp(2.5rem, 8vw, 9rem);
+  --color-brand-neon: var(--brand-neon);
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-orange: var(--brand-orange);
+  --color-surface-bg: var(--surface-bg);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-border: var(--surface-border);
+  
+  --color-blue-100: var(--text-primary);
+  --color-blue-200: var(--text-muted);
+  --color-white: var(--text-white);
+  --color-zinc-400: var(--text-zinc-400);
+  --color-zinc-500: var(--text-zinc-500);
+  --color-gradient-mid: var(--gradient-mid);
 }
 
 @layer base {
   body {
-    @apply bg-surface-bg text-blue-100 antialiased selection:bg-brand-neon/30 selection:text-white overflow-x-hidden;
-    /* cursor-none is applied conditionally by CustomCursor via JS for pointer-fine devices */
+    @apply bg-surface-bg text-blue-100 antialiased selection:bg-brand-neon/30 selection:text-white overflow-x-hidden transition-colors duration-300;
   }
 }
 

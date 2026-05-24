@@ -63,7 +63,7 @@ describe("MobileMenu", () => {
   // -------------------------------------------------------------------------
   // 1. When isOpen is true, all three nav links are present in the DOM
   // -------------------------------------------------------------------------
-  it("renders all three nav links when isOpen is true", () => {
+  it("renders all four nav links when isOpen is true", () => {
     render(<MobileMenu isOpen={true} onClose={vi.fn()} />);
 
     expect(
@@ -71,6 +71,9 @@ describe("MobileMenu", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /credentials/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /resume/i })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /journals/i })
@@ -101,15 +104,18 @@ describe("MobileMenu", () => {
 
     render(<MobileMenu isOpen={true} onClose={onClose} />);
 
-    // Click each of the three links and verify onClose is called each time.
+    // Click each of the four links and verify onClose is called each time.
     await user.click(screen.getByRole("link", { name: /directory/i }));
     expect(onClose).toHaveBeenCalledTimes(1);
 
     await user.click(screen.getByRole("link", { name: /credentials/i }));
     expect(onClose).toHaveBeenCalledTimes(2);
 
-    await user.click(screen.getByRole("link", { name: /journals/i }));
+    await user.click(screen.getByRole("link", { name: /resume/i }));
     expect(onClose).toHaveBeenCalledTimes(3);
+
+    await user.click(screen.getByRole("link", { name: /journals/i }));
+    expect(onClose).toHaveBeenCalledTimes(4);
   });
 
   // -------------------------------------------------------------------------
@@ -125,8 +131,8 @@ describe("MobileMenu", () => {
     // behind the drawer. It is the only element with both aria-hidden and an
     // onClick handler at the top level (the drawer wrapper also has aria-hidden
     // when closed, but the backdrop is only rendered when isOpen is true).
-    // We identify it by its fixed-inset class and z-40 (below the drawer z-50).
-    const backdrop = document.querySelector(".fixed.inset-0.z-40");
+    // We identify it by its fixed-inset class and z-[100] (below the drawer z-[110]).
+    const backdrop = document.querySelector(".fixed.inset-0.z-\\[100\\]");
     expect(backdrop).not.toBeNull();
 
     await user.click(backdrop as Element);

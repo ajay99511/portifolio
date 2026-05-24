@@ -203,7 +203,7 @@ export default function AttachmentPreviewViewer({
                   {typeCapsule}
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-white to-brand-purple tracking-tighter uppercase mb-2">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-gradient-mid to-brand-purple tracking-tighter uppercase mb-2">
                 {attachment.title}
               </h1>
               <p className="text-blue-200/60 text-sm sm:text-base font-light max-w-3xl">{attachment.description}</p>

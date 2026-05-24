@@ -5,22 +5,33 @@ import { ChevronLeft, GitBranch, Terminal, ExternalLink, Hexagon } from 'lucide-
 import WalkthroughViewer from '@/components/walkthrough/WalkthroughViewer';
 import CustomCursor from '@/components/CustomCursor';
 import { projects } from '@/lib/projects.data';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 interface ProjectInteractiveViewProps {
   project: any;
 }
 
 export default function ProjectInteractiveView({ project }: ProjectInteractiveViewProps) {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (!project) return null;
 
+  const mixBlend = mounted && theme === 'light' ? 'mix-blend-multiply' : 'mix-blend-screen';
+
   return (
-    <div className="relative max-w-[1600px] mx-auto px-6 min-h-screen flex flex-col py-6 bg-surface-bg text-blue-100 font-sans overflow-hidden">
+    <div className="relative max-w-[1600px] mx-auto px-6 min-h-screen flex flex-col py-6 bg-surface-bg text-blue-100 font-sans overflow-hidden transition-colors duration-300">
       <CustomCursor />
       
       {/* Background Orbs — overflow-hidden is intentional: prevents absolutely-positioned orbs from causing horizontal overflow (Requirement 9.2) */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute rounded-full mix-blend-screen opacity-20 w-[500px] h-[500px] top-[-10%] left-[-10%]" style={{ background: 'radial-gradient(circle, #7000ff 0%, transparent 70%)', boxShadow: '0 0 100px #7000ff' }} />
-        <div className="absolute rounded-full mix-blend-screen opacity-20 w-[400px] h-[400px] bottom-[-10%] right-[-10%]" style={{ background: 'radial-gradient(circle, #00f0ff 0%, transparent 70%)', boxShadow: '0 0 100px #00f0ff' }} />
+        <div className={`absolute rounded-full ${mixBlend} opacity-20 w-[500px] h-[500px] top-[-10%] left-[-10%]`} style={{ background: 'radial-gradient(circle, #7000ff 0%, transparent 70%)', boxShadow: '0 0 100px #7000ff' }} />
+        <div className={`absolute rounded-full ${mixBlend} opacity-20 w-[400px] h-[400px] bottom-[-10%] right-[-10%]`} style={{ background: 'radial-gradient(circle, #00f0ff 0%, transparent 70%)', boxShadow: '0 0 100px #00f0ff' }} />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
       </div>
 

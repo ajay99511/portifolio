@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Outfit, Oxanium, Space_Grotesk } from "next/font/google";
 import LayoutShell from "@/components/LayoutShell";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -50,12 +51,11 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <body className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${oxanium.variable} min-h-full flex flex-col`}>
-        <a href="#main-content" className="skip-link">
-          Skip to content
-        </a>
-        <LayoutShell>
-          {children}
-        </LayoutShell>
+        <ThemeProvider>
+          <LayoutShell>
+            {children}
+          </LayoutShell>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -73,7 +73,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <span className="bg-brand-purple/5 border border-brand-purple/20 px-2 py-1">{post.category}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-white to-brand-purple tracking-tighter uppercase mb-4 leading-none">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-gradient-mid to-brand-purple tracking-tighter uppercase mb-4 leading-none">
             {post.title}
           </h1>
           <p className="text-lg sm:text-xl text-blue-200/70 font-light mb-8 max-w-3xl leading-relaxed">

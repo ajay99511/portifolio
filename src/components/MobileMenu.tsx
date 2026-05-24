@@ -13,6 +13,7 @@ export interface MobileMenuProps {
 const NAV_LINKS = [
   { label: "/ Directory", href: "/" },
   { label: "/ Credentials", href: "/certifications" },
+  { label: "/ Resume", href: "/preview/resume" },
   { label: "/ Journals", href: "/blogs" },
 ] as const;
 
@@ -45,7 +46,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         {isOpen && (
           <motion.div
             key="mobile-menu-backdrop"
-            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -63,7 +64,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         // We also set it here as a fallback for the very first render before the
         // effect fires (avoids a brief window where the drawer is accessible).
         aria-hidden={!isOpen ? "true" : undefined}
-        className="fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw]"
+        className="fixed inset-y-0 left-0 z-[110] w-72 max-w-[85vw]"
       >
         <AnimatePresence>
           {isOpen && (

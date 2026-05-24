@@ -65,7 +65,7 @@ export default async function Blogs() {
           <div className="inline-flex items-center gap-2 px-3 py-1 border border-brand-neon/40 bg-brand-neon/5 text-brand-neon font-mono text-[10px] uppercase tracking-widest mb-4">
             Knowledge Stream
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-white to-brand-purple tracking-tighter uppercase mb-4">Blogs & Insights</h1>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-gradient-mid to-brand-purple tracking-tighter uppercase mb-4">Blogs & Insights</h1>
           <p className="text-blue-200/60 font-light max-w-3xl text-sm sm:text-base leading-relaxed">
             A living archive of engineering decisions, architecture patterns, and practical lessons from building modern systems.
           </p>

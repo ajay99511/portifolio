@@ -4,13 +4,23 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { profile, projects, experiences, skills } from '@/lib/projects.data';
 import Link from 'next/link';
-import { ArrowUpRight, Code, Database, Globe, Hexagon, Terminal } from 'lucide-react';
+import { ArrowUpRight, Code, Database, FileText, Globe, Hexagon, Terminal } from 'lucide-react';
 import CustomCursor from '@/components/CustomCursor';
+import { useTheme } from 'next-themes';
 
 function HolographicOrb({ delay, color, size, top, left }: { delay: number, color: string, size: number, top: string, left: string }) {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const mixBlend = mounted && theme === 'light' ? 'mix-blend-multiply' : 'mix-blend-screen';
+
   return (
     <motion.div
-      className="absolute rounded-full mix-blend-screen pointer-events-none"
+      className={`absolute rounded-full ${mixBlend} pointer-events-none`}
       style={{
         width: size,
         height: size,
@@ -95,7 +105,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="text-5xl sm:text-7xl xl:text-[9rem] text-balance font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-white to-brand-purple tracking-tighter leading-[0.8] uppercase"
+              className="text-5xl sm:text-7xl xl:text-[9rem] text-balance font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-gradient-mid to-brand-purple tracking-tighter leading-[0.8] uppercase"
             >
               {profile.name}
               <br />
@@ -107,10 +117,26 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
-              className="max-w-2xl text-xl text-blue-200/60 font-light leading-relaxed font-mono"
+              className="max-w-2xl text-xl text-blue-200/60 font-light leading-relaxed font-mono mb-8"
             >
                {profile.summary}
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="flex flex-wrap gap-4"
+            >
+              <Link 
+                href="/preview/resume"
+                className="interactive group relative px-8 py-4 bg-brand-neon/10 border border-brand-neon/40 hover:bg-brand-neon/20 hover:border-brand-neon transition-all duration-300 flex items-center gap-3 cursor-none"
+              >
+                <div className="absolute inset-0 bg-brand-neon/5 blur-xl group-hover:bg-brand-neon/10 transition-colors" />
+                <FileText className="w-5 h-5 text-brand-neon" />
+                <span className="relative z-10 font-mono text-sm uppercase tracking-[0.2em] text-white group-hover:text-brand-neon">Preview_Resume</span>
+              </Link>
+            </motion.div>
           </motion.div>
 
           {/* Aesthetic HUD Overlay */}
