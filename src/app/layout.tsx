@@ -49,6 +49,7 @@ export default function RootLayout({
     <html
       lang="en"
       className="h-full antialiased"
+      suppressHydrationWarning
     >
       <body className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${oxanium.variable} min-h-full flex flex-col`}>
         <ThemeProvider>
