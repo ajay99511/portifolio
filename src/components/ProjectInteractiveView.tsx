@@ -39,13 +39,13 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
           </div>
           
           <div className="space-y-1">
-             <h1 className="text-4xl md:text-5xl font-light text-white uppercase tracking-tight leading-none text-shadow-sm drop-shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white uppercase tracking-tight leading-none text-shadow-sm drop-shadow-[0_0_15px_rgba(0,240,255,0.4)]">
                {project.title} <span className="text-brand-neon/50 text-2xl font-mono">/ BATCH_0{projects.indexOf(project) + 1}</span>
              </h1>
           </div>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           <a
             href={project.githubUrl}
             target="_blank"
