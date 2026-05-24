@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { X, Terminal, Code } from 'lucide-react';
 import { socialLinks, profile } from '@/lib/projects.data';
+import MobileMenu from '@/components/MobileMenu';
 
 // Inline SVGs for icons removed from lucide-react 1.x
 const GitHubIcon = ({ className }: { className?: string }) => (
@@ -31,6 +33,7 @@ const SocialIcon = ({ platform, className }: { platform: string, className?: str
 export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 h-14 border-b border-surface-border bg-surface-bg/80 backdrop-blur-md">
@@ -70,21 +73,36 @@ export default function Navbar() {
           <div className="h-4 w-px bg-surface-border hidden sm:block" />
 
           <div className="flex items-center gap-4">
-            {socialLinks.map((link: any) => (
-              <a 
-                key={link.platform}
-                href={link.url}
-                target="_blank" 
-                rel="noreferrer"
-                className="text-zinc-500 hover:text-white transition-all hover:-translate-y-0.5"
-                title={link.platform}
-              >
-                <SocialIcon platform={link.platform} className="h-3.5 w-3.5" />
-              </a>
+            {socialLinks.map((link: { platform: string; url: string }) => (
+              <span key={link.platform} className="min-w-[44px] min-h-[44px] flex items-center justify-center">
+                <a 
+                  href={link.url}
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="text-zinc-500 hover:text-white transition-all hover:-translate-y-0.5"
+                  title={link.platform}
+                >
+                  <SocialIcon platform={link.platform} className="h-3.5 w-3.5" />
+                </a>
+              </span>
             ))}
           </div>
+
+          {/* Hamburger / close toggle — visible only below sm breakpoint */}
+          <button
+            className="sm:hidden w-11 h-11 flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((prev) => !prev)}
+          >
+            <span className="text-xl leading-none" aria-hidden="true">
+              {menuOpen ? '×' : '☰'}
+            </span>
+          </button>
         </nav>
       </div>
+
+      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
     </header>
   );
 }

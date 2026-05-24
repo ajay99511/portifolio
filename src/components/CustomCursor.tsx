@@ -4,8 +4,24 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function CustomCursor() {
+  // Default true for SSR safety — cursor stays hidden until hydration confirms pointer type
+  const [isTouch, setIsTouch] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
+
+  // Detect pointer type and listen for changes (e.g. hybrid devices)
+  useEffect(() => {
+    const mql = window.matchMedia('(pointer: coarse)');
+    setIsTouch(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setIsTouch(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  // Apply/remove cursor-none on body based on pointer type
+  useEffect(() => {
+    document.body.classList.toggle('cursor-none', !isTouch);
+  }, [isTouch]);
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
@@ -35,6 +51,9 @@ export default function CustomCursor() {
       window.removeEventListener('mouseover', handleMouseOver);
     };
   }, []);
+
+  // No DOM elements on touch devices — native pointer should work normally
+  if (isTouch) return null;
 
   return (
     <>

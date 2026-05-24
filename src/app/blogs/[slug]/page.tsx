@@ -63,7 +63,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <header className="mb-10 sm:mb-14">
           <Link
             href="/blogs"
-            className="inline-flex items-center gap-2 text-brand-neon/50 hover:text-brand-neon transition-colors font-mono text-xs uppercase tracking-widest mb-8"
+            className="inline-flex items-center gap-2 min-h-[44px] text-brand-neon/50 hover:text-brand-neon transition-colors font-mono text-xs uppercase tracking-widest mb-8"
           >
             <ArrowLeft size={14} />
             Back to Archive
@@ -107,6 +107,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <section className="prose prose-invert max-w-none">
           <BlogMarkdown content={post.content} />
         </section>
+
+        {relatedPosts.length > 0 && (
+          <div className="mt-16 pt-10 border-t border-surface-border">
+            <h2 className="text-xl font-mono uppercase tracking-widest text-brand-neon/70 mb-6">
+              Related Posts
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedPosts.map((relatedPost) => (
+                <BlogCard key={relatedPost.slug} post={relatedPost} />
+              ))}
+            </div>
+          </div>
+        )}
       </article>
     </div>
   );

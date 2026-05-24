@@ -14,10 +14,10 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
   if (!project) return null;
 
   return (
-    <div className="relative max-w-[1600px] mx-auto px-6 h-screen flex flex-col py-6 bg-surface-bg text-blue-100 font-sans cursor-none overflow-hidden">
+    <div className="relative max-w-[1600px] mx-auto px-6 min-h-screen flex flex-col py-6 bg-surface-bg text-blue-100 font-sans overflow-hidden">
       <CustomCursor />
       
-      {/* Background Orbs */}
+      {/* Background Orbs — overflow-hidden is intentional: prevents absolutely-positioned orbs from causing horizontal overflow (Requirement 9.2) */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute rounded-full mix-blend-screen opacity-20 w-[500px] h-[500px] top-[-10%] left-[-10%]" style={{ background: 'radial-gradient(circle, #7000ff 0%, transparent 70%)', boxShadow: '0 0 100px #7000ff' }} />
         <div className="absolute rounded-full mix-blend-screen opacity-20 w-[400px] h-[400px] bottom-[-10%] right-[-10%]" style={{ background: 'radial-gradient(circle, #00f0ff 0%, transparent 70%)', boxShadow: '0 0 100px #00f0ff' }} />
@@ -70,7 +70,7 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
       </header>
 
       {/* Main Split View: Technical Docs + Interactive Canvas */}
-      <section className="relative z-10 flex-1 min-h-0 grid lg:grid-cols-12 gap-8 pt-8">
+      <section className="relative z-10 flex-1 min-h-0 flex flex-col lg:grid lg:grid-cols-12 gap-8 pt-8">
          {/* Sidebar: Technical Briefing */}
          <aside className="lg:col-span-3 space-y-12 overflow-y-auto pr-4 hide-scrollbar">
             <div className="space-y-4">

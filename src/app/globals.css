@@ -14,9 +14,15 @@
   --color-surface-border: rgba(0, 240, 255, 0.15);
 }
 
+/* Responsive hero font size — consumed via var(--text-hero) in Hero.tsx */
+:root {
+  --text-hero: clamp(2.5rem, 8vw, 9rem);
+}
+
 @layer base {
   body {
-    @apply bg-surface-bg text-blue-100 antialiased selection:bg-brand-neon/30 selection:text-white cursor-none overflow-x-hidden;
+    @apply bg-surface-bg text-blue-100 antialiased selection:bg-brand-neon/30 selection:text-white overflow-x-hidden;
+    /* cursor-none is applied conditionally by CustomCursor via JS for pointer-fine devices */
   }
 }
 

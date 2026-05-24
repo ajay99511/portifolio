@@ -64,10 +64,11 @@ export default function Home() {
   const opacityText = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-surface-bg text-blue-100 font-sans cursor-none overflow-x-hidden">
+    <div ref={containerRef} className="relative min-h-screen bg-surface-bg text-blue-100 font-sans overflow-x-hidden">
       <CustomCursor />
 
       {/* Holographic Orbs Field */}
+      {/* overflow-hidden is intentional: clips orbs positioned at left:80% and left:-10% to prevent horizontal overflow (Req 9.1) */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <HolographicOrb delay={0} color="#00f0ff" size={400} top="-10%" left="80%" />
         <HolographicOrb delay={2} color="#7000ff" size={600} top="40%" left="-10%" />
@@ -75,7 +76,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
       </div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-6 py-12 md:py-32 space-y-40">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-32 space-y-16 md:space-y-28 lg:space-y-40">
         
         {/* HERO NEURAL INTERFACE */}
         <section className="min-h-[80vh] flex flex-col justify-center relative">
@@ -94,7 +95,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="text-7xl md:text-[9rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-white to-brand-purple tracking-tighter leading-[0.8] uppercase"
+              className="text-5xl sm:text-7xl xl:text-[9rem] text-balance font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-white to-brand-purple tracking-tighter leading-[0.8] uppercase"
             >
               {profile.name}
               <br />
@@ -133,7 +134,7 @@ export default function Home() {
               <p className="font-mono text-brand-purple uppercase tracking-[0.3em] text-sm">Compiled Capabilities</p>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-6 max-w-4xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-6 max-w-4xl mx-auto">
               {skills.flatMap((s: any) => s.items).map((item: string, i: number) => (
                 <SkillNode key={item} item={item} index={i} />
               ))}
@@ -148,7 +149,7 @@ export default function Home() {
                <h2 className="text-4xl font-light text-white">Execution Protocols</h2>
                <p className="font-mono text-brand-neon uppercase tracking-widest text-xs">Temporal History</p>
              </div>
-             <div className="space-y-16 border-l border-brand-purple/30 pl-8 relative">
+             <div className="space-y-16 border-l border-brand-purple/30 pl-4 sm:pl-8 relative">
                {experiences.map((exp: any, i: number) => (
                  <motion.div 
                    key={exp.company}
@@ -232,7 +233,7 @@ export default function Home() {
               <Link 
                 key={project.id}
                 href={`/projects/${project.id}`}
-                className="interactive group relative h-[400px] border border-white/10 bg-white/[0.02] backdrop-blur-md overflow-hidden flex flex-col p-8 transition-all hover:border-brand-neon/50 cursor-none"
+                className="interactive group relative min-h-[320px] h-auto border border-white/10 bg-white/[0.02] backdrop-blur-md overflow-hidden flex flex-col p-8 transition-all hover:border-brand-neon/50 cursor-none"
               >
                  {/* Hover Glow */}
                  <div className="absolute inset-0 bg-gradient-to-br from-brand-neon/0 to-brand-purple/0 group-hover:from-brand-neon/10 group-hover:to-brand-purple/10 transition-colors duration-500" />

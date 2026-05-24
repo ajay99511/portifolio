@@ -101,7 +101,8 @@ function previewByType(
 ) {
   if (attachment.kind === "pdf") {
     return (
-      <div className="h-[74vh] min-h-[460px] border border-surface-border bg-surface-raised/30 overflow-hidden">
+      // h-[60vh]/min-h-[360px] on mobile, h-[74vh]/min-h-[460px] on md+ — Req 12.1
+      <div className="h-[60vh] md:h-[74vh] min-h-[360px] md:min-h-[460px] border border-surface-border bg-surface-raised/30 overflow-hidden">
         <iframe
           title={`${attachment.title} PDF Preview`}
           src={`${attachment.url}#view=FitH`}
@@ -113,7 +114,8 @@ function previewByType(
 
   if (attachment.kind === "image") {
     return (
-      <div className="h-[74vh] min-h-[460px] border border-surface-border bg-surface-bg p-4 sm:p-6 flex items-center justify-center overflow-hidden">
+      // h-[50vh]/min-h-[300px] on mobile, h-[74vh]/min-h-[460px] on md+ — Req 12.2
+      <div className="h-[50vh] md:h-[74vh] min-h-[300px] md:min-h-[460px] border border-surface-border bg-surface-bg p-4 sm:p-6 flex items-center justify-center overflow-hidden">
         <div className="relative w-full h-full flex justify-center items-center">
           <Image
             src={attachment.url}
@@ -176,7 +178,7 @@ export default function AttachmentPreviewViewer({
         >
           <Link
             href={backHref}
-            className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest"
+            className="inline-flex items-center gap-2 min-h-[44px] text-zinc-500 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest"
           >
             <ArrowLeft size={14} />
             {backLabel}
@@ -207,6 +209,7 @@ export default function AttachmentPreviewViewer({
               <p className="text-blue-200/60 text-sm sm:text-base font-light max-w-3xl">{attachment.description}</p>
             </div>
 
+            {/* flex-wrap intentional: keeps Download/Open visible on narrow viewports — Req 12.4, 6.6 */}
             <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
               <a
                 href={attachment.url}
@@ -228,6 +231,7 @@ export default function AttachmentPreviewViewer({
             </div>
           </div>
 
+          {/* flex-wrap intentional: metadata chips wrap on narrow viewports instead of overflowing — Req 12.5 */}
           <div className="mb-4 flex flex-wrap gap-2 sm:gap-3">
             <span className="font-mono text-[10px] uppercase tracking-widest text-blue-200/50 border border-surface-border bg-surface-bg px-2.5 py-1">
               File: {attachment.fileName}
