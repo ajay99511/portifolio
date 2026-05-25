@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight, Database, Globe } from "lucide-react";
-import { projects } from "@/lib/projects.data";
+import { projects } from "@/lib/projects";
 
 export default function ProjectsPage() {
   return (

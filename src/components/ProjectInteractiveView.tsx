@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { ChevronLeft, GitBranch, Terminal, ExternalLink, Hexagon } from 'lucide-react';
 import WalkthroughViewer from '@/components/walkthrough/WalkthroughViewer';
 import CustomCursor from '@/components/CustomCursor';
-import { projects } from '@/lib/projects.data';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
@@ -51,7 +50,7 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
           
           <div className="space-y-1">
              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white uppercase tracking-tight leading-none text-shadow-sm drop-shadow-[0_0_15px_rgba(0,240,255,0.4)]">
-               {project.title} <span className="text-brand-neon/50 text-2xl font-mono">/ BATCH_0{projects.indexOf(project) + 1}</span>
+               {project.title} <span className="text-brand-neon/50 text-2xl font-mono">/ BATCH_0{project.index}</span>
              </h1>
           </div>
         </div>

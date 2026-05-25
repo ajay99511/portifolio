@@ -33,6 +33,7 @@ export interface Project {
   walkthroughSteps?: WalkthroughStep[];
   contextBanner?: ContextBanner;
   quickStartSteps?: QuickStartStep[];
+  steps?: QuickStartStep[];
   previewPanels?: PreviewPanel[];
 }
 

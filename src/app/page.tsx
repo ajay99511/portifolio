@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { profile, projects, experiences, skills } from '@/lib/projects.data';
+import { profile, experiences, skills } from '@/lib/projects.data';
+import { projects } from '@/lib/projects';
 import Link from 'next/link';
 import { ArrowUpRight, Code, Database, FileText, Globe, Hexagon, Terminal } from 'lucide-react';
 import CustomCursor from '@/components/CustomCursor';

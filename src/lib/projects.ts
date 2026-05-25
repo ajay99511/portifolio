@@ -7,6 +7,7 @@ export const projects = projectCatalog.map((project, index) => ({
   tags: project.techStack ?? [],
   fullDescription: project.longDescription,
   githubUrl: project.repoUrl,
+  steps: project.quickStartSteps,
 }));
 
 export function getProjectById(id: string) {
