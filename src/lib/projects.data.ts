@@ -139,7 +139,7 @@ export const projectCatalog: Project[] = [
   {
     id: "gitscripe",
     batchId: "BATCH_01",
-    pinned: true,
+    pinned: false,
     title: "GitScripe",
     subtitle: "My Experiment with AI Agents",
     description: "An exploration into LLM agents and RAG to make sense of complex Git repository histories.",
@@ -229,7 +229,7 @@ export const projectCatalog: Project[] = [
   {
     id: "repo-pulse",
     batchId: "BATCH_01",
-    pinned: false,
+    pinned: true,
     title: "RepoPulse",
     subtitle: "My Personal Project Command Center",
     description: "A custom dashboard I built to organize my messy GitHub repositories and bind them to local folders.",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { 
   Activity, 
   LayoutGrid, 
@@ -12,7 +12,15 @@ import {
   Star,
   Copy,
   ExternalLink,
-  ChevronDown
+  ChevronDown,
+  Terminal,
+  Cpu,
+  ShieldCheck,
+  Zap,
+  Menu,
+  X,
+  LogOut,
+  Bell
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import DemoQuickStart from "@/components/demos/DemoQuickStart";
@@ -20,163 +28,191 @@ import { projects } from "@/lib/projects";
 
 // Mock Data
 const SPACES = [
-  { id: "s1", name: "Frontend Apps" },
-  { id: "s2", name: "Backend Services" },
-  { id: "s3", name: "Machine Learning" },
+  { id: "s1", name: "Frontend Nodes", description: "Edge-deployed consumer interfaces." },
+  { id: "s2", name: "Backend Clusters", description: "Distributed service mesh components." },
+  { id: "s3", name: "Neural Engines", description: "Large language model implementations." },
 ];
 
 const REPOS = [
   {
     id: "r1",
-    name: "portfolio-nextjs",
-    description: "My personal portfolio built with Next.js, Tailwind, and Framer Motion.",
+    name: "nexus-core-ui",
+    description: "Primary command interface for distributed infrastructure management.",
     language: "TypeScript",
-    starCount: 12,
+    starCount: 142,
     pushedAt: "2h ago",
-    spaces: ["s1"]
+    spaces: ["s1"],
+    status: "nominal"
   },
   {
     id: "r2",
-    name: "repo-pulse",
-    description: "GitHub repository manager with custom spaces and cross-device sync.",
+    name: "repo-pulse-sync",
+    description: "Synchronized state manager for cross-region dashboard telemetry.",
     language: "TypeScript",
-    starCount: 8,
+    starCount: 89,
     pushedAt: "1d ago",
-    spaces: ["s1", "s2"]
+    spaces: ["s1", "s2"],
+    status: "nominal"
   },
   {
     id: "r3",
-    name: "dl-algorithms",
-    description: "From-scratch implementations of GPT, ViT, and RLHF in PyTorch.",
+    name: "gpt-causal-v4",
+    description: "Causal self-attention engine with fused QKV projections and flash attention.",
     language: "Python",
-    starCount: 45,
+    starCount: 1245,
     pushedAt: "3d ago",
-    spaces: ["s3"]
+    spaces: ["s3"],
+    status: "active"
   },
   {
     id: "r4",
-    name: "fastbeat-player",
-    description: "Android media player with ExoPlayer, Media3, and Room database.",
+    name: "media-stream-android",
+    description: "Mobile node for low-latency hardware-accelerated stream decoding.",
     language: "Kotlin",
-    starCount: 24,
+    starCount: 64,
     pushedAt: "1w ago",
-    spaces: ["s1"]
+    spaces: ["s1"],
+    status: "nominal"
   },
   {
     id: "r5",
-    name: "go-micro-auth",
-    description: "High-performance JWT authentication microservice written in Go.",
+    name: "auth-mesh-go",
+    description: "Zero-trust authentication gateway with JWT rotation and rate limiting.",
     language: "Go",
-    starCount: 19,
+    starCount: 312,
     pushedAt: "2w ago",
-    spaces: ["s2"]
+    spaces: ["s2"],
+    status: "nominal"
   },
   {
     id: "r6",
-    name: "rust-cli-tools",
-    description: "Blazing fast CLI utilities for file manipulation and data processing.",
+    name: "data-pipe-rust",
+    description: "High-throughput stream processing node with SIMD optimizations.",
     language: "Rust",
-    starCount: 156,
+    starCount: 856,
     pushedAt: "1mo ago",
-    spaces: ["s2"]
+    spaces: ["s2"],
+    status: "warning"
   }
 ];
 
-// Theme Tokens extracted from repo_pulse
-const THEME = {
-  bg: "#0a0a0a",
-  card: "#121212",
-  border: "#262626",
-  muted: "#262626",
-  textMain: "#ededed",
-  textMuted: "#a3a3a3",
-  accent: "#f59e0b" // amber-500
-};
-
 function getLanguageColor(lang: string) {
   switch (lang.toLowerCase()) {
-    case "typescript": return "border-blue-500/50 text-blue-400";
-    case "python": return "border-green-500/50 text-green-400";
-    case "kotlin": return "border-purple-500/50 text-purple-400";
-    case "go": return "border-sky-500/50 text-sky-400";
-    case "rust": return "border-orange-500/50 text-orange-400";
-    default: return "border-gray-500/50 text-gray-400";
+    case "typescript": return "border-[var(--brand-neon)]/30 text-cyan-400";
+    case "python": return "border-emerald-500/30 text-emerald-400";
+    case "kotlin": return "border-purple-500/30 text-purple-400";
+    case "go": return "border-sky-500/30 text-sky-400";
+    case "rust": return "border-orange-500/30 text-orange-400";
+    default: return "border-zinc-800 text-zinc-400";
   }
 }
 
 export default function RepoPulseDemo() {
   const [quickStartDone, setQuickStartDone] = useState(false);
-  const projectData = projects.find((p) => p.id === "repo-pulse");
-  
   const [activeSpaceId, setActiveSpaceId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  const projectData = projects.find((p) => p.id === "repo-pulse");
   
   const activeSpace = activeSpaceId ? SPACES.find(s => s.id === activeSpaceId) : null;
   
-  let filteredRepos = activeSpaceId 
-    ? REPOS.filter(r => r.spaces.includes(activeSpaceId)) 
-    : REPOS;
-    
-  if (searchQuery) {
-    filteredRepos = filteredRepos.filter(r => 
-      r.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      r.description.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }
+  const filteredRepos = useMemo(() => {
+    let results = activeSpaceId 
+      ? REPOS.filter(r => r.spaces.includes(activeSpaceId)) 
+      : REPOS;
+      
+    if (searchQuery) {
+      results = results.filter(r => 
+        r.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        r.description.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    return results;
+  }, [activeSpaceId, searchQuery]);
 
   const totalStars = filteredRepos.reduce((acc, r) => acc + r.starCount, 0);
 
   return (
     <div 
-      className="h-full rounded-lg border overflow-hidden flex font-sans text-sm relative shadow-2xl" 
-      style={{ borderColor: THEME.border, background: THEME.bg, color: THEME.textMain }}
+      className="h-full rounded-xl border border-[var(--surface-border)] overflow-hidden flex flex-col lg:flex-row font-sans text-sm relative shadow-2xl transition-colors duration-500 bg-[var(--surface-bg)] text-[var(--text-primary)]" 
     >
+      {/* Cyberpunk Grid Background */}
+      <div className="absolute inset-0 pointer-events-none opacity-20" 
+        style={{
+          backgroundImage: `
+            linear-gradient(180deg, transparent 0%, var(--brand-neon) 0.01%, transparent 100%),
+            repeating-linear-gradient(0deg, transparent, transparent 29px, var(--brand-neon) 29px, var(--brand-neon) 30px),
+            repeating-linear-gradient(90deg, transparent, transparent 29px, var(--brand-neon) 29px, var(--brand-neon) 30px)
+          `,
+          backgroundSize: "100% 100%, 30px 30px, 30px 30px"
+        }}
+      />
+
+      {/* Sidebar - Mobile Toggle */}
+      <div className="lg:hidden sticky top-0 z-30 flex items-center justify-between bg-black/80 backdrop-blur-xl border-b border-[var(--surface-border)] px-4 py-3">
+        <button onClick={() => setSidebarOpen(true)} className="p-2 text-[var(--brand-neon)]">
+          <Menu size={20} />
+        </button>
+        <div className="flex items-center gap-2">
+          <Activity size={18} className="text-[var(--brand-neon)] drop-shadow-[0_0_8px_var(--brand-neon)]" />
+          <span className="font-display font-bold text-xs tracking-widest uppercase text-[var(--brand-neon)]">RepoPulse</span>
+        </div>
+        <div className="w-8 h-8 rounded-full border border-[var(--brand-neon)]/30 bg-zinc-800" />
+      </div>
+
       {/* Sidebar */}
       <aside 
-        className="w-64 shrink-0 border-r flex flex-col hidden md:flex" 
-        style={{ borderColor: THEME.border, background: "rgba(18, 18, 18, 0.3)" }}
+        className={cn(
+          "fixed inset-y-0 left-0 z-40 w-64 transform transition-transform duration-300 lg:relative lg:translate-x-0 border-r border-[var(--surface-border)] flex flex-col",
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+        style={{ background: "rgba(0, 0, 0, 0.85)", backdropFilter: "blur(20px)" }}
       >
-        <div className="p-6">
-          <div className="flex items-center gap-3">
-            <Activity className="w-8 h-8" style={{ color: THEME.accent }} />
-            <h1 className="text-xl font-bold tracking-tight">RepoPulse</h1>
+        <button onClick={() => setSidebarOpen(false)} className="lg:hidden absolute top-4 right-4 p-2 text-zinc-500">
+          <X size={20} />
+        </button>
+
+        <div className="p-8">
+          <div className="flex flex-col items-center gap-4 text-center">
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-tr from-[var(--brand-neon)] to-[var(--brand-purple)] rounded-2xl opacity-40 blur-lg group-hover:opacity-70 transition duration-500"></div>
+              <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-black border-2 border-[var(--brand-neon)]/50">
+                <Activity size={24} className="text-[var(--brand-neon)] drop-shadow-[0_0_8px_var(--brand-neon)]" />
+              </div>
+            </div>
+            <h1 className="text-xl font-bold tracking-[0.2em] font-display uppercase mt-2">
+              Repo<span className="text-[var(--brand-neon)]">Pulse</span>
+            </h1>
           </div>
         </div>
         
-        <nav className="flex-grow px-3 space-y-1 overflow-y-auto">
-          <div className="px-3 mb-2 text-[10px] font-bold uppercase tracking-wider opacity-60" style={{ color: THEME.textMuted }}>
-            System
+        <nav className="flex-grow px-4 space-y-1 overflow-y-auto">
+          <div className="px-3 mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-zinc-500)]">
+            Nodes / Root
           </div>
+          
           <button
-            onClick={() => setActiveSpaceId(null)}
-            className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors"
+            onClick={() => { setActiveSpaceId(null); setSidebarOpen(false); }}
+            className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300"
             style={{ 
-              background: activeSpaceId === null ? THEME.textMain : "transparent", 
-              color: activeSpaceId === null ? THEME.bg : THEME.textMain 
+              background: activeSpaceId === null ? "rgba(0, 240, 255, 0.1)" : "transparent", 
+              color: activeSpaceId === null ? "var(--brand-neon)" : "inherit",
+              border: `1px solid ${activeSpaceId === null ? "rgba(0, 240, 255, 0.3)" : "transparent"}`
             }}
           >
-            <div className="flex items-center gap-2">
-              <LayoutGrid className="w-4 h-4" />
+            <div className="flex items-center gap-3">
+              <LayoutGrid size={16} />
               All Projects
             </div>
-            <div 
-              className="px-2 py-0.5 rounded-md text-[10px]"
-              style={{ 
-                background: activeSpaceId === null ? "rgba(0,0,0,0.1)" : THEME.muted,
-                border: `1px solid ${activeSpaceId === null ? "transparent" : THEME.border}`
-              }}
-            >
-              {REPOS.length}
-            </div>
+            <span className="opacity-50 font-mono text-[10px]">{REPOS.length}</span>
           </button>
 
-          <div className="pt-6 px-3 mb-2 flex items-center justify-between group">
-            <span className="text-[10px] font-bold uppercase tracking-wider opacity-60" style={{ color: THEME.textMuted }}>
-              Spaces
+          <div className="pt-8 px-3 mb-2 flex items-center justify-between group">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-zinc-500)]">
+              Clusters
             </span>
-            <button className="opacity-0 group-hover:opacity-100 p-0.5 rounded transition-all hover:bg-white/10">
-              <Plus className="w-3.5 h-3.5" />
-            </button>
+            <Plus size={14} className="text-zinc-500 cursor-pointer hover:text-white transition-colors" />
           </div>
 
           {SPACES.map((space) => {
@@ -185,166 +221,187 @@ export default function RepoPulseDemo() {
             return (
               <button
                 key={space.id}
-                onClick={() => setActiveSpaceId(space.id)}
-                className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-white/5"
+                onClick={() => { setActiveSpaceId(space.id); setSidebarOpen(false); }}
+                className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 group"
                 style={{ 
-                  background: isActive ? THEME.textMain : "transparent", 
-                  color: isActive ? THEME.bg : THEME.textMain 
+                  background: isActive ? "rgba(112, 0, 255, 0.1)" : "transparent", 
+                  color: isActive ? "var(--brand-purple)" : "inherit",
+                  border: `1px solid ${isActive ? "rgba(112, 0, 255, 0.3)" : "transparent"}`
                 }}
               >
-                <div className="flex items-center gap-2 truncate">
-                  <Box className="w-4 h-4 opacity-70" />
+                <div className="flex items-center gap-3 truncate">
+                  <Box size={16} className={cn("transition-colors", isActive ? "text-[var(--brand-purple)]" : "text-zinc-500 group-hover:text-white")} />
                   <span className="truncate">{space.name}</span>
                 </div>
-                <div 
-                  className="px-2 py-0.5 rounded-md text-[10px]"
-                  style={{ 
-                    background: isActive ? "rgba(0,0,0,0.1)" : THEME.muted,
-                    border: `1px solid ${isActive ? "transparent" : THEME.border}`
-                  }}
-                >
-                  {count}
-                </div>
+                <span className="opacity-50 font-mono text-[10px]">{count}</span>
               </button>
             );
           })}
-
-          <div className="pt-8 pb-4">
-            <button
-              className="w-full flex items-center justify-center gap-2 py-2 rounded-lg border border-dashed transition-colors text-sm font-medium hover:border-white/50"
-              style={{ borderColor: "rgba(163, 163, 163, 0.3)", color: THEME.textMain }}
-            >
-              <FolderPlus className="w-4 h-4" />
-              New Space
-            </button>
-          </div>
         </nav>
 
-        <div className="p-4 border-t mt-auto flex items-center gap-3" style={{ borderColor: THEME.border }}>
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-purple-500 shrink-0 border border-white/20" />
-          <div className="flex flex-col min-w-0">
-            <span className="text-sm font-bold truncate">Ajay Developer</span>
-            <span className="text-[10px] truncate" style={{ color: THEME.textMuted }}>@ajaydev</span>
+        <div className="p-6 border-t border-[var(--surface-border)] mt-auto">
+          <div className="flex items-center gap-3 p-3 rounded-2xl bg-zinc-900/40 border border-zinc-800/50">
+            <div className="relative">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[var(--brand-neon)] to-[var(--brand-purple)] border border-white/10" />
+              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-black animate-pulse" />
+            </div>
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="text-xs font-bold truncate">Command_Agent</span>
+              <span className="text-[10px] font-mono uppercase opacity-50 tracking-tight truncate">Status: Nominal</span>
+            </div>
+            <LogOut size={16} className="text-zinc-600 hover:text-red-400 transition-colors cursor-pointer" />
           </div>
         </div>
       </aside>
 
       {/* Main Content */}
       <main className="flex-grow flex flex-col min-w-0 overflow-y-auto">
-        <div className="flex flex-col p-6 md:p-8 lg:p-10 space-y-8">
+        <div className="flex flex-col p-6 sm:p-8 lg:p-12 space-y-10">
           
           {/* Header */}
-          <div className="flex flex-col xl:flex-row xl:items-end justify-between items-start gap-4">
-            <div className="space-y-1.5 min-w-0">
-              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest opacity-60" style={{ color: THEME.textMuted }}>
-                Dashboard / {activeSpaceId === null ? "All Projects" : "Space"}
+          <div className="flex flex-col xl:flex-row xl:items-end justify-between items-start gap-8">
+            <div className="space-y-4 min-w-0 flex-1">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 text-[10px] font-bold text-[var(--text-zinc-500)] uppercase tracking-[0.2em] opacity-70">
+                  System /{" "}
+                  <span style={{ color: activeSpaceId ? "var(--brand-purple)" : "var(--brand-neon)" }} className="opacity-100">
+                    {activeSpaceId === null ? "All Projects" : "Active Cluster"}
+                  </span>
+                </div>
+                <div className="h-px w-12 bg-white/10" />
+                <div className="flex items-center gap-2 px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[9px] font-mono font-bold uppercase text-emerald-500">Live_Sync</span>
+                </div>
               </div>
-              <h2 className="text-3xl font-bold tracking-tighter">
-                {activeSpaceId === null ? "Repo Command Center" : activeSpace?.name}
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tighter font-display uppercase">
+                {activeSpaceId === null ? "Command Center" : activeSpace?.name}
               </h2>
-              <p className="text-sm max-w-2xl" style={{ color: THEME.textMuted }}>
+              <p className="text-sm sm:text-base text-[var(--text-zinc-400)] max-w-2xl font-medium leading-relaxed opacity-80">
                 {activeSpaceId === null 
-                  ? "Unified view of all your codebases across platforms." 
-                  : `Manage select repositories for ${activeSpace?.name}.`}
+                  ? "Unified tactical overview of all distributed codebases and development nodes." 
+                  : activeSpace?.description}
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 w-full xl:w-auto shrink-0">
-              <div className="border rounded-2xl p-4 flex flex-col gap-1 min-w-[120px] shadow-sm" style={{ borderColor: THEME.border, background: THEME.card }}>
-                <span className="text-[10px] font-bold uppercase opacity-60 tracking-wider" style={{ color: THEME.textMuted }}>
+            <div className="grid grid-cols-2 gap-4 w-full sm:w-auto shrink-0">
+              <div className="bg-black/40 border border-[var(--surface-border)] rounded-2xl p-5 flex flex-col gap-1 min-w-[140px] relative overflow-hidden group hover:border-[var(--brand-neon)]/40 transition-colors">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-[var(--brand-neon)]/5 rounded-bl-full translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform" />
+                <span className="text-[10px] font-bold uppercase opacity-50 tracking-widest text-[var(--text-zinc-500)]">
                   Active Focus
                 </span>
-                <span className="text-2xl font-bold">{filteredRepos.length}</span>
+                <span className="text-3xl font-bold font-display">{filteredRepos.length}</span>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <Cpu size={10} className="text-[var(--brand-neon)]" />
+                  <span className="text-[9px] font-mono text-zinc-500 uppercase">Nodes Active</span>
+                </div>
               </div>
-              <div className="border rounded-2xl p-4 flex flex-col gap-1 min-w-[120px] shadow-sm" style={{ borderColor: THEME.border, background: THEME.card }}>
-                <span className="text-[10px] font-bold uppercase opacity-60 tracking-wider" style={{ color: THEME.textMuted }}>
+              <div className="bg-black/40 border border-[var(--surface-border)] rounded-2xl p-5 flex flex-col gap-1 min-w-[140px] relative overflow-hidden group hover:border-[var(--brand-purple)]/40 transition-colors">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-[var(--brand-purple)]/5 rounded-bl-full translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform" />
+                <span className="text-[10px] font-bold uppercase opacity-50 tracking-widest text-[var(--text-zinc-500)]">
                   Collective Stars
                 </span>
-                <span className="text-2xl font-bold" style={{ color: THEME.accent }}>
-                  {totalStars}
-                </span>
+                <span className="text-3xl font-bold font-display text-[var(--brand-purple)]">{totalStars}</span>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <Zap size={10} className="text-[var(--brand-purple)]" />
+                  <span className="text-[9px] font-mono text-zinc-500 uppercase">Energy Peak</span>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Efficiency Bar (Filter) */}
-          <div className="flex flex-col sm:flex-row gap-3 w-full items-center p-1.5 rounded-xl border shadow-sm" style={{ borderColor: THEME.border, background: THEME.card }}>
+          <div className="flex flex-col sm:flex-row gap-3 w-full items-center p-2 rounded-2xl border border-[var(--surface-border)] shadow-xl bg-black/20">
             <div className="relative flex-1 w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 opacity-50" style={{ color: THEME.textMuted }} />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
               <input
                 type="text"
-                placeholder="Search repositories..."
+                placeholder="Search distributed nodes..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent border-none focus:ring-0 text-sm pl-10 pr-4 py-2 outline-none"
-                style={{ color: THEME.textMain }}
+                className="w-full bg-transparent border-none focus:ring-0 text-sm pl-12 pr-4 py-3 outline-none placeholder:text-zinc-600 font-medium"
               />
             </div>
-            <div className="hidden sm:block w-px h-6 opacity-30" style={{ background: THEME.border }} />
-            <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-white/5" style={{ color: THEME.textMuted }}>
-              <Filter className="w-4 h-4" />
-              <span>Sort: Updated</span>
-              <ChevronDown className="w-3 h-3 ml-1" />
-            </button>
+            <div className="hidden sm:block w-px h-8 bg-zinc-800/50" />
+            <div className="flex items-center gap-2 pr-2">
+              <button className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all hover:bg-white/5 border border-transparent hover:border-zinc-800 text-[var(--text-zinc-500)]">
+                <Filter size={14} />
+                <span>Sort_By: Pulse</span>
+              </button>
+              <button className="p-2.5 rounded-xl bg-white/5 border border-zinc-800 text-zinc-400 hover:text-white transition-colors">
+                <Terminal size={18} />
+              </button>
+            </div>
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredRepos.length === 0 ? (
-              <div className="col-span-full py-12 flex flex-col items-center justify-center text-center border border-dashed rounded-xl" style={{ borderColor: THEME.border }}>
-                <Search className="w-10 h-10 mb-4 opacity-20" style={{ color: THEME.textMuted }} />
-                <p className="text-sm font-medium">No repositories found.</p>
-                <p className="text-xs opacity-60 mt-1" style={{ color: THEME.textMuted }}>Try adjusting your search or filters.</p>
+              <div className="col-span-full py-24 flex flex-col items-center justify-center text-center border border-dashed rounded-3xl border-zinc-800 bg-white/[0.01]">
+                <div className="w-16 h-16 rounded-full bg-zinc-900 flex items-center justify-center mb-6">
+                  <Search size={32} className="text-zinc-700" />
+                </div>
+                <p className="text-lg font-bold font-display uppercase tracking-wider">No Nodes Detected</p>
+                <p className="text-sm text-zinc-500 mt-2 max-w-xs">Adjust your frequency settings to locate distributed resources.</p>
               </div>
             ) : (
               filteredRepos.map(repo => (
                 <div 
                   key={repo.id} 
-                  className="flex flex-col group transition-all duration-300 border rounded-xl"
-                  style={{ borderColor: THEME.border, background: THEME.card }}
+                  className="flex flex-col group relative transition-all duration-500 border border-[var(--surface-border)] rounded-3xl overflow-hidden hover:translate-y-[-4px] hover:shadow-[0_0_20px_rgba(0,240,255,0.1)] bg-zinc-950/40 backdrop-blur-xl"
                 >
-                  <div className="p-4 flex-grow space-y-3">
+                  {/* Card Glow Effect */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[var(--brand-neon)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className="p-6 flex-grow space-y-4">
                     <div className="flex items-start justify-between">
-                      <div className="space-y-1 min-w-0">
-                        <h3 className="font-bold text-base truncate group-hover:text-amber-400 transition-colors cursor-pointer">
+                      <div className="space-y-1.5 min-w-0">
+                        <div className="flex items-center gap-2">
+                           <div className={cn(
+                             "w-1.5 h-1.5 rounded-full shadow-[0_0_8px_currentColor]",
+                             repo.status === 'nominal' ? "bg-cyan-500 text-cyan-500" : 
+                             repo.status === 'active' ? "bg-emerald-500 text-emerald-500" : 
+                             "bg-amber-500 text-amber-500"
+                           )} />
+                           <span className="text-[9px] font-mono font-bold uppercase tracking-tighter opacity-50">{repo.status}</span>
+                        </div>
+                        <h3 className="font-display font-bold text-lg tracking-tight truncate group-hover:text-[var(--brand-neon)] transition-colors cursor-pointer uppercase">
                           {repo.name}
                         </h3>
-                        <div className="flex items-center gap-2 text-[11px] font-medium" style={{ color: THEME.textMuted }}>
-                          {repo.starCount > 20 && (
-                            <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse ring-2 ring-green-500/20" />
-                          )}
-                          <span>Updated {repo.pushedAt}</span>
+                        <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-tight text-zinc-500">
+                          <span>Updated // {repo.pushedAt}</span>
                         </div>
                       </div>
+                      <ShieldCheck size={18} className="text-zinc-800 group-hover:text-emerald-500/50 transition-colors" />
                     </div>
-                    <p className="text-sm leading-relaxed font-medium line-clamp-2 opacity-80">
+                    <p className="text-xs leading-relaxed font-medium line-clamp-3 text-[var(--text-zinc-400)] group-hover:text-[var(--text-primary)] transition-colors">
                       {repo.description}
                     </p>
                   </div>
 
-                  <div className="p-4 pt-0 flex flex-col gap-4">
+                  <div className="p-6 pt-0 flex flex-col gap-5">
                     <div className="w-full flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className={cn("px-2.5 py-0.5 rounded-md text-xs font-semibold border bg-white/5", getLanguageColor(repo.language))}>
+                        <span className={cn("px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest border bg-black/40", getLanguageColor(repo.language))}>
                           {repo.language}
                         </span>
-                        <div className="flex items-center gap-1 text-[11px] font-bold px-2 py-1 rounded-md" style={{ background: THEME.muted, color: THEME.textMuted }}>
-                          <Star className="w-3 h-3" style={{ color: THEME.accent, fill: THEME.accent }} />
-                          {repo.starCount}
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1 rounded-lg bg-zinc-900/80 border border-zinc-800 text-zinc-400">
+                          <Star size={12} className="text-amber-500 fill-amber-500" />
+                          <span className="font-mono">{repo.starCount}</span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
-                        <button className="p-1.5 rounded-md hover:bg-white/10"><Copy className="w-3.5 h-3.5" /></button>
-                        <button className="p-1.5 rounded-md hover:bg-white/10"><ExternalLink className="w-4 h-4" /></button>
+                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+                        <button className="p-2 rounded-xl hover:bg-white/5 border border-transparent hover:border-zinc-800 text-zinc-500 hover:text-white transition-all"><Copy size={14} /></button>
+                        <button className="p-2 rounded-xl hover:bg-white/5 border border-transparent hover:border-zinc-800 text-zinc-500 hover:text-white transition-all"><ExternalLink size={14} /></button>
                       </div>
                     </div>
                     
                     {activeSpaceId === null && repo.spaces.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 border-t pt-3 w-full" style={{ borderColor: THEME.border }}>
+                      <div className="flex flex-wrap gap-2 pt-4 border-t border-zinc-900/50 w-full">
                         {repo.spaces.map(sId => {
                           const s = SPACES.find(space => space.id === sId);
                           return s ? (
-                            <span key={s.id} className="px-1.5 py-0.5 rounded bg-white/5 text-[9px] font-bold tracking-tight uppercase opacity-60">
+                            <span key={s.id} className="px-2 py-0.5 rounded bg-zinc-900 text-[9px] font-bold tracking-[0.1em] uppercase text-zinc-600 border border-zinc-800/50">
                               {s.name}
                             </span>
                           ) : null;
