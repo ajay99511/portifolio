@@ -5,9 +5,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { profile, experiences, skills } from '@/lib/projects.data';
 import { projects } from '@/lib/projects';
 import Link from 'next/link';
-import { ArrowUpRight, Code, Database, FileText, Globe, Hexagon, Terminal } from 'lucide-react';
+import { ArrowUpRight, Database, FileText, Globe, Hexagon, Terminal } from 'lucide-react';
 import CustomCursor from '@/components/CustomCursor';
 import { useTheme } from 'next-themes';
+import AppReleases from '@/components/AppReleases';
 
 function HolographicOrb({ delay, color, size, top, left }: { delay: number, color: string, size: number, top: string, left: string }) {
   const { theme } = useTheme();
@@ -99,7 +100,7 @@ export default function Home() {
               className="inline-flex items-center gap-4 border border-brand-neon/40 bg-brand-neon/5 px-4 py-2 rounded-none backdrop-blur-sm"
             >
               <div className="w-2 h-2 bg-brand-neon rounded-full animate-pulse shadow-[0_0_10px_#00f0ff]" />
-              <span className="font-mono text-xs text-brand-neon uppercase tracking-[0.4em]">{profile.status} // {profile.location}</span>
+              <span className="font-mono text-xs text-brand-neon uppercase tracking-[0.4em]">{profile.status} {" // "} {profile.location}</span>
             </motion.div>
 
             <motion.h1 
@@ -298,8 +299,10 @@ export default function Home() {
           </div>
         </section>
 
+        <AppReleases />
+
         <footer className="pt-40 pb-10 border-t border-brand-neon/10 flex flex-col md:flex-row justify-between items-center gap-6 font-mono text-[10px] text-brand-neon/50 uppercase tracking-widest">
-           <div>&copy; {new Date().getFullYear()} {profile.name} // {profile.role.replace(/ /g, '_')} // SYSTEM ONLINE</div>
+           <div>&copy; {new Date().getFullYear()} {profile.name} {" // "} {profile.role.replace(/ /g, '_')} {" // "} SYSTEM ONLINE</div>
            <div className="flex gap-4">
              <a href={profile.github} target="_blank" rel="noopener noreferrer" className="hover:text-brand-neon transition-colors cursor-none interactive">GitHub</a>
              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-brand-neon transition-colors cursor-none interactive">LinkedIn</a>
