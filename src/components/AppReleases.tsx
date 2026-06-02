@@ -18,7 +18,7 @@ const releases = [
     title: "FastBeat",
     version: "v1.1.0-release",
     description: "High-performance, ad-free media player. Built with Jetpack Compose and Media3 ExoPlayer.",
-    downloadPath: "/apks/FastBeat.apk",
+    downloadPath: "https://github.com/ajay99511/FastBeat/releases/latest/download/FastBeat.apk",
     stats: "28.4 MB // 60 FPS",
     features: ["Ad-Free", "Media3 Stack", "Material You"],
     privacyUrl: "/privacy/fastbeat"
