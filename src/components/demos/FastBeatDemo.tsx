@@ -23,7 +23,9 @@ import {
   Star,
   FolderOpen,
   ChevronRight,
+  ShieldCheck,
 } from "lucide-react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import DemoQuickStart from "@/components/demos/DemoQuickStart";
 import { projects } from "@/lib/projects";
@@ -110,6 +112,15 @@ export default function FastBeatDemo() {
         <button className="w-[42px] h-[42px] rounded-full flex items-center justify-center" style={{ background: C.surfaceHigh }}>
           <Search size={18} style={{ color: C.textSecondary }} />
         </button>
+        <Link
+          href="/privacy/fastbeat"
+          target="_blank"
+          className="w-[42px] h-[42px] rounded-full flex items-center justify-center transition-colors"
+          style={{ background: C.surfaceHigh }}
+          title="Privacy Policy"
+        >
+          <ShieldCheck size={18} style={{ color: C.green }} />
+        </Link>
       </div>
       <div className="h-px w-full" style={{ background: `linear-gradient(90deg, transparent, ${C.accent}40, transparent)` }} />
     </div>

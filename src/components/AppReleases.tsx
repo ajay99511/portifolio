@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Smartphone, Download, ShieldCheck, Cpu, Zap } from 'lucide-react';
+import { Smartphone, Download, ShieldCheck, Cpu, Zap, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
 
 const releases = [
   {
@@ -19,7 +20,8 @@ const releases = [
     description: "High-performance, ad-free media player. Built with Jetpack Compose and Media3 ExoPlayer.",
     downloadPath: "/apks/FastBeat.apk",
     stats: "28.4 MB // 60 FPS",
-    features: ["Ad-Free", "Media3 Stack", "Material You"]
+    features: ["Ad-Free", "Media3 Stack", "Material You"],
+    privacyUrl: "/privacy/fastbeat"
   }
 ];
 
@@ -97,6 +99,17 @@ export default function AppReleases() {
                   <Download className="w-4 h-4" />
                   Download_APK
                 </a>
+                {app.privacyUrl && (
+                  <Link
+                    href={app.privacyUrl}
+                    target="_blank"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 font-mono text-[10px] uppercase tracking-wider border border-white/10 hover:border-brand-neon/40 text-blue-200/60 hover:text-brand-neon transition-all"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    Privacy_Policy
+                    <ExternalLink className="w-3 h-3 opacity-50" />
+                  </Link>
+                )}
               </div>
             </div>
 
