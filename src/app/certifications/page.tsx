@@ -52,14 +52,14 @@ export default function Certifications() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: index * 0.05 }}
               viewport={{ once: true }}
-              className="bg-surface-raised/50 p-4 sm:p-5 border border-surface-border group hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.06)]"
+              className="bg-surface-raised/50 p-4 sm:p-5 border border-surface-border group hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.06)] h-full flex flex-col"
             >
               <div className="flex items-center justify-between gap-3 mb-4">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 border border-brand-neon/35 bg-brand-neon/5 text-[10px] uppercase tracking-widest font-mono text-brand-neon">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 border border-brand-neon/35 bg-brand-neon/5 text-[11px] uppercase tracking-widest font-mono text-brand-neon">
                   <BadgeCheck size={12} />
                   Verified
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-brand-purple">
+                <span className="font-mono text-[11px] uppercase tracking-widest text-brand-purple">
                   {certification.extension.toUpperCase()}
                 </span>
               </div>
@@ -73,16 +73,16 @@ export default function Certifications() {
               </p>
 
               <div className="space-y-2 mb-5 flex-1">
-                <div className="flex items-center gap-2 text-blue-200/50 text-xs font-mono uppercase tracking-wider">
+                <div className="flex items-center gap-2 text-blue-200/50 text-[11px] font-mono uppercase tracking-wider">
                   <FileBadge size={13} className="text-brand-purple" />
                   Issuer: {certification.issuer ?? "Credential Archive"}
                 </div>
-                <div className="flex items-center gap-2 text-blue-200/50 text-xs font-mono uppercase tracking-wider">
+                <div className="flex items-center gap-2 text-blue-200/50 text-[11px] font-mono uppercase tracking-wider">
                   <CalendarDays size={13} className="text-brand-purple" />
                   Updated: {certification.updatedAt}
                 </div>
                 {certification.spotlight ? (
-                  <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-brand-purple/5 border border-brand-purple/30 text-brand-purple text-[10px] font-mono uppercase tracking-wider mt-2">
+                  <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-brand-purple/5 border border-brand-purple/30 text-brand-purple text-[11px] font-mono uppercase tracking-wider mt-2">
                     {certification.spotlight}
                   </div>
                 ) : null}

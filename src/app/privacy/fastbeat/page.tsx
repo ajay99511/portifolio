@@ -46,7 +46,7 @@ export default function FastBeatPrivacyPolicy() {
             `,
           }}
         />
-        <div className="relative max-w-4xl mx-auto px-6 pt-16 pb-12 sm:pt-24 sm:pb-16">
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 pt-16 pb-12 sm:pt-24 sm:pb-16">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-8">
             <ol className="flex items-center gap-2 text-xs font-mono" style={{ color: C.textTertiary }}>
@@ -135,7 +135,7 @@ export default function FastBeatPrivacyPolicy() {
       </header>
 
       {/* ───── Content ───── */}
-      <div className="max-w-4xl mx-auto px-6 py-12 sm:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         {/* Quick Summary Card */}
         <div
           className="rounded-2xl p-6 sm:p-8 mb-12 border"

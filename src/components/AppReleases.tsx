@@ -30,16 +30,16 @@ export default function AppReleases() {
     <section className="space-y-16 pt-20 border-t border-brand-neon/10">
       <div className="flex flex-col md:flex-row justify-between items-end gap-6">
         <div className="space-y-2">
-          <h2 className="text-4xl md:text-5xl font-light text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.4)] uppercase">Handheld Nodes</h2>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.4)] uppercase">Handheld Nodes</h2>
           <p className="font-mono text-brand-neon uppercase tracking-[0.3em] text-sm flex items-center gap-2">
             <Smartphone className="w-4 h-4" /> Official Mobile Deployments
           </p>
         </div>
         <div className="flex flex-col items-end gap-2">
-          <div className="font-mono text-[10px] text-brand-purple uppercase p-2 border border-brand-purple/30 bg-brand-purple/5 flex items-center gap-2">
+          <div className="font-mono text-[11px] sm:text-xs text-brand-purple uppercase p-2 border border-brand-purple/30 bg-brand-purple/5 flex items-center gap-2">
             <ShieldCheck className="w-3 h-3" /> Verified Stable Releases
           </div>
-          <div className="font-mono text-[9px] text-brand-neon/50 uppercase tracking-widest">
+          <div className="font-mono text-[10px] sm:text-[11px] text-brand-neon/50 uppercase tracking-widest text-right">
             * Optimized for Android Environments Only
           </div>
         </div>
@@ -53,7 +53,7 @@ export default function AppReleases() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.2 }}
-            className="interactive group relative border border-white/10 bg-white/[0.02] backdrop-blur-xl p-8 overflow-hidden cursor-none"
+            className="interactive group relative border border-white/10 bg-white/[0.02] backdrop-blur-xl p-6 md:p-8 overflow-hidden cursor-none"
           >
             {/* Background Accent */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-brand-neon/5 blur-3xl group-hover:bg-brand-neon/10 transition-colors" />
@@ -61,7 +61,7 @@ export default function AppReleases() {
             <div className="relative z-10 flex flex-col h-full gap-6">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
-                  <span className="font-mono text-[10px] text-brand-neon uppercase tracking-tighter bg-brand-neon/10 px-2 py-0.5 border border-brand-neon/20">
+                  <span className="font-mono text-[11px] sm:text-xs text-brand-neon uppercase tracking-tighter bg-brand-neon/10 px-2 py-0.5 border border-brand-neon/20">
                     {app.version}
                   </span>
                   <h3 className="text-3xl font-light text-white uppercase mt-2 group-hover:text-brand-neon transition-colors">
@@ -79,14 +79,14 @@ export default function AppReleases() {
 
               <div className="flex flex-wrap gap-2">
                 {app.features.map(f => (
-                  <span key={f} className="text-[9px] font-mono text-white/40 uppercase border border-white/5 px-2 py-1">
+                  <span key={f} className="text-[10px] sm:text-[11px] font-mono text-white/40 uppercase border border-white/5 px-2 py-1">
                     {f}
                   </span>
                 ))}
               </div>
 
               <div className="mt-auto pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-6">
-                <div className="font-mono text-[10px] text-blue-200/40 uppercase tracking-widest flex items-center gap-2">
+                <div className="font-mono text-[11px] sm:text-xs text-blue-200/40 uppercase tracking-widest flex items-center gap-2">
                   <Zap className="w-3 h-3 text-brand-neon" />
                   {app.stats}
                 </div>
@@ -103,7 +103,7 @@ export default function AppReleases() {
                   <Link
                     href={app.privacyUrl}
                     target="_blank"
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 font-mono text-[10px] uppercase tracking-wider border border-white/10 hover:border-brand-neon/40 text-blue-200/60 hover:text-brand-neon transition-all"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 font-mono text-[11px] sm:text-xs uppercase tracking-wider border border-white/10 hover:border-brand-neon/40 text-blue-200/60 hover:text-brand-neon transition-all"
                   >
                     <ShieldCheck className="w-3.5 h-3.5" />
                     Privacy_Policy
@@ -126,8 +126,8 @@ export default function AppReleases() {
           <Smartphone className="w-5 h-5 text-brand-neon" />
         </div>
         <div className="space-y-1">
-          <p className="font-mono text-[11px] text-white uppercase tracking-wider">Environment Compatibility Protocol</p>
-          <p className="text-[10px] text-blue-200/50 uppercase tracking-[0.2em]">These binaries are compiled specifically for Android systems. Sideloading requires &quot;Install from Unknown Sources&quot; permission.</p>
+          <p className="font-mono text-[11px] sm:text-xs text-white uppercase tracking-wider">Environment Compatibility Protocol</p>
+          <p className="text-[10px] sm:text-[11px] text-blue-200/50 uppercase tracking-[0.2em]">These binaries are compiled specifically for Android systems. Sideloading requires &quot;Install from Unknown Sources&quot; permission.</p>
         </div>
       </div>
     </section>

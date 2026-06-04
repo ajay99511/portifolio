@@ -16,7 +16,7 @@ export default function BlogMarkdown({ content }: BlogMarkdownProps) {
           h1: ({ children }) => <h1 className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-gradient-mid to-brand-purple tracking-tighter uppercase mt-10 mb-5">{children}</h1>,
           h2: ({ children }) => <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tighter uppercase mt-10 mb-4">{children}</h2>,
           h3: ({ children }) => <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-8 mb-3">{children}</h3>,
-          p: ({ children }) => <p className="text-blue-200/70 leading-8 mb-5 text-[15px] sm:text-base font-light">{children}</p>,
+          p: ({ children }) => <p className="text-blue-200/70 leading-8 mb-5 text-sm sm:text-base font-light">{children}</p>,
           ul: ({ children }) => <ul className="mb-5 list-disc list-outside pl-6 space-y-2 text-blue-200/70 marker:text-brand-neon/50">{children}</ul>,
           ol: ({ children }) => <ol className="mb-5 list-decimal list-outside pl-6 space-y-2 text-blue-200/70 marker:text-brand-neon/50">{children}</ol>,
           li: ({ children }) => <li className="leading-7 pl-1">{children}</li>,
@@ -29,7 +29,7 @@ export default function BlogMarkdown({ content }: BlogMarkdownProps) {
             const isBlock = className?.includes("language-");
             if (isBlock) {
               return (
-                <code className={`${className} block bg-surface-raised border border-surface-border rounded-none p-4 overflow-x-auto text-[13px] text-brand-neon font-mono`}>
+                <code className={`${className} block bg-surface-raised border border-surface-border rounded-none p-4 overflow-x-auto text-xs sm:text-sm text-brand-neon font-mono`}>
                   {children}
                 </code>
               );

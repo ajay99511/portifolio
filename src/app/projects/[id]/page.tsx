@@ -21,7 +21,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   return (
-    <main id="main-content" className="min-h-screen bg-black">
+    <main id="main-content" className="min-h-screen bg-surface-bg transition-colors duration-300">
       <ProjectInteractiveView project={project} />
     </main>
   );

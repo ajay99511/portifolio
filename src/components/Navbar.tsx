@@ -39,14 +39,14 @@ export default function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-50 h-14 border-b border-surface-border bg-surface-bg/80 backdrop-blur-md">
-        <div className="mx-auto max-w-screen-2xl h-full px-6 flex items-center justify-between">
+        <div className="mx-auto max-w-screen-2xl h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-8 h-8 bg-zinc-100 rounded-sm flex items-center justify-center text-black transition-transform group-hover:rotate-6">
               <Terminal className="w-4 h-4" />
             </div>
             <div className="flex flex-col -space-y-1">
-              <span className="text-[11px] font-mono tracking-tighter text-zinc-500 uppercase">Engineer</span>
-              <span className="text-xs font-semibold tracking-tight text-white group-hover:text-brand-orange transition-colors uppercase">{profile.name}</span>
+              <span className="text-[11px] sm:text-xs font-mono tracking-tighter text-zinc-500 uppercase">Engineer</span>
+              <span className="text-xs sm:text-sm font-semibold tracking-tight text-white group-hover:text-brand-orange transition-colors uppercase">{profile.name}</span>
             </div>
           </Link>
 
@@ -54,34 +54,36 @@ export default function Navbar() {
             <div className="hidden sm:flex gap-6 items-center">
               <Link 
                 href="/" 
-                className={`text-[10px] uppercase tracking-widest font-bold transition-all ${isHome ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${isHome ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
               >
                 / Directory
               </Link>
               <Link 
                 href="/certifications" 
-                className={`text-[10px] uppercase tracking-widest font-bold transition-all ${pathname.startsWith('/certifications') ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${pathname.startsWith('/certifications') ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
               >
                 / Credentials
               </Link>
               <Link 
                 href="/preview/resume" 
-                className={`text-[10px] uppercase tracking-widest font-bold transition-all ${pathname === '/preview/resume' ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${pathname === '/preview/resume' ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
               >
                 / Resume
               </Link>
               <Link 
                 href="/blogs" 
-                className={`text-[10px] uppercase tracking-widest font-bold transition-all ${pathname.startsWith('/blogs') ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${pathname.startsWith('/blogs') ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
               >
                 / Journals
               </Link>            </div>
             
             <div className="h-4 w-px bg-surface-border hidden sm:block" />
 
-            <ThemeToggle />
+            <div className="hidden sm:block">
+              <ThemeToggle />
+            </div>
 
-            <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-4">
               {socialLinks.map((link: { platform: string; url: string }) => (
                 <span key={link.platform} className="min-w-[44px] min-h-[44px] flex items-center justify-center">
                   <a 

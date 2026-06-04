@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { socialLinks } from '@/lib/projects.data';
 
 export interface MobileMenuProps {
   isOpen: boolean;
@@ -97,7 +98,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                       <Link
                         href={href}
                         onClick={onClose}
-                        className="min-h-[44px] flex items-center text-[10px] uppercase tracking-widest font-bold text-zinc-400 hover:text-white transition-colors"
+                        className="min-h-[44px] flex items-center text-xs uppercase tracking-widest font-bold text-zinc-400 hover:text-white transition-colors"
                       >
                         {label}
                       </Link>
@@ -105,6 +106,28 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   ))}
                 </ul>
               </nav>
+
+              {/* Social Links at bottom */}
+              <div className="mt-auto p-4 border-t border-surface-border">
+                <div className="flex justify-between items-center px-2">
+                  {socialLinks.map((link: { platform: string; url: string }) => (
+                    <span key={link.platform} className="min-w-[44px] min-h-[44px] flex items-center justify-center">
+                      <a 
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] font-mono font-bold uppercase tracking-widest text-zinc-500 hover:text-brand-neon transition-colors p-2 flex items-center gap-1"
+                        aria-label={`Visit ${link.platform}`}
+                      >
+                        [{link.platform.toLowerCase() === 'github' ? 'GH' : 
+                          link.platform.toLowerCase() === 'twitter' ? 'TW' : 
+                          link.platform.toLowerCase() === 'linkedin' ? 'IN' : 
+                          link.platform.toLowerCase() === 'email' ? 'EM' : '??'}]
+                      </a>
+                    </span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

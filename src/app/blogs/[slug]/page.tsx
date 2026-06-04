@@ -69,7 +69,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             Back to Archive
           </Link>
 
-          <div className="mb-6 flex flex-wrap gap-2 text-[10px] font-mono uppercase tracking-widest text-brand-purple">
+          <div className="mb-6 flex flex-wrap gap-2 text-[11px] sm:text-xs font-mono uppercase tracking-widest text-brand-purple">
             <span className="bg-brand-purple/5 border border-brand-purple/20 px-2 py-1">{post.category}</span>
           </div>
 
@@ -81,7 +81,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </p>
 
           <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-surface-border">
-            <div className="flex items-center gap-x-4 gap-y-2 text-[11px] font-mono uppercase tracking-widest text-blue-200/50">
+            <div className="flex items-center gap-x-4 gap-y-2 text-[11px] sm:text-xs font-mono uppercase tracking-widest text-blue-200/50">
               <span className="text-brand-neon">By {post.author}</span>
               <span>{formatBlogDate(post.publishedAt)}</span>
               <span className="inline-flex items-center gap-1">
@@ -94,7 +94,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 px-2 py-1 border border-brand-purple/30 bg-brand-purple/5 text-[9px] font-mono uppercase tracking-widest text-brand-purple"
+                  className="inline-flex items-center gap-1 px-2 py-1 border border-brand-purple/30 bg-brand-purple/5 text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-brand-purple"
                 >
                   <Tag size={10} className="text-brand-purple" />
                   {tag}
@@ -113,7 +113,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <h2 className="text-xl font-mono uppercase tracking-widest text-brand-neon/70 mb-6">
               Related Posts
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {relatedPosts.map((relatedPost) => (
                 <BlogCard key={relatedPost.slug} post={relatedPost} />
               ))}

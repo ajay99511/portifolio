@@ -65,7 +65,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
             aria-expanded={briefingOpen}
             aria-controls="technical-briefing-panel"
           >
-            <span className="font-mono text-[10px] uppercase tracking-widest">
+            <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest">
               {briefingOpen ? "Hide" : "Show"} Technical Briefing
             </span>
             {briefingOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
@@ -79,28 +79,28 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
 
           <div className="space-y-6 mb-6 lg:mb-12">
             <div>
-              <h3 className="font-mono text-[10px] text-zinc-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <h3 className="font-mono text-[11px] sm:text-xs text-zinc-600 uppercase tracking-widest mb-3 flex items-center gap-2">
                 <Cpu size={12} /> Compiler_Stats
               </h3>
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div className="bg-zinc-900/50 border border-zinc-800 p-3">
-                  <div className="text-[10px] text-zinc-500 uppercase font-mono">Node_Count</div>
+                  <div className="text-[11px] sm:text-xs text-zinc-500 uppercase font-mono">Node_Count</div>
                   <div className="text-lg sm:text-xl font-bold font-mono">{project.stats.nodes}</div>
                 </div>
                 <div className="bg-zinc-900/50 border border-zinc-800 p-3">
-                  <div className="text-[10px] text-zinc-500 uppercase font-mono">Complexity</div>
+                  <div className="text-[11px] sm:text-xs text-zinc-500 uppercase font-mono">Complexity</div>
                   <div className="text-lg sm:text-xl font-bold font-mono">{project.stats.complexity}</div>
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="font-mono text-[10px] text-zinc-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <h3 className="font-mono text-[11px] sm:text-xs text-zinc-600 uppercase tracking-widest mb-3 flex items-center gap-2">
                 <Layout size={12} /> Tech_Stack
               </h3>
               <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {project.techStack.map(tech => (
-                  <span key={tech} className="px-2 py-1 bg-zinc-800 border border-zinc-700 font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-300">
+                  <span key={tech} className="px-2 py-1 bg-zinc-800 border border-zinc-700 font-mono text-[11px] sm:text-[12px] uppercase tracking-wider text-zinc-300">
                     {tech}
                   </span>
                 ))}
@@ -112,7 +112,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
         {/* Step progress — always visible */}
         <div className="mt-auto p-4 sm:p-6 lg:p-8 lg:pt-0">
             <div className="p-3 sm:p-4 bg-brand-neon/5 border border-brand-neon/20 rounded-sm">
-              <h4 className="font-mono text-[10px] text-brand-neon uppercase mb-2">Step_Status</h4>
+              <h4 className="font-mono text-[11px] sm:text-xs text-brand-neon uppercase mb-2">Step_Status</h4>
             <div className="flex gap-1 mb-2">
               {steps.map((_, i) => (
                 <div 
@@ -124,7 +124,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
                 />
               ))}
             </div>
-            <p className="text-[9px] sm:text-[10px] text-zinc-500 font-mono italic">
+            <p className="text-[11px] sm:text-xs text-zinc-500 font-mono italic">
               Synchronizing_Mock_State... OK
             </p>
           </div>
@@ -141,7 +141,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
               <div className="w-2.5 h-2.5 rounded-full bg-zinc-800" />
               <div className="w-2.5 h-2.5 rounded-full bg-zinc-800" />
             </div>
-            <div className="flex-1 bg-black/50 rounded py-1 px-3 sm:px-4 text-[9px] sm:text-[10px] font-mono text-zinc-500 truncate">
+            <div className="flex-1 bg-black/50 rounded py-1 px-3 sm:px-4 text-[11px] sm:text-xs font-mono text-zinc-500 truncate">
               https://{project.id}.engine.v4/walkthrough/step-{currentStep + 1}
             </div>
           </div>
@@ -164,10 +164,10 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
             <div className="absolute bottom-4 sm:bottom-8 left-3 right-3 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-20">
               <div className="glass-morphism px-3 sm:px-6 py-3 sm:py-4 flex items-center gap-3 sm:gap-8 w-full sm:w-auto sm:min-w-[360px] lg:min-w-[400px]">
                 <div className="flex-1 min-w-0">
-                  <div className="font-mono text-[9px] sm:text-[10px] text-brand-neon uppercase tracking-widest mb-0.5 sm:mb-1 truncate">
+                  <div className="font-mono text-[11px] sm:text-xs text-brand-neon uppercase tracking-widest mb-0.5 sm:mb-1 truncate">
                     Step {currentStep + 1} {" // "} {steps[currentStep].title}
                   </div>
-                  <div className="text-[11px] sm:text-xs text-zinc-400 line-clamp-1">
+                  <div className="text-xs sm:text-sm text-zinc-400 line-clamp-1">
                     {steps[currentStep].description}
                   </div>
                 </div>
@@ -182,7 +182,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
                   <button 
                     onClick={nextStep}
                     disabled={currentStep === steps.length - 1}
-                    className="px-3 sm:px-4 py-2 bg-brand-orange text-black font-bold text-[11px] sm:text-xs uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 hover:bg-orange-600 disabled:opacity-30 disabled:hover:bg-brand-orange transition-colors"
+                    className="px-3 sm:px-4 py-2 bg-brand-orange text-black font-bold text-xs sm:text-sm uppercase tracking-tighter flex items-center gap-1.5 sm:gap-2 hover:bg-orange-600 disabled:opacity-30 disabled:hover:bg-brand-orange transition-colors"
                   >
                     <span className="hidden min-[420px]:inline">Proceed</span>
                     <span className="min-[420px]:hidden">Next</span>
@@ -195,7 +195,7 @@ const WalkthroughEngine = ({ project }: WalkthroughEngineProps) => {
         </div>
 
         {/* Bottom status — hidden on mobile to save space */}
-        <div className="mt-4 sm:mt-6 hidden sm:flex justify-between items-center px-4 font-mono text-[9px] text-zinc-700 uppercase tracking-widest">
+        <div className="mt-4 sm:mt-6 hidden sm:flex justify-between items-center px-4 font-mono text-[11px] sm:text-xs text-zinc-700 uppercase tracking-widest">
           <div>Engine_Render_Type: REACT_18_CONCURRENT</div>
           <div>Memory_Usage: 124MB</div>
           <div>FPS: 60.0</div>
