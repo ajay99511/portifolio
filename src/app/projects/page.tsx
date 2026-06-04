@@ -31,13 +31,13 @@ export default function ProjectsPage() {
                  
                  <div className="relative z-10 flex-1 flex flex-col gap-8">
                     <div className="flex justify-between items-start">
-                      <span className="font-mono text-xs text-brand-neon/60 group-hover:text-brand-neon transition-colors">ID_00{i + 1}</span>
-                      <ArrowUpRight className="w-6 h-6 text-white/40 group-hover:text-brand-neon group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-300" />
+                      <span className="font-mono text-xs text-neon-muted group-hover:text-brand-neon transition-colors">ID_00{i + 1}</span>
+                      <ArrowUpRight className="w-6 h-6 text-faded group-hover:text-brand-neon group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-300" />
                     </div>
 
                     <div className="space-y-4">
                       <h3 className="text-2xl sm:text-3xl font-light text-white group-hover:tracking-wider transition-all duration-500 uppercase leading-[0.9] text-shadow-sm">{project.title}</h3>
-                      <p className="text-sm text-blue-200/60 font-light leading-relaxed line-clamp-3 group-hover:text-blue-100 transition-colors">{project.description}</p>
+                      <p className="text-sm text-muted font-light leading-relaxed line-clamp-3 group-hover:text-blue-100 transition-colors">{project.description}</p>
                     </div>
                  </div>
 
@@ -52,7 +52,7 @@ export default function ProjectsPage() {
                     <div className="pt-4 border-t border-brand-neon/20 flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Database className="w-3 h-3 text-brand-neon" />
-                        <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-brand-neon/60">Node Integrity: 100%</span>
+                        <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-neon-muted">Node Integrity: 100%</span>
                       </div>
                       <Globe className="w-4 h-4 text-white/30 group-hover:text-white transition-colors" />
                     </div>

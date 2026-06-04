@@ -17,15 +17,20 @@
   --gradient-mid: #ffffff;
   
   --text-hero: clamp(2.5rem, 8vw, 9rem);
+
+  /* Semantic Tokens for Opacity Contrast */
+  --text-muted-color: color-mix(in srgb, var(--text-muted) 70%, transparent);
+  --text-faded-color: color-mix(in srgb, var(--text-white) 40%, transparent);
+  --text-neon-muted: color-mix(in srgb, var(--brand-neon) 50%, transparent);
 }
 
 .light {
-  --brand-neon: #008c99;
+  --brand-neon: #006b75;
   --brand-purple: #5b00cc;
   --brand-orange: #e62e00;
   --surface-bg: #f8fafc;
   --surface-raised: #ffffff;
-  --surface-border: rgba(0, 140, 153, 0.2);
+  --surface-border: rgba(0, 107, 117, 0.2);
   
   --text-primary: #0f172a;
   --text-muted: #475569;
@@ -33,6 +38,11 @@
   --text-zinc-400: #334155;
   --text-zinc-500: #64748b;
   --gradient-mid: #0f172a;
+
+  /* Semantic Tokens for Opacity Contrast */
+  --text-muted-color: #475569; /* Solid high contrast */
+  --text-faded-color: #64748b; /* Solid high contrast */
+  --text-neon-muted: #006b75; /* Solid high contrast */
 }
 
 @theme {
@@ -53,6 +63,10 @@
   --color-zinc-400: var(--text-zinc-400);
   --color-zinc-500: var(--text-zinc-500);
   --color-gradient-mid: var(--gradient-mid);
+  
+  --color-muted: var(--text-muted-color);
+  --color-faded: var(--text-faded-color);
+  --color-neon-muted: var(--text-neon-muted);
 }
 
 @layer base {

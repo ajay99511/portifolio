@@ -120,7 +120,7 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
-              className="max-w-2xl text-[15px] sm:text-[17px] md:text-xl text-blue-200/60 font-light leading-relaxed font-mono mb-8"
+              className="max-w-2xl text-[15px] sm:text-[17px] md:text-xl text-muted font-light leading-relaxed font-mono mb-8"
             >
                {profile.summary}
             </motion.p>
@@ -195,9 +195,9 @@ export default function Home() {
                        <h3 className="text-2xl font-medium text-white group-hover:text-brand-neon transition-colors duration-300">{exp.role}</h3>
                        <p className="text-brand-purple font-mono text-[13px] uppercase tracking-widest">{exp.company}</p>
                      </div>
-                     {exp.description && <p className="text-blue-200/60 font-light">{exp.description}</p>}
+                     {exp.description && <p className="text-muted font-light">{exp.description}</p>}
                      {exp.highlights && exp.highlights.length > 0 && (
-                       <ul className="list-disc list-outside ml-4 space-y-2 text-[13px] text-blue-200/60 font-light marker:text-brand-neon/50">
+                       <ul className="list-disc list-outside ml-4 space-y-2 text-[13px] text-muted font-light marker:text-neon-muted">
                          {exp.highlights.map((item: string, idx: number) => (
                            <li key={idx} className="pl-1 leading-relaxed">{item}</li>
                          ))}
@@ -270,12 +270,12 @@ export default function Home() {
                  <div className="relative z-10 flex-1 flex flex-col gap-8">
                     <div className="flex justify-between items-start">
                       <span className="font-mono text-[11px] sm:text-xs text-brand-neon/60 group-hover:text-brand-neon transition-colors">ID_00{i + 1}</span>
-                      <ArrowUpRight className="w-6 h-6 text-white/40 group-hover:text-brand-neon group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-300" />
+                      <ArrowUpRight className="w-6 h-6 text-faded group-hover:text-brand-neon group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-300" />
                     </div>
 
                     <div className="space-y-4">
                       <h3 className="text-2xl sm:text-3xl font-light text-white group-hover:tracking-wider transition-all duration-500 uppercase leading-[0.9] text-shadow-sm">{project.title}</h3>
-                      <p className="text-[14px] text-blue-200/60 font-light leading-relaxed line-clamp-3 group-hover:text-blue-100 transition-colors">{project.description}</p>
+                      <p className="text-[14px] text-muted font-light leading-relaxed line-clamp-3 group-hover:text-blue-100 transition-colors">{project.description}</p>
                     </div>
                  </div>
 
@@ -302,7 +302,7 @@ export default function Home() {
 
         <AppReleases />
 
-        <footer className="pt-20 md:pt-40 pb-10 border-t border-brand-neon/10 flex flex-col md:flex-row justify-between items-center gap-6 font-mono text-[11px] sm:text-xs text-brand-neon/50 uppercase tracking-widest">
+        <footer className="pt-20 md:pt-40 pb-10 border-t border-brand-neon/10 flex flex-col md:flex-row justify-between items-center gap-6 font-mono text-[11px] sm:text-xs text-neon-muted uppercase tracking-widest">
            <div>&copy; {new Date().getFullYear()} {profile.name} {" // "} {profile.role.replace(/ /g, '_')} {" // "} SYSTEM ONLINE</div>
            <div className="flex gap-4">
              <a href={profile.github} target="_blank" rel="noopener noreferrer" className="hover:text-brand-neon transition-colors cursor-none interactive">GitHub</a>

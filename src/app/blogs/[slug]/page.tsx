@@ -63,7 +63,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <header className="mb-10 sm:mb-14">
           <Link
             href="/blogs"
-            className="inline-flex items-center gap-2 min-h-[44px] text-brand-neon/50 hover:text-brand-neon transition-colors font-mono text-xs uppercase tracking-widest mb-8"
+            className="inline-flex items-center gap-2 min-h-[44px] text-neon-muted hover:text-brand-neon transition-colors font-mono text-xs uppercase tracking-widest mb-8"
           >
             <ArrowLeft size={14} />
             Back to Archive
@@ -76,12 +76,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-gradient-mid to-brand-purple tracking-tighter uppercase mb-4 leading-none">
             {post.title}
           </h1>
-          <p className="text-lg sm:text-xl text-blue-200/70 font-light mb-8 max-w-3xl leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted font-light mb-8 max-w-3xl leading-relaxed">
             {post.description}
           </p>
 
           <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-surface-border">
-            <div className="flex items-center gap-x-4 gap-y-2 text-[11px] sm:text-xs font-mono uppercase tracking-widest text-blue-200/50">
+            <div className="flex items-center gap-x-4 gap-y-2 text-[11px] sm:text-xs font-mono uppercase tracking-widest text-muted">
               <span className="text-brand-neon">By {post.author}</span>
               <span>{formatBlogDate(post.publishedAt)}</span>
               <span className="inline-flex items-center gap-1">
@@ -110,7 +110,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {relatedPosts.length > 0 && (
           <div className="mt-16 pt-10 border-t border-surface-border">
-            <h2 className="text-xl font-mono uppercase tracking-widest text-brand-neon/70 mb-6">
+            <h2 className="text-xl font-mono uppercase tracking-widest text-neon-muted mb-6">
               Related Posts
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

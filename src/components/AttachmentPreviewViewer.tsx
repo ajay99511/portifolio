@@ -47,7 +47,7 @@ function UnsupportedTypePreview({ attachment }: { attachment: AttachmentAsset })
     <div className="h-[64vh] min-h-[360px] border border-surface-border bg-surface-raised/30 p-6 sm:p-8 flex flex-col justify-center items-center text-center">
       <FileText size={34} className="text-blue-200/50 mb-4" />
       <h3 className="text-lg sm:text-xl font-bold font-mono tracking-widest text-brand-neon uppercase mb-2">Preview Not Available Here</h3>
-      <p className="text-blue-200/60 font-light text-sm max-w-xl mb-6">
+      <p className="text-muted font-light text-sm max-w-xl mb-6">
         This file type is registered in the viewer pipeline, but the browser cannot render it inline
         in this runtime.
       </p>
@@ -56,7 +56,7 @@ function UnsupportedTypePreview({ attachment }: { attachment: AttachmentAsset })
           href={attachment.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="px-4 py-2.5 border border-surface-border font-mono text-xs uppercase tracking-widest text-blue-200/50 hover:text-brand-neon hover:border-brand-neon/50 transition-colors bg-surface-bg cursor-none"
+          className="px-4 py-2.5 border border-surface-border font-mono text-xs uppercase tracking-widest text-muted hover:text-brand-neon hover:border-brand-neon/50 transition-colors bg-surface-bg cursor-none"
         >
           Open In New Tab
         </a>
@@ -206,7 +206,7 @@ export default function AttachmentPreviewViewer({
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-gradient-mid to-brand-purple tracking-tighter uppercase mb-2">
                 {attachment.title}
               </h1>
-              <p className="text-blue-200/60 text-sm sm:text-base font-light max-w-3xl">{attachment.description}</p>
+              <p className="text-muted text-sm sm:text-base font-light max-w-3xl">{attachment.description}</p>
             </div>
 
             {/* flex-wrap intentional: keeps Download/Open visible on narrow viewports — Req 12.4, 6.6 */}
@@ -215,7 +215,7 @@ export default function AttachmentPreviewViewer({
                 href={attachment.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3.5 py-2.5 border border-surface-border font-mono text-xs uppercase tracking-widest text-blue-200/60 hover:text-brand-neon hover:border-brand-neon/50 bg-surface-bg transition-colors inline-flex items-center gap-2 cursor-none"
+                className="px-3.5 py-2.5 border border-surface-border font-mono text-xs uppercase tracking-widest text-muted hover:text-brand-neon hover:border-brand-neon/50 bg-surface-bg transition-colors inline-flex items-center gap-2 cursor-none"
               >
                 <ExternalLink size={14} />
                 Open
@@ -233,13 +233,13 @@ export default function AttachmentPreviewViewer({
 
           {/* flex-wrap intentional: metadata chips wrap on narrow viewports instead of overflowing — Req 12.5 */}
           <div className="mb-4 flex flex-wrap gap-2 sm:gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-blue-200/50 border border-surface-border bg-surface-bg px-2.5 py-1">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted border border-surface-border bg-surface-bg px-2.5 py-1">
               File: {attachment.fileName}
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-blue-200/50 border border-surface-border bg-surface-bg px-2.5 py-1">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted border border-surface-border bg-surface-bg px-2.5 py-1">
               Size: {attachment.sizeLabel}
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-blue-200/50 border border-surface-border bg-surface-bg px-2.5 py-1">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted border border-surface-border bg-surface-bg px-2.5 py-1">
               Updated: {attachment.updatedAt}
             </span>
           </div>
@@ -249,7 +249,7 @@ export default function AttachmentPreviewViewer({
               <ShieldCheck size={13} />
               Render Engine
             </div>
-            <p className="text-blue-200/70 font-light text-xs sm:text-sm">{getViewerModeHint(attachment.kind)}</p>
+            <p className="text-muted font-light text-xs sm:text-sm">{getViewerModeHint(attachment.kind)}</p>
           </div>
 
           {previewByType(attachment, officeEmbedUrl)}

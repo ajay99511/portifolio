@@ -50,7 +50,7 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
           
           <div className="space-y-1">
              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white uppercase tracking-tight leading-none text-shadow-sm drop-shadow-[0_0_15px_rgba(0,240,255,0.4)]">
-               {project.title} <span className="text-brand-neon/50 text-2xl font-mono">/ BATCH_0{project.index}</span>
+               {project.title} <span className="text-neon-muted text-2xl font-mono">/ BATCH_0{project.index}</span>
              </h1>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
                 "{project.fullDescription}"
               </p>
               {project.highlights && project.highlights.length > 0 && (
-                <ul className="list-disc list-outside ml-4 mt-6 space-y-2 text-sm text-blue-200/60 font-light marker:text-brand-neon/50">
+                <ul className="list-disc list-outside ml-4 mt-6 space-y-2 text-sm text-muted font-light marker:text-neon-muted">
                   {project.highlights.map((highlight: string, idx: number) => (
                     <li key={idx} className="pl-1 leading-relaxed">{highlight}</li>
                   ))}

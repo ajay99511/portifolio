@@ -16,7 +16,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
       }`}
     >
       <div className="flex items-center justify-between gap-3 mb-3">
-        <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-zinc-500 group-hover:text-brand-neon/60 transition-colors">
+        <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-zinc-500 group-hover:text-neon-muted transition-colors">
           {post.category}
         </span>
         <ArrowUpRight size={16} className="text-zinc-600 group-hover:text-brand-neon transition-colors" />
@@ -42,7 +42,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
         ))}
       </div>
 
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] sm:text-xs font-mono uppercase tracking-wider text-zinc-500 group-hover:text-brand-neon/50 transition-colors">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] sm:text-xs font-mono uppercase tracking-wider text-zinc-500 group-hover:text-neon-muted transition-colors">
         <span>{formatBlogDate(post.publishedAt)}</span>
         <span className="inline-flex items-center gap-1">
           <Clock3 size={12} />

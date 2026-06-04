@@ -10,7 +10,7 @@ function BlogCard({ post, featured = false }: { post: BlogPost; featured?: boole
       }`}
     >
       <div className="flex items-center justify-between gap-3 mb-3">
-        <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-brand-neon/60">
+        <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-neon-muted">
           {post.category}
         </span>
         <ArrowUpRight size={16} className="text-zinc-600 group-hover:text-brand-neon transition-colors" />
@@ -22,7 +22,7 @@ function BlogCard({ post, featured = false }: { post: BlogPost; featured?: boole
         </Link>
       </h2>
 
-      <p className="text-blue-200/60 font-light text-sm sm:text-base leading-relaxed mb-4">{post.description}</p>
+      <p className="text-muted font-light text-sm sm:text-base leading-relaxed mb-4">{post.description}</p>
 
       <div className="flex flex-wrap items-center gap-2 mb-4">
         {post.tags.slice(0, 3).map((tag) => (
@@ -36,7 +36,7 @@ function BlogCard({ post, featured = false }: { post: BlogPost; featured?: boole
         ))}
       </div>
 
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] sm:text-xs font-mono uppercase tracking-wider text-brand-neon/50">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neon-muted">
         <span>{formatBlogDate(post.publishedAt)}</span>
         <span className="inline-flex items-center gap-1">
           <Clock3 size={12} />
@@ -66,7 +66,7 @@ export default async function Blogs() {
             Knowledge Stream
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-gradient-mid to-brand-purple tracking-tighter uppercase mb-4">Blogs & Insights</h1>
-          <p className="text-blue-200/60 font-light max-w-3xl text-sm sm:text-base leading-relaxed">
+          <p className="text-muted font-light max-w-3xl text-sm sm:text-base leading-relaxed">
             A living archive of engineering decisions, architecture patterns, and practical lessons from building modern systems.
           </p>
         </div>
@@ -80,7 +80,7 @@ export default async function Blogs() {
 
         {remaining.length > 0 ? (
           <div>
-            <p className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-brand-neon/60 mb-4">Recent Posts</p>
+            <p className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-neon-muted mb-4">Recent Posts</p>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {remaining.map((post: BlogPost) => (
                 <BlogCard key={post.slug} post={post} />
@@ -89,8 +89,8 @@ export default async function Blogs() {
           </div>
         ) : !featured ? (
           <div className="bg-surface-raised/50 border border-surface-border p-8 sm:p-12 text-center">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-widest text-brand-neon/50 mb-2">No blog posts yet</p>
-            <p className="text-blue-200/60 text-sm">Create your first markdown post inside src/content/blogs.</p>
+            <p className="font-mono text-xs sm:text-sm uppercase tracking-widest text-neon-muted mb-2">No blog posts yet</p>
+            <p className="text-muted text-sm">Create your first markdown post inside src/content/blogs.</p>
           </div>
         ) : null}
       </section>

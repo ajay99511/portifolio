@@ -18,7 +18,7 @@ export default function WalkthroughControls({
       <button
         onClick={onPrev}
         disabled={currentStep === 0}
-        className="p-2 text-brand-neon/50 hover:text-brand-neon disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+        className="p-2 text-neon-muted hover:text-brand-neon disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
         title="Previous Step [P]"
       >
         <ChevronLeft className="h-4 w-4" strokeWidth={3} />
@@ -29,7 +29,7 @@ export default function WalkthroughControls({
       <button
         onClick={onNext}
         disabled={currentStep === totalSteps - 1}
-        className="group relative flex items-center gap-2 p-2 px-4 bg-brand-neon/20 text-brand-neon border border-brand-neon/50 text-[10px] font-bold uppercase tracking-widest rounded-sm transition-all hover:bg-brand-neon hover:text-black hover:shadow-[0_0_15px_rgba(0,240,255,0.4)] disabled:opacity-20 disabled:grayscale disabled:cursor-not-allowed overflow-hidden"
+        className="group relative flex items-center gap-2 p-2 px-4 bg-brand-neon/20 text-brand-neon border border-neon-muted text-[10px] font-bold uppercase tracking-widest rounded-sm transition-all hover:bg-brand-neon hover:text-black hover:shadow-[0_0_15px_rgba(0,240,255,0.4)] disabled:opacity-20 disabled:grayscale disabled:cursor-not-allowed overflow-hidden"
         title="Next Step [N]"
       >
         <span className="relative z-10 flex items-center gap-2 text-shadow-none">

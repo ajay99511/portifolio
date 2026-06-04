@@ -53,9 +53,9 @@ export default function WalkthroughViewer({ project }: { project: any }) {
       {/* Canvas Top Bar */}
       <div className="h-10 border-b border-brand-neon/20 px-6 flex items-center justify-between shrink-0 bg-transparent">
         <div className="flex items-center gap-1.5 opacity-80">
-          <div className="w-2.5 h-2.5 rounded-full border border-brand-neon/50 bg-brand-neon/10" />
-          <div className="w-2.5 h-2.5 rounded-full border border-brand-neon/50 bg-brand-neon/10" />
-          <div className="w-2.5 h-2.5 rounded-full border border-brand-neon/50 bg-brand-neon/10" />
+          <div className="w-2.5 h-2.5 rounded-full border border-neon-muted bg-brand-neon/10" />
+          <div className="w-2.5 h-2.5 rounded-full border border-neon-muted bg-brand-neon/10" />
+          <div className="w-2.5 h-2.5 rounded-full border border-neon-muted bg-brand-neon/10" />
           <div className="ml-4 px-3 py-1 bg-brand-purple/10 rounded-sm text-[9px] font-mono text-brand-neon border border-brand-neon/20 lowercase">
              {project.id}.ais-cloud.dev
           </div>
@@ -65,7 +65,7 @@ export default function WalkthroughViewer({ project }: { project: any }) {
              <span className="w-1 h-1 rounded-full bg-brand-neon animate-pulse shadow-[0_0_5px_#00f0ff]" />
              Viewport: Matrix_Simulated
            </div>
-           <Layout className="w-3.5 h-3.5 text-brand-neon/50" />
+           <Layout className="w-3.5 h-3.5 text-neon-muted" />
         </div>
       </div>
 
@@ -91,7 +91,7 @@ export default function WalkthroughViewer({ project }: { project: any }) {
       {/* Floating Tactical Console */}
       {step && (
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[90%] max-w-2xl group/console z-30">
-          <div className="bg-surface-raised/95 backdrop-blur-3xl border border-brand-neon/20 rounded-sm p-5 shadow-[0_0_30px_rgba(0,240,255,0.1)] flex items-center gap-8 transition-all group-hover/console:border-brand-neon/50 group-hover/console:shadow-[0_0_40px_rgba(0,240,255,0.2)]">
+          <div className="bg-surface-raised/95 backdrop-blur-3xl border border-brand-neon/20 rounded-sm p-5 shadow-[0_0_30px_rgba(0,240,255,0.1)] flex items-center gap-8 transition-all group-hover/console:border-neon-muted group-hover/console:shadow-[0_0_40px_rgba(0,240,255,0.2)]">
             
             <div className="flex-1 min-w-0 space-y-1">
               <div className="flex items-center gap-3 mb-2">
@@ -110,7 +110,7 @@ export default function WalkthroughViewer({ project }: { project: any }) {
                   className="space-y-1"
                 >
                     <h3 className="text-sm font-bold text-blue-100 tracking-tight uppercase leading-none">{step.title}</h3>
-                    <p className="text-[11px] text-blue-200/60 font-light leading-relaxed truncate">
+                    <p className="text-[11px] text-muted font-light leading-relaxed truncate">
                       {step.description}
                     </p>
                 </motion.div>

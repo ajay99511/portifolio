@@ -17,8 +17,8 @@ export default function BlogMarkdown({ content }: BlogMarkdownProps) {
           h2: ({ children }) => <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tighter uppercase mt-10 mb-4">{children}</h2>,
           h3: ({ children }) => <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-8 mb-3">{children}</h3>,
           p: ({ children }) => <p className="text-blue-200/70 leading-8 mb-5 text-sm sm:text-base font-light">{children}</p>,
-          ul: ({ children }) => <ul className="mb-5 list-disc list-outside pl-6 space-y-2 text-blue-200/70 marker:text-brand-neon/50">{children}</ul>,
-          ol: ({ children }) => <ol className="mb-5 list-decimal list-outside pl-6 space-y-2 text-blue-200/70 marker:text-brand-neon/50">{children}</ol>,
+          ul: ({ children }) => <ul className="mb-5 list-disc list-outside pl-6 space-y-2 text-muted marker:text-neon-muted">{children}</ul>,
+          ol: ({ children }) => <ol className="mb-5 list-decimal list-outside pl-6 space-y-2 text-muted marker:text-neon-muted">{children}</ol>,
           li: ({ children }) => <li className="leading-7 pl-1">{children}</li>,
           blockquote: ({ children }) => (
             <blockquote className="border-l-2 border-brand-purple/60 bg-brand-purple/10 px-4 py-3 rounded-none mb-6 text-blue-200/80 italic shadow-[inset_0_0_20px_rgba(112,0,255,0.05)]">
@@ -49,7 +49,7 @@ export default function BlogMarkdown({ content }: BlogMarkdownProps) {
                 href={href}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
-                className="text-brand-neon hover:text-white underline underline-offset-4 decoration-brand-neon/50 transition-colors font-mono"
+                className="text-brand-neon hover:text-white underline underline-offset-4 decoration-neon-muted transition-colors font-mono"
               >
                 {children}
               </a>

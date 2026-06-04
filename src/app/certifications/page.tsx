@@ -38,7 +38,7 @@ export default function Certifications() {
           <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-gradient-mid to-brand-purple tracking-tighter uppercase leading-none">
             Certifications & Credentials
           </h1>
-          <p className="mt-4 text-blue-200/60 max-w-3xl text-sm sm:text-base font-light leading-relaxed">
+          <p className="mt-4 text-muted max-w-3xl text-sm sm:text-base font-light leading-relaxed">
             Curated proof of learning and professional development. Open any credential to preview it
             in full and download from inside the viewer.
           </p>
@@ -68,7 +68,7 @@ export default function Certifications() {
                 {certification.title}
               </h2>
 
-              <p className="text-blue-200/60 font-light text-sm leading-relaxed mb-4">
+              <p className="text-muted font-light text-sm leading-relaxed mb-4">
                 {certification.description}
               </p>
 
@@ -91,7 +91,7 @@ export default function Certifications() {
               <div className="mt-auto pt-4 border-t border-surface-border transition-colors">
                   <Link
                     href={`/preview/${certification.id}`}
-                    className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-mono px-3.5 py-2.5 border border-surface-border text-blue-200/60 group-hover:text-brand-neon group-hover:border-brand-neon/50 bg-surface-bg transition-colors"
+                    className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-mono px-3.5 py-2.5 border border-surface-border text-muted group-hover:text-brand-neon group-hover:border-brand-neon/50 bg-surface-bg transition-colors"
                   >
                     Preview Credential
                     <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
