@@ -7,6 +7,7 @@ import { X, Terminal, Code } from 'lucide-react';
 import { socialLinks, profile } from '@/lib/projects.data';
 import MobileMenu from '@/components/MobileMenu';
 import ThemeToggle from '@/components/ThemeToggle';
+import { FEATURES } from '@/lib/features';
 
 // Inline SVGs for icons removed from lucide-react 1.x
 const GitHubIcon = ({ className }: { className?: string }) => (
@@ -64,12 +65,14 @@ export default function Navbar() {
               >
                 / Credentials
               </Link>
-              <Link 
-                href="/preview/resume" 
-                className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${pathname === '/preview/resume' ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
-              >
-                / Resume
-              </Link>
+              {FEATURES.enableResume && (
+                <Link 
+                  href="/preview/resume" 
+                  className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${pathname === '/preview/resume' ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                >
+                  / Resume
+                </Link>
+              )}
               <Link 
                 href="/blogs" 
                 className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${pathname.startsWith('/blogs') ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}

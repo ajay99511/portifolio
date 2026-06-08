@@ -7,8 +7,20 @@ import CustomCursor from '@/components/CustomCursor';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
+import { type Project } from '@/types';
+
+/** Extended project shape as mapped by @/lib/projects */
+interface ProjectView extends Project {
+  index?: string;
+  tags: string[];
+  fullDescription?: string;
+  githubUrl?: string;
+  liveUrl?: string;
+  demoState?: { nodes?: number; [key: string]: unknown };
+}
+
 interface ProjectInteractiveViewProps {
-  project: any;
+  project: ProjectView;
 }
 
 export default function ProjectInteractiveView({ project }: ProjectInteractiveViewProps) {
@@ -16,6 +28,7 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -94,7 +107,7 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
                  </div>
               )}
               <p className="text-sm font-light text-blue-200/70 leading-relaxed italic">
-                "{project.fullDescription}"
+                &ldquo;{project.fullDescription}&rdquo;
               </p>
               {project.highlights && project.highlights.length > 0 && (
                 <ul className="list-disc list-outside ml-4 mt-6 space-y-2 text-sm text-muted font-light marker:text-neon-muted">
@@ -109,7 +122,7 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
               <div className="space-y-4">
                 <h3 className="text-[11px] sm:text-xs font-mono text-brand-neon/60 uppercase tracking-widest font-bold">Key_Modules</h3>
                 <div className="flex flex-wrap gap-2">
-                  {project.previewPanels.map((panel: any) => (
+                  {project.previewPanels.map((panel: { label: string; iconName: string }) => (
                     <span key={panel.label} className="px-3 py-1.5 bg-brand-neon/5 border border-brand-neon/20 rounded-sm text-xs font-mono text-brand-neon uppercase tracking-widest flex items-center justify-center text-center">
                       {panel.label}
                     </span>

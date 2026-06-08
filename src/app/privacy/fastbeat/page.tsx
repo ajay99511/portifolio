@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — FastBeat Media Player",
@@ -51,21 +52,21 @@ export default function FastBeatPrivacyPolicy() {
           <nav aria-label="Breadcrumb" className="mb-8">
             <ol className="flex items-center gap-2 text-xs font-mono" style={{ color: C.textTertiary }}>
               <li>
-                <a href="/" className="hover:underline transition-colors" style={{ color: C.textSecondary }}>
+                <Link href="/" className="hover:underline transition-colors" style={{ color: C.textSecondary }}>
                   Home
-                </a>
+                </Link>
               </li>
               <li aria-hidden="true">
                 <span style={{ color: C.outline }}>/</span>
               </li>
               <li>
-                <a
+                <Link
                   href="/projects/fastbeat-media-player"
                   className="hover:underline transition-colors"
                   style={{ color: C.textSecondary }}
                 >
                   FastBeat
-                </a>
+                </Link>
               </li>
               <li aria-hidden="true">
                 <span style={{ color: C.outline }}>/</span>

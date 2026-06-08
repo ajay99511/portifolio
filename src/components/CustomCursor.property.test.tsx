@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unused-vars */
 /**
  * Property-based tests for CustomCursor — cursor visibility matches pointer type
  * Feature: responsiveness, Property 1: cursor renders iff pointer is fine
@@ -5,7 +6,7 @@
  */
 import { render, act } from "@testing-library/react";
 import * as fc from "fast-check";
-import { vi, beforeEach, afterEach } from "vitest";
+import { vi, beforeEach, afterEach, describe, it } from "vitest";
 import CustomCursor from "./CustomCursor";
 
 // ---------------------------------------------------------------------------
@@ -19,8 +20,8 @@ vi.mock("framer-motion", () => {
     motion: new Proxy(
       {},
       {
-        get: (_target: object, tag: string) =>
-          React.forwardRef(
+        get: (_target: object, tag: string) => {
+          const Component = React.forwardRef(
             (
               {
                 children,
@@ -34,7 +35,10 @@ vi.mock("framer-motion", () => {
               },
               ref: React.Ref<HTMLElement>
             ) => React.createElement(tag, { ...props, ref }, children)
-          ),
+          );
+          Component.displayName = `motion.${tag}`;
+          return Component;
+        },
       }
     ),
     AnimatePresence: ({ children }: { children: React.ReactNode }) => children,

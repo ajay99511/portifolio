@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /**
  * Unit tests for Navbar
  * Requirements: 1.1, 1.5, 1.6, 6.1, 6.3
@@ -18,14 +19,17 @@ vi.mock("framer-motion", () => {
     motion: new Proxy(
       {},
       {
-        get: (_target: object, tag: string) =>
-          React.forwardRef(
+        get: (_target: object, tag: string) => {
+          const Component = React.forwardRef(
             (
               { children, ...props }: React.HTMLAttributes<HTMLElement> & { children?: React.ReactNode },
               ref: React.Ref<HTMLElement>
             ) =>
               React.createElement(tag, { ...props, ref }, children)
-          ),
+          );
+          Component.displayName = `motion.${tag}`;
+          return Component;
+        },
       }
     ),
     AnimatePresence: ({ children }: { children: React.ReactNode }) => children,

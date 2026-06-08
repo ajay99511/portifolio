@@ -1,26 +1,23 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { 
   Activity, 
   LayoutGrid, 
   Box, 
-  FolderPlus, 
   Plus, 
   Search,
   Filter,
   Star,
   Copy,
   ExternalLink,
-  ChevronDown,
   Terminal,
   Cpu,
   ShieldCheck,
   Zap,
   Menu,
   X,
-  LogOut,
-  Bell
+  LogOut
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import DemoQuickStart from "@/components/demos/DemoQuickStart";

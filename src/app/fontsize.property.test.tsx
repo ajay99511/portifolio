@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Property-based tests for body text minimum font size
  * Feature: responsiveness, Property 2: body text >= 14px at any viewport width
@@ -52,8 +53,8 @@ vi.mock("framer-motion", () => {
     motion: new Proxy(
       {},
       {
-        get: (_target: object, tag: string) =>
-          React.forwardRef(
+        get: (_target: object, tag: string) => {
+          const Component = React.forwardRef(
             (
               {
                 children,
@@ -77,7 +78,10 @@ vi.mock("framer-motion", () => {
               },
               ref: React.Ref<HTMLElement>
             ) => React.createElement(tag, { ...props, ref }, children)
-          ),
+          );
+          Component.displayName = `motion.${tag}`;
+          return Component;
+        },
       }
     ),
     AnimatePresence: ({ children }: { children: React.ReactNode }) => children,

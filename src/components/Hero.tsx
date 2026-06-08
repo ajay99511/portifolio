@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronRight, FileText, MapPin, Cpu, Sparkles, Radar, BadgeCheck } from "lucide-react";
 import Link from "next/link";
 import { profile } from "@/lib/profile";
+import { FEATURES } from "@/lib/features";
 
 const Hero = () => {
   return (
@@ -22,7 +23,7 @@ const Hero = () => {
         className="absolute top-20 right-8 sm:right-16 hidden lg:block"
       >
         <span className="font-mono text-[10px] text-brand-neon/40 uppercase tracking-[0.2em]">
-          // SYSTEM_READY
+          {'// SYSTEM_READY'}
         </span>
       </motion.div>
 
@@ -84,12 +85,14 @@ const Hero = () => {
               View_Project_Archive
               <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link
-              href="/preview/resume"
-              className="interactive px-6 sm:px-8 py-3.5 sm:py-4 border border-zinc-700 font-mono text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-zinc-900/60 hover:border-brand-neon/30 transition-colors uppercase"
-            >
-              <FileText size={18} /> Preview_Resume
-            </Link>
+            {FEATURES.enableResume && (
+              <Link
+                href="/preview/resume"
+                className="interactive px-6 sm:px-8 py-3.5 sm:py-4 border border-zinc-700 font-mono text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-zinc-900/60 hover:border-brand-neon/30 transition-colors uppercase"
+              >
+                <FileText size={18} /> Preview_Resume
+              </Link>
+            )}
             <Link
               href="/certifications"
               className="interactive px-6 sm:px-8 py-3.5 sm:py-4 border border-brand-neon/35 text-brand-neon font-mono text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-brand-neon/10 transition-colors uppercase"

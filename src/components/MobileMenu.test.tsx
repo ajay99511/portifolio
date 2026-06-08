@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /**
  * Unit tests for MobileMenu
  * Requirements: 1.2, 1.3, 1.4, 1.7
  */
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import MobileMenu from "./MobileMenu";
+import { FEATURES } from "@/lib/features";
 
 // ---------------------------------------------------------------------------
 // Mocks
@@ -19,15 +21,18 @@ vi.mock("framer-motion", () => {
     motion: new Proxy(
       {},
       {
-        get: (_target: object, tag: string) =>
+        get: (_target: object, tag: string) => {
           // Return a plain element factory for any motion.* tag
-          React.forwardRef(
+          const Component = React.forwardRef(
             (
               { children, ...props }: React.HTMLAttributes<HTMLElement> & { children?: React.ReactNode },
               ref: React.Ref<HTMLElement>
             ) =>
               React.createElement(tag, { ...props, ref }, children)
-          ),
+          );
+          Component.displayName = `motion.${tag}`;
+          return Component;
+        },
       }
     ),
     // AnimatePresence simply renders its children directly
@@ -60,6 +65,10 @@ vi.mock("next/link", () => ({
 // ---------------------------------------------------------------------------
 
 describe("MobileMenu", () => {
+  beforeEach(() => {
+    FEATURES.enableResume = true;
+  });
+
   // -------------------------------------------------------------------------
   // 1. When isOpen is true, all three nav links are present in the DOM
   // -------------------------------------------------------------------------
@@ -75,6 +84,27 @@ describe("MobileMenu", () => {
     expect(
       screen.getByRole("link", { name: /resume/i })
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /journals/i })
+    ).toBeInTheDocument();
+  });
+
+  // -------------------------------------------------------------------------
+  // 1b. When FEATURES.enableResume is false, the resume link is NOT rendered
+  // -------------------------------------------------------------------------
+  it("does not render the resume link when FEATURES.enableResume is false", () => {
+    FEATURES.enableResume = false;
+    render(<MobileMenu isOpen={true} onClose={vi.fn()} />);
+
+    expect(
+      screen.getByRole("link", { name: /directory/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /credentials/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: /resume/i })
+    ).toBeNull();
     expect(
       screen.getByRole("link", { name: /journals/i })
     ).toBeInTheDocument();

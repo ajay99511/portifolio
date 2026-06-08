@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unused-vars */
 /**
  * Unit tests for ProjectInteractiveView responsive layout
  * Requirements: 11.1, 11.2, 11.3, 11.4
  */
 import { render, screen } from "@testing-library/react";
-import { vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import ProjectInteractiveView from "./ProjectInteractiveView";
 
 // ---------------------------------------------------------------------------
@@ -17,8 +18,8 @@ vi.mock("framer-motion", () => {
     motion: new Proxy(
       {},
       {
-        get: (_target: object, tag: string) =>
-          React.forwardRef(
+        get: (_target: object, tag: string) => {
+          const Component = React.forwardRef(
             (
               {
                 children,
@@ -42,7 +43,10 @@ vi.mock("framer-motion", () => {
               },
               ref: React.Ref<HTMLElement>
             ) => React.createElement(tag, { ...props, ref }, children)
-          ),
+          );
+          Component.displayName = `motion.${tag}`;
+          return Component;
+        },
       }
     ),
     AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
@@ -70,14 +74,18 @@ vi.mock("next/link", () => ({
   ),
 }));
 
-// Mock @/lib/projects.data — only the `projects` array is used by the component
+// Mock @/lib/projects.data \u2014 only the `projects` array is used by the component
 // (to compute the batch index via `projects.indexOf(project)`).
 vi.mock("@/lib/projects.data", () => ({
   projects: [
     {
       id: "test-project",
+      batchId: "test-batch",
       title: "Test Project",
+      subtitle: "A subtitle",
       description: "A test project.",
+      longDescription: "Full description",
+      techStack: ["React", "TypeScript"],
       fullDescription: "Full description of the test project.",
       tags: ["React", "TypeScript"],
       githubUrl: "https://github.com/test/project",
@@ -111,8 +119,12 @@ vi.mock("@/components/walkthrough/WalkthroughViewer", () => ({
 // ---------------------------------------------------------------------------
 const mockProject = {
   id: "test-project",
+  batchId: "test-batch",
   title: "Test Project",
+  subtitle: "A subtitle",
   description: "A test project.",
+  longDescription: "Full description",
+  techStack: ["React", "TypeScript"],
   fullDescription: "Full description of the test project.",
   tags: ["React", "TypeScript"],
   githubUrl: "https://github.com/test/project",
@@ -123,7 +135,9 @@ const mockProject = {
     challenge: "A hard challenge.",
     solution: "An elegant solution.",
   },
-  previewPanels: [{ label: "Panel A" }],
+  previewPanels: [{ label: "Panel A", iconName: "Box" }],
+  demoKind: "generic" as const,
+  demoState: { nodes: 5 },
 };
 
 // ---------------------------------------------------------------------------

@@ -15,7 +15,6 @@ import {
   Maximize2,
   X,
   Lightbulb,
-  Cpu,
   LucideIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -403,6 +402,7 @@ export default function DLAlgorithmsDemo() {
         <div className="px-5 pb-3">
           <div className="relative group rounded-lg border overflow-hidden cursor-pointer" style={{ borderColor: THEME.border, background: "#0a0e14" }}
             onClick={() => setLightboxOpen(true)}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={activeModule.architectureImage} alt={`${activeModule.info.title} Architecture`}
               className="w-full h-auto max-h-[380px] object-contain p-3 transition-transform duration-300 group-hover:scale-[1.02]"
               loading="eager" />
@@ -505,6 +505,7 @@ export default function DLAlgorithmsDemo() {
             onClick={() => setLightboxOpen(false)}>
             <motion.div initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.92, opacity: 0 }} transition={{ duration: 0.25 }}
               className="relative max-w-[92vw] max-h-[92vh]" onClick={(e) => e.stopPropagation()}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={activeModule.architectureImage} alt={`${activeModule.info.title} Architecture`} className="max-w-full max-h-[88vh] object-contain rounded-lg shadow-2xl" />
               <button onClick={() => setLightboxOpen(false)} className="absolute -top-3 -right-3 p-2 rounded-full border shadow-lg transition-colors hover:bg-white/20"
                 style={{ background: "rgba(0,0,0,0.8)", borderColor: THEME.border, color: "#fff" }}>

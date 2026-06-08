@@ -9,12 +9,18 @@ import { ArrowUpRight, Database, FileText, Globe, Hexagon, Terminal } from 'luci
 import CustomCursor from '@/components/CustomCursor';
 import { useTheme } from 'next-themes';
 import AppReleases from '@/components/AppReleases';
+import { FEATURES } from '@/lib/features';
+
+type ProjectItem = (typeof projects)[number];
+type SkillCategory = (typeof skills)[number];
+type Experience = (typeof experiences)[number];
 
 function HolographicOrb({ delay, color, size, top, left }: { delay: number, color: string, size: number, top: string, left: string }) {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -125,21 +131,23 @@ export default function Home() {
                {profile.summary}
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="flex flex-wrap gap-4"
-            >
-              <Link 
-                href="/preview/resume"
-                className="interactive group relative px-8 py-4 bg-brand-neon/10 border border-brand-neon/40 hover:bg-brand-neon/20 hover:border-brand-neon transition-all duration-300 flex items-center gap-3 cursor-none"
+            {FEATURES.enableResume && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="flex flex-wrap gap-4"
               >
-                <div className="absolute inset-0 bg-brand-neon/5 blur-xl group-hover:bg-brand-neon/10 transition-colors" />
-                <FileText className="w-5 h-5 text-brand-neon" />
-                <span className="relative z-10 font-mono text-xs uppercase tracking-[0.2em] text-white group-hover:text-brand-neon">Preview_Resume</span>
-              </Link>
-            </motion.div>
+                <Link 
+                  href="/preview/resume"
+                  className="interactive group relative px-8 py-4 bg-brand-neon/10 border border-brand-neon/40 hover:bg-brand-neon/20 hover:border-brand-neon transition-all duration-300 flex items-center gap-3 cursor-none"
+                >
+                  <div className="absolute inset-0 bg-brand-neon/5 blur-xl group-hover:bg-brand-neon/10 transition-colors" />
+                  <FileText className="w-5 h-5 text-brand-neon" />
+                  <span className="relative z-10 font-mono text-xs uppercase tracking-[0.2em] text-white group-hover:text-brand-neon">Preview_Resume</span>
+                </Link>
+              </motion.div>
+            )}
           </motion.div>
 
           {/* Aesthetic HUD Overlay */}
@@ -164,7 +172,7 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-3 sm:gap-6 max-w-4xl mx-auto">
-              {skills.flatMap((s: any) => s.items).map((item: string, i: number) => (
+              {skills.flatMap((s: SkillCategory) => s.items).map((item: string, i: number) => (
                 <SkillNode key={item} item={item} index={i} />
               ))}
             </div>
@@ -179,7 +187,7 @@ export default function Home() {
                <p className="font-mono text-brand-neon uppercase tracking-widest text-[11px] sm:text-xs">Temporal History</p>
              </div>
              <div className="space-y-16 border-l border-brand-purple/30 pl-4 sm:pl-8 relative">
-               {experiences.map((exp: any, i: number) => (
+               {experiences.map((exp: Experience, i: number) => (
                  <motion.div 
                    key={exp.company}
                    initial={{ opacity: 0, x: -30 }}
@@ -258,7 +266,7 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project: any, i: number) => (
+            {projects.map((project: ProjectItem, i: number) => (
               <Link 
                 key={project.id}
                 href={`/projects/${project.id}`}

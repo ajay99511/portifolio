@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unused-vars */
 /**
  * Unit tests for home page layout
  * Requirements: 3.1, 4.1, 4.3, 7.1
@@ -18,8 +19,8 @@ vi.mock("framer-motion", () => {
     motion: new Proxy(
       {},
       {
-        get: (_target: object, tag: string) =>
-          React.forwardRef(
+        get: (_target: object, tag: string) => {
+          const Component = React.forwardRef(
             (
               {
                 children,
@@ -43,7 +44,10 @@ vi.mock("framer-motion", () => {
               },
               ref: React.Ref<HTMLElement>
             ) => React.createElement(tag, { ...props, ref }, children)
-          ),
+          );
+          Component.displayName = `motion.${tag}`;
+          return Component;
+        },
       }
     ),
     AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
@@ -89,6 +93,20 @@ vi.mock("@/lib/projects.data", () => ({
     github: "https://github.com/test",
     linkedin: "https://linkedin.com/in/test",
   },
+  projectCatalog: [
+    {
+      id: "project-alpha",
+      title: "Project Alpha",
+      description: "Alpha description.",
+      techStack: ["React", "TypeScript"],
+    },
+    {
+      id: "project-beta",
+      title: "Project Beta",
+      description: "Beta description.",
+      techStack: ["Node.js"],
+    },
+  ],
   projects: [
     {
       id: "project-alpha",

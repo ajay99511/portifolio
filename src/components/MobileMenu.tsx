@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { socialLinks } from '@/lib/projects.data';
+import { FEATURES } from "@/lib/features";
 
 export interface MobileMenuProps {
   isOpen: boolean;
@@ -93,7 +94,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               {/* Navigation links */}
               <nav aria-label="Mobile navigation">
                 <ul className="flex flex-col px-4 py-6 gap-2">
-                  {NAV_LINKS.map(({ label, href }) => (
+                  {NAV_LINKS.filter(link => link.href !== "/preview/resume" || FEATURES.enableResume).map(({ label, href }) => (
                     <li key={href}>
                       <Link
                         href={href}

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowUpRight, Database, Globe } from "lucide-react";
 import { projects } from "@/lib/projects";
 
+type ProjectItem = (typeof projects)[number];
+
 export default function ProjectsPage() {
   return (
     <div className="min-h-screen flex flex-col items-center">
@@ -20,7 +22,7 @@ export default function ProjectsPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project: any, i: number) => (
+            {projects.map((project: ProjectItem, i: number) => (
               <Link 
                 key={project.id}
                 href={`/projects/${project.id}`}

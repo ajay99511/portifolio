@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unused-vars */
 /**
  * Unit tests for CustomCursor
  * Requirements: 2.1, 2.2, 2.3, 2.4
  */
 import { render } from "@testing-library/react";
-import { vi, beforeEach, afterEach } from "vitest";
+import { vi, beforeEach, afterEach, describe, expect, it } from "vitest";
 import CustomCursor from "./CustomCursor";
 
 // ---------------------------------------------------------------------------
@@ -17,8 +18,8 @@ vi.mock("framer-motion", () => {
     motion: new Proxy(
       {},
       {
-        get: (_target: object, tag: string) =>
-          React.forwardRef(
+        get: (_target: object, tag: string) => {
+          const Component = React.forwardRef(
             (
               {
                 children,
@@ -32,7 +33,10 @@ vi.mock("framer-motion", () => {
               },
               ref: React.Ref<HTMLElement>
             ) => React.createElement(tag, { ...props, ref }, children)
-          ),
+          );
+          Component.displayName = `motion.${tag}`;
+          return Component;
+        },
       }
     ),
     AnimatePresence: ({ children }: { children: React.ReactNode }) => children,

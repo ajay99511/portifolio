@@ -1,4 +1,6 @@
 export interface QuickStartStep {
+  id?: string;
+  mockStateId?: string;
   title: string;
   description: string;
 }

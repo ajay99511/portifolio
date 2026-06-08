@@ -9,7 +9,7 @@ import {
   FileBadge,
   ShieldCheck,
 } from "lucide-react";
-import { getCertificationAttachments } from "@/lib/attachments";
+import { getCertificationAttachments, type AttachmentAsset } from "@/lib/attachments";
 
 function toEpoch(value: string) {
   const parsed = Date.parse(value);
@@ -45,7 +45,7 @@ export default function Certifications() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-          {sortedCertifications.map((certification: any, index: number) => (
+          {sortedCertifications.map((certification: AttachmentAsset, index: number) => (
             <motion.article
               key={certification.id}
               initial={{ opacity: 0, y: 20 }}

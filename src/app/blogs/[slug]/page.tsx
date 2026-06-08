@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Clock3, CalendarDays, Tag } from "lucide-react";
+import { ArrowLeft, Clock3, Tag } from "lucide-react";
 import BlogCard from "@/components/blogs/BlogCard";
 import BlogMarkdown from "@/components/blogs/BlogMarkdown";
 import {

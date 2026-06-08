@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import AttachmentPreviewViewer from "@/components/AttachmentPreviewViewer";
 import { getAttachmentById, getAttachmentIds } from "@/lib/attachments";
+import { FEATURES } from "@/lib/features";
 
 interface AttachmentPreviewPageProps {
   params: Promise<{
@@ -19,7 +20,7 @@ export async function generateMetadata({
   const { id } = await params;
   const attachment = getAttachmentById(id);
 
-  if (!attachment) {
+  if (!attachment || (id === "resume" && !FEATURES.enableResume)) {
     return {
       title: "Preview Not Found",
     };
@@ -37,7 +38,7 @@ export default async function AttachmentPreviewPage({
   const { id } = await params;
   const attachment = getAttachmentById(id);
 
-  if (!attachment) {
+  if (!attachment || (id === "resume" && !FEATURES.enableResume)) {
     notFound();
   }
 

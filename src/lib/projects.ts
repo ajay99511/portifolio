@@ -1,4 +1,3 @@
-import type { Project } from "@/types";
 import { projectCatalog } from "./projects.data";
 
 export const projects = projectCatalog.map((project, index) => ({

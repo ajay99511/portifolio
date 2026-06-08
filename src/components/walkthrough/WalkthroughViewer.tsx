@@ -2,12 +2,26 @@
 
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import type { Project } from '@/types';
 import WalkthroughControls from './WalkthroughControls';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Box, Layout } from 'lucide-react';
+import { type Project } from '@/types';
 
-const demos: Record<string, React.ComponentType<any>> = {
+/** Extended project shape as mapped by @/lib/projects */
+interface ProjectView extends Project {
+  index?: string;
+  tags: string[];
+  fullDescription?: string;
+  githubUrl?: string;
+  liveUrl?: string;
+}
+
+// Minimal prop interface for demo components — each receives an optional step ID
+interface DemoProps {
+  mockStateId?: string;
+}
+
+const demos: Record<string, React.ComponentType<DemoProps>> = {
   'social-network': dynamic(() => import('@/components/demos/SocialNetworkDemo'), { ssr: false }),
   'md-explorer': dynamic(() => import('@/components/demos/MdExplorerDemo'), { ssr: false }),
   'sm-pred': dynamic(() => import('@/components/demos/SMPredDemo'), { ssr: false }),
@@ -23,18 +37,17 @@ const demos: Record<string, React.ComponentType<any>> = {
   'dl-algorithms': dynamic(() => import('@/components/demos/DLAlgorithmsDemo'), { ssr: false }),
 };
 
-export default function WalkthroughViewer({ project }: { project: any }) {
+export default function WalkthroughViewer({ project }: { project: ProjectView }) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const step = project.steps && project.steps.length > 0 ? project.steps[currentStepIndex] : null;
 
   const renderMockState = () => {
     const Demo = demos[project.id] || demos[project.demoKind];
-    const AnyDemo = Demo as any;
     
     if (Demo) {
       return (
-          <AnyDemo mockStateId={step ? step.mockStateId : undefined} />
+          <Demo mockStateId={step ? step.mockStateId : undefined} />
       );
     }
     

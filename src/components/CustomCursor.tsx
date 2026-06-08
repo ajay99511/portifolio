@@ -13,12 +13,14 @@ export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
   // Detect pointer type and listen for changes (e.g. hybrid devices)
   useEffect(() => {
     const mql = window.matchMedia('(pointer: coarse)');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsTouch(mql.matches);
     const handler = (e: MediaQueryListEvent) => setIsTouch(e.matches);
     mql.addEventListener('change', handler);
