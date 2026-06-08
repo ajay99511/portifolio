@@ -15,6 +15,7 @@ export interface MobileMenuProps {
 const NAV_LINKS = [
   { label: "/ Directory", href: "/" },
   { label: "/ Credentials", href: "/certifications" },
+  { label: "/ Projects", href: "/projects" },
   { label: "/ Resume", href: "/preview/resume" },
   { label: "/ Journals", href: "/blogs" },
 ] as const;

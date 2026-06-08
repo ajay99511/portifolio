@@ -65,6 +65,12 @@ export default function Navbar() {
               >
                 / Credentials
               </Link>
+              <Link 
+                href="/projects" 
+                className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${pathname.startsWith('/projects') ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+              >
+                / Projects
+              </Link>
               {FEATURES.enableResume && (
                 <Link 
                   href="/preview/resume" 
