@@ -60,6 +60,22 @@ vi.mock("next/link", () => ({
   ),
 }));
 
+// Mock @/lib/projects.data so socialLinks is lazily evaluated and respects
+// the linkedInEnabled flag toggled in individual tests.
+const linkedInEnabled = { value: true };
+vi.mock("@/lib/projects.data", () => ({
+  get socialLinks() {
+    const all = [
+      { platform: "GitHub", url: "https://github.com/test" },
+      { platform: "LinkedIn", url: "https://www.linkedin.com/in/e-aj-47b71238b/" },
+      { platform: "LeetCode", url: "https://leetcode.com/u/ajay216/" },
+    ];
+    return all.filter(
+      (link: { platform: string }) => link.platform !== "LinkedIn" || linkedInEnabled.value
+    );
+  },
+}));
+
 // ---------------------------------------------------------------------------
 // Tests
 // ---------------------------------------------------------------------------
@@ -67,6 +83,8 @@ vi.mock("next/link", () => ({
 describe("MobileMenu", () => {
   beforeEach(() => {
     FEATURES.enableResume = true;
+    FEATURES.enableLinkedIn = true;
+    linkedInEnabled.value = true;
   });
 
   // -------------------------------------------------------------------------
@@ -184,5 +202,29 @@ describe("MobileMenu", () => {
 
     await user.click(closeButton);
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  // -------------------------------------------------------------------------
+  // 6. LinkedIn social link is visible when FEATURES.enableLinkedIn is true
+  // -------------------------------------------------------------------------
+  it("renders LinkedIn social link when FEATURES.enableLinkedIn is true", () => {
+    render(<MobileMenu isOpen={true} onClose={vi.fn()} />);
+
+    expect(
+      screen.getByLabelText(/visit linkedin/i)
+    ).toBeInTheDocument();
+  });
+
+  // -------------------------------------------------------------------------
+  // 7. LinkedIn social link is hidden when FEATURES.enableLinkedIn is false
+  // -------------------------------------------------------------------------
+  it("does not render LinkedIn social link when FEATURES.enableLinkedIn is false", () => {
+    FEATURES.enableLinkedIn = false;
+    linkedInEnabled.value = false;
+    render(<MobileMenu isOpen={true} onClose={vi.fn()} />);
+
+    expect(
+      screen.queryByLabelText(/visit linkedin/i)
+    ).toBeNull();
   });
 });

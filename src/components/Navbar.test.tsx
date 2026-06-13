@@ -7,6 +7,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 import Navbar from "./Navbar";
+import { FEATURES } from "@/lib/features";
 
 // ---------------------------------------------------------------------------
 // Mocks
@@ -61,12 +62,19 @@ vi.mock("next/navigation", () => ({
 }));
 
 // Mock @/lib/projects.data with minimal fixture data.
+// The getter reads linkedInEnabled so toggling it in tests changes the result.
+const linkedInEnabled = { value: true };
 vi.mock("@/lib/projects.data", () => ({
   profile: { name: "Test User" },
-  socialLinks: [
-    { platform: "GitHub", url: "https://github.com/test" },
-    { platform: "LinkedIn", url: "https://linkedin.com/in/test" },
-  ],
+  get socialLinks() {
+    const all = [
+      { platform: "GitHub", url: "https://github.com/test" },
+      { platform: "LinkedIn", url: "https://linkedin.com/in/test" },
+    ];
+    return all.filter(
+      (link: { platform: string }) => link.platform !== "LinkedIn" || linkedInEnabled.value
+    );
+  },
 }));
 
 // Mock MobileMenu so we can inspect the isOpen prop without needing the full
@@ -94,6 +102,8 @@ vi.mock("@/components/MobileMenu", () => ({
 describe("Navbar", () => {
   beforeEach(() => {
     capturedIsOpen = undefined;
+    FEATURES.enableLinkedIn = true;
+    linkedInEnabled.value = true;
   });
 
   // -------------------------------------------------------------------------
@@ -172,5 +182,25 @@ describe("Navbar", () => {
     // The data attribute on our mock also reflects the state.
     const mobileMenu = screen.getByTestId("mobile-menu");
     expect(mobileMenu).toHaveAttribute("data-is-open", "true");
+  });
+
+  // -------------------------------------------------------------------------
+  // 5. LinkedIn icon is visible when FEATURES.enableLinkedIn is true
+  // -------------------------------------------------------------------------
+  it("renders LinkedIn social icon when FEATURES.enableLinkedIn is true", () => {
+    render(<Navbar />);
+
+    expect(screen.getByTitle("LinkedIn")).toBeInTheDocument();
+  });
+
+  // -------------------------------------------------------------------------
+  // 6. LinkedIn icon is hidden when FEATURES.enableLinkedIn is false
+  // -------------------------------------------------------------------------
+  it("does not render LinkedIn social icon when FEATURES.enableLinkedIn is false", () => {
+    FEATURES.enableLinkedIn = false;
+    linkedInEnabled.value = false;
+    render(<Navbar />);
+
+    expect(screen.queryByTitle("LinkedIn")).toBeNull();
   });
 });

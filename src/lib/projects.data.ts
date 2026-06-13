@@ -555,11 +555,17 @@ export const profile = {
   leetcode: "https://leetcode.com/u/ajay216/",
 };
 
-export const socialLinks = [
+import { FEATURES } from '@/lib/features';
+
+const _allSocialLinks = [
   { platform: "GitHub", url: profile.github },
   { platform: "LinkedIn", url: profile.linkedin },
   { platform: "LeetCode", url: profile.leetcode },
 ];
+
+export const socialLinks = _allSocialLinks.filter(
+  (link) => link.platform !== "LinkedIn" || FEATURES.enableLinkedIn
+);
 
 export const experiences = [
   {

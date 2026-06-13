@@ -314,7 +314,9 @@ export default function Home() {
            <div>&copy; {new Date().getFullYear()} {profile.name} {" // "} {profile.role.replace(/ /g, '_')} {" // "} SYSTEM ONLINE</div>
            <div className="flex gap-4">
              <a href={profile.github} target="_blank" rel="noopener noreferrer" className="hover:text-brand-neon transition-colors cursor-none interactive">GitHub</a>
-             <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-brand-neon transition-colors cursor-none interactive">LinkedIn</a>
+             {FEATURES.enableLinkedIn && (
+               <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-brand-neon transition-colors cursor-none interactive">LinkedIn</a>
+             )}
            </div>
         </footer>
 
