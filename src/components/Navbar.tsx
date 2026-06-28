@@ -84,7 +84,20 @@ export default function Navbar() {
                 className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${pathname.startsWith('/blogs') ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
               >
                 / Journals
-              </Link>            </div>
+              </Link>
+              <Link 
+                href="/about" 
+                className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${pathname === '/about' ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+              >
+                / About
+              </Link>
+              <Link 
+                href="/contact" 
+                className={`text-[11px] sm:text-xs uppercase tracking-widest font-bold transition-all ${pathname === '/contact' ? 'text-brand-orange' : 'text-zinc-500 hover:text-zinc-300'}`}
+              >
+                / Contact
+              </Link>
+            </div>
             
             <div className="h-4 w-px bg-surface-border hidden sm:block" />
 

@@ -18,6 +18,8 @@ const NAV_LINKS = [
   { label: "/ Projects", href: "/projects" },
   { label: "/ Resume", href: "/preview/resume" },
   { label: "/ Journals", href: "/blogs" },
+  { label: "/ About", href: "/about" },
+  { label: "/ Contact", href: "/contact" },
 ] as const;
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
