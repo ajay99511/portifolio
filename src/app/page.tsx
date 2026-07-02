@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { profile, experiences, skills } from '@/lib/projects.data';
-import { projects } from '@/lib/projects';
+import { getFeaturedProjects } from '@/lib/projects';
 import Link from 'next/link';
 import { ArrowUpRight, Database, FileText, Globe, Hexagon, Terminal } from 'lucide-react';
 import CustomCursor from '@/components/CustomCursor';
@@ -11,7 +11,8 @@ import { useTheme } from 'next-themes';
 import AppReleases from '@/components/AppReleases';
 import { FEATURES } from '@/lib/features';
 
-type ProjectItem = (typeof projects)[number];
+const featuredProjects = getFeaturedProjects();
+type ProjectItem = (typeof featuredProjects)[number];
 type SkillCategory = (typeof skills)[number];
 type Experience = (typeof experiences)[number];
 
@@ -258,15 +259,15 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-end gap-6">
              <div className="space-y-2">
                <h2 className="text-4xl md:text-5xl font-light text-white drop-shadow-[0_0_15px_rgba(112,0,255,0.4)]">Data Artifacts</h2>
-               <p className="font-mono text-brand-purple uppercase tracking-[0.3em] text-[13px]">Classified Archive</p>
+               <p className="font-mono text-brand-purple uppercase tracking-[0.3em] text-[13px]">Featured Projects</p>
              </div>
              <div className="font-mono text-[11px] sm:text-[13px] text-brand-neon uppercase p-2 border border-brand-neon/30 bg-brand-neon/5">
                 Auth Level: Omega
              </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project: ProjectItem, i: number) => (
+          <div className="grid md:grid-cols-2 gap-6">
+            {featuredProjects.map((project: ProjectItem, i: number) => (
               <Link 
                 key={project.id}
                 href={`/projects/${project.id}`}
@@ -305,6 +306,18 @@ export default function Home() {
                  </div>
               </Link>
             ))}
+          </div>
+
+          {/* View All Projects CTA */}
+          <div className="flex justify-center pt-4">
+            <Link
+              href="/projects"
+              className="interactive group relative inline-flex items-center gap-3 px-10 py-4 border border-brand-neon/30 bg-brand-neon/5 hover:bg-brand-neon/15 hover:border-brand-neon/60 transition-all duration-300 cursor-none"
+            >
+              <div className="absolute inset-0 bg-brand-neon/5 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <span className="relative z-10 font-mono text-xs sm:text-sm uppercase tracking-[0.3em] text-brand-neon">View_All_Projects</span>
+              <ArrowUpRight className="relative z-10 w-5 h-5 text-brand-neon group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+            </Link>
           </div>
         </section>
 

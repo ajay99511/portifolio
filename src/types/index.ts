@@ -26,6 +26,8 @@ export interface Project {
   techStack: string[];
   demoKind: "chronos" | "dayvault" | "generic" | "fastbeat" | "personal-assist" | "dl-algorithms" | "repo-pulse" | "icm-fraud-detection" | "db-pred" | "sm-pred" | "gitscripe" | "md-explorer" | "social-network";
   pinned?: boolean;
+  featured?: boolean;
+  displayOrder?: number;
   repoUrl?: string;
   highlights: string[];
   stats: {
