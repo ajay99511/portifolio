@@ -12,8 +12,14 @@
   --text-primary: #dbeafe; /* blue-100 */
   --text-muted: #bfdbfe; /* blue-200 */
   --text-white: #ffffff;
+  --text-zinc-200: #e4e4e7;
+  --text-zinc-300: #d4d4d8;
   --text-zinc-400: #a1a1aa;
   --text-zinc-500: #71717a;
+  --text-zinc-600: #52525b;
+  --text-zinc-700: #3f3f46;
+  --text-zinc-800: #27272a;
+  --text-zinc-900: #18181b;
   --gradient-mid: #ffffff;
   
   --text-hero: clamp(2.5rem, 8vw, 9rem);
@@ -35,8 +41,14 @@
   --text-primary: #0f172a;
   --text-muted: #475569;
   --text-white: #000000;
+  --text-zinc-200: #1e293b; /* slate-800: high contrast on white bg */
+  --text-zinc-300: #334155; /* slate-700: high contrast on white bg */
   --text-zinc-400: #334155;
   --text-zinc-500: #64748b;
+  --text-zinc-600: #475569; /* slate-600: WCAG AA on white */
+  --text-zinc-700: #cbd5e1; /* slate-300: visible border on light bg */
+  --text-zinc-800: #e2e8f0; /* slate-200: subtle bg on light */
+  --text-zinc-900: #f1f5f9; /* slate-100: light surface for hover bg */
   --gradient-mid: #0f172a;
 
   /* Semantic Tokens for Opacity Contrast */
@@ -60,8 +72,14 @@
   --color-blue-100: var(--text-primary);
   --color-blue-200: var(--text-muted);
   --color-white: var(--text-white);
+  --color-zinc-200: var(--text-zinc-200);
+  --color-zinc-300: var(--text-zinc-300);
   --color-zinc-400: var(--text-zinc-400);
   --color-zinc-500: var(--text-zinc-500);
+  --color-zinc-600: var(--text-zinc-600);
+  --color-zinc-700: var(--text-zinc-700);
+  --color-zinc-800: var(--text-zinc-800);
+  --color-zinc-900: var(--text-zinc-900);
   --color-gradient-mid: var(--gradient-mid);
   
   --color-muted: var(--text-muted-color);
@@ -77,6 +95,28 @@
 
 .glass-morphism {
   @apply bg-white/[0.01] border border-white/[0.05] backdrop-blur-2xl;
+}
+
+.light .glass-morphism {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--text-zinc-700);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Panel component: subtle raised card */
+.neo-panel {
+  @apply bg-white/[0.02] border border-white/[0.06];
+}
+
+.light .neo-panel {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--text-zinc-700);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Section label with mono styling */
+.accent-rule {
+  @apply font-mono uppercase tracking-[0.2em] text-zinc-500;
 }
 
 .halo-glow {
