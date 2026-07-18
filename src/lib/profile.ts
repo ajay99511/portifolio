@@ -59,18 +59,6 @@ export const expertiseGroups = [
 
 export const timelineEntries = [
   {
-    title: "Software Engineer",
-    company: "SLK Holdings",
-    period: "Jul 2024 — Present",
-    highlights: [
-      "Developed and shipped a full-stack C2C marketplace using Node.js, Express, and React Native with real-time features, cutting initial page load times by 40%.",
-      "Deployed production infrastructure on Azure (App Services, Functions, Service Bus, Cosmos DB, AKS), containerized with Docker and orchestrated via Kubernetes.",
-      "Built event-driven, asynchronous pipelines with Azure Service Bus and BullMQ for order fulfillment, reducing manual intervention by 90%.",
-      "Reduced API response times by 60% through a Redis caching layer for shipping rates, token caching, and connection pooling on PostgreSQL schemas.",
-      "Integrated Stripe Payment Gateway with idempotent webhooks and FedEx Shipping API for real-time tracking, cutting operational costs by 70%.",
-    ],
-  },
-  {
     title: "Master of Science in Computer Science",
     company: "University of Central Missouri (GPA: 3.5)",
     period: "Dec 2022 — May 2024",
@@ -87,26 +75,6 @@ export const timelineEntries = [
     highlights: [
       "Certified in designing, building, testing, and maintaining cloud applications and services on Microsoft Azure (AZ-204).",
       "Demonstrated expertise in deploying serverless functions, managing cloud infrastructure, and implementing Azure Key Vault security.",
-    ],
-  },
-  {
-    title: "Bachelor of Technology in Computer Science",
-    company: "Jawaharlal Nehru Institute of Technology",
-    period: "Aug 2018 — May 2022",
-    highlights: [
-      "Engineered an environmental ML model using Random Forest and scikit-learn for Soil Moisture Prediction with 82% accuracy.",
-      "Processed 5,000+ data points, engineered domain-specific usage ratios, and performed correlation analysis using Pandas and SciPy.",
-    ],
-  },
-  {
-    title: "Open Source Projects & Achievements",
-    company: "Independent Developer",
-    period: "Ongoing",
-    highlights: [
-      "Built 'GitScripe': An agentic platform using a multi-agent LLM pipeline to transform raw Git history into structured intelligence with RAG chat.",
-      "Developed 'Chronos Planner': A desktop-first, offline Flutter app powered by Drift ORM, Provider, and advanced desktop API bindings.",
-      "Shipped 'FastBeat': A fully offline Jetpack Compose Android media player utilizing Media3 ExoPlayer, Hilt, and a Room persistent DB.",
-      "Secured certifications including Google's Technical Support Fundamentals (2023) and UoM's Python for Everybody Specialization (2022).",
     ],
   },
 ];

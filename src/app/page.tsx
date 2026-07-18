@@ -184,8 +184,8 @@ export default function Home() {
         <section className="grid lg:grid-cols-2 gap-20">
           <div className="space-y-12">
              <div className="space-y-2">
-               <h2 className="text-4xl md:text-5xl font-light text-white">Execution Protocols</h2>
-               <p className="font-mono text-brand-neon uppercase tracking-widest text-[11px] sm:text-xs">Temporal History</p>
+               <h2 className="text-4xl md:text-5xl font-light text-white">Credentials</h2>
+               <p className="font-mono text-brand-neon uppercase tracking-widest text-[11px] sm:text-xs">Education &amp; Certification</p>
              </div>
              <div className="space-y-16 border-l border-brand-purple/30 pl-4 sm:pl-8 relative">
                {experiences.map((exp: Experience, i: number) => (

@@ -135,6 +135,25 @@ vi.mock("@/lib/projects.data", () => ({
   ],
 }));
 
+// Mock @/lib/projects so getFeaturedProjects returns the fixture projects
+// (the real helper filters by the `featured` flag on real data).
+vi.mock("@/lib/projects", () => ({
+  getFeaturedProjects: () => [
+    {
+      id: "project-alpha",
+      title: "Project Alpha",
+      description: "Alpha description.",
+      tags: ["React", "TypeScript"],
+    },
+    {
+      id: "project-beta",
+      title: "Project Beta",
+      description: "Beta description.",
+      tags: ["Node.js"],
+    },
+  ],
+}));
+
 // Mock CustomCursor so it renders nothing — avoids matchMedia dependency.
 vi.mock("@/components/CustomCursor", () => ({
   default: () => null,
