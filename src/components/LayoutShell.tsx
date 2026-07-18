@@ -3,6 +3,7 @@
 import { type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
+import { FEATURES } from "@/lib/features";
 
 const CustomCursor = dynamic(
   () => import("@/components/CustomCursor"),
@@ -16,7 +17,7 @@ interface LayoutShellProps {
 export default function LayoutShell({ children }: LayoutShellProps) {
   return (
     <>
-      <CustomCursor />
+      {FEATURES.enableCustomCursor && <CustomCursor />}
       <Navbar />
       {children}
     </>

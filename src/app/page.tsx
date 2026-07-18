@@ -6,7 +6,6 @@ import { profile, experiences, skills } from '@/lib/projects.data';
 import { getFeaturedProjects } from '@/lib/projects';
 import Link from 'next/link';
 import { ArrowUpRight, Database, FileText, Globe, Hexagon, Terminal } from 'lucide-react';
-import CustomCursor from '@/components/CustomCursor';
 import { useTheme } from 'next-themes';
 import AppReleases from '@/components/AppReleases';
 import { FEATURES } from '@/lib/features';
@@ -84,8 +83,6 @@ export default function Home() {
 
   return (
     <div ref={containerRef} className="relative min-h-screen bg-surface-bg text-blue-100 font-sans overflow-x-hidden">
-      <CustomCursor />
-
       {/* Holographic Orbs Field */}
       {/* overflow-hidden is intentional: clips orbs positioned at left:80% and left:-10% to prevent horizontal overflow (Req 9.1) */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">

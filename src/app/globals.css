@@ -93,6 +93,23 @@
   }
 }
 
+/*
+ * Native cursor fallback (FEATURES.enableCustomCursor = false).
+ * CustomCursor is the only code that adds `cursor-none` to <body>; while it
+ * is disabled, elements still carrying the Tailwind `cursor-none` utility
+ * must fall back to the native pointer instead of hiding it. Kept unlayered
+ * so it wins over the utility, which lives in Tailwind's `utilities` layer.
+ */
+body:not(.cursor-none) .cursor-none {
+  cursor: auto;
+}
+
+body:not(.cursor-none) a.cursor-none,
+body:not(.cursor-none) button.cursor-none,
+body:not(.cursor-none) [role="button"].cursor-none {
+  cursor: pointer;
+}
+
 .glass-morphism {
   @apply bg-white/[0.01] border border-white/[0.05] backdrop-blur-2xl;
 }

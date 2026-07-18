@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { ChevronLeft, GitBranch, Terminal, ExternalLink, Hexagon } from 'lucide-react';
 import WalkthroughViewer from '@/components/walkthrough/WalkthroughViewer';
-import CustomCursor from '@/components/CustomCursor';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
@@ -38,8 +37,6 @@ export default function ProjectInteractiveView({ project }: ProjectInteractiveVi
 
   return (
     <div className="relative max-w-[1600px] mx-auto px-6 min-h-screen flex flex-col py-6 bg-surface-bg text-blue-100 font-sans overflow-hidden transition-colors duration-300">
-      <CustomCursor />
-      
       {/* Background Orbs — overflow-hidden is intentional: prevents absolutely-positioned orbs from causing horizontal overflow (Requirement 9.2) */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className={`absolute rounded-full ${mixBlend} opacity-20 w-[500px] h-[500px] top-[-10%] left-[-10%]`} style={{ background: 'radial-gradient(circle, #7000ff 0%, transparent 70%)', boxShadow: '0 0 100px #7000ff' }} />
