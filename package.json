@@ -2,6 +2,7 @@
   "name": "portifolio",
   "version": "0.1.0",
   "private": true,
+  "author": "Ajay Elika <ajayelika99511@gmail.com> (https://github.com/ajay99511)",
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build",

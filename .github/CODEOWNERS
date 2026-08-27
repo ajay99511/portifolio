@@ -1,0 +1,20 @@
+# Portfolio Code Owners
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Owner: Ajay Elika <ajayelika99511@gmail.com>
+
+# Global owner
+*       @ajay99511
+
+# Security-sensitive files
+LICENSE                 @ajay99511
+.github/CODEOWNERS      @ajay99511
+
+# Next.js config
+package.json            @ajay99511
+package-lock.json       @ajay99511
+next.config.ts          @ajay99511
+tsconfig.json           @ajay99511
+
+# App source
+src/                    @ajay99511
