@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import { Send, CheckCircle, AlertCircle, Loader2, Mail, User, MessageSquare } from "lucide-react";
 import Link from "next/link";
 
-const WEB3FORMS_ACCESS_KEY = "03fc4609-a61d-48c3-8c97-59b31a47ddf9";
+const WEB3FORMS_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "03fc4609-a61d-48c3-8c97-59b31a47ddf9";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 

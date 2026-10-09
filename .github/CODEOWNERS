@@ -1,20 +1,39 @@
-# Portfolio Code Owners
+# ==============================================================================
+# GitHub Code Owners
 # https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 #
-# Owner: Ajay Elika <ajayelika99511@gmail.com>
+# Maintainer: Ajay Elika <ajayelika99511@gmail.com> (@ajay99511)
+# ==============================================================================
 
-# Global owner
-*       @ajay99511
+# Global catch-all owner
+*                           @ajay99511
 
-# Security-sensitive files
-LICENSE                 @ajay99511
-.github/CODEOWNERS      @ajay99511
+# Repository governance & configuration
+/.github/                   @ajay99511
+/.github/workflows/         @ajay99511
+/.github/CODEOWNERS         @ajay99511
+/LICENSE                    @ajay99511
+/SECURITY.md                @ajay99511
+/CONTRIBUTING.md            @ajay99511
+/README.md                  @ajay99511
+/CHANGELOG.md               @ajay99511
+/*.md                       @ajay99511
 
-# Next.js config
-package.json            @ajay99511
-package-lock.json       @ajay99511
-next.config.ts          @ajay99511
-tsconfig.json           @ajay99511
+# Build, dependency & toolchain configuration
+/package.json               @ajay99511
+/package-lock.json          @ajay99511
+/next.config.ts             @ajay99511
+/tsconfig.json              @ajay99511
+/eslint.config.mjs          @ajay99511
+/postcss.config.mjs         @ajay99511
+/vitest.config.ts           @ajay99511
+/.env*                      @ajay99511
 
-# App source
-src/                    @ajay99511
+# Source code & applications
+/src/                       @ajay99511
+/src/app/                   @ajay99511
+/src/components/            @ajay99511
+/src/content/               @ajay99511
+/src/lib/                   @ajay99511
+/src/hooks/                 @ajay99511
+/public/                    @ajay99511
